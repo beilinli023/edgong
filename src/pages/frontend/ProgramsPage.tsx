@@ -114,7 +114,7 @@ const ProgramsPage: React.FC = () => {
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
-                      <span>科学技术</span>
+                      <span>STEM/科学</span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
@@ -122,11 +122,11 @@ const ProgramsPage: React.FC = () => {
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
-                      <span>艺术艺术</span>
+                      <span>宗教与信仰</span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
-                      <span>宗教与信仰</span>
+                      <span>表演艺术</span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
@@ -138,11 +138,11 @@ const ProgramsPage: React.FC = () => {
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
-                      <span>体育运动</span>
+                      <span>体育</span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" className="rounded" />
-                      <span>特色专列</span>
+                      <span>专业</span>
                     </label>
                   </div>
                 </div>

@@ -125,7 +125,7 @@ const FrontendFooter: React.FC = () => {
             </div>
 
             <div className="mt-10 pt-6 border-t border-gray-200 text-center text-sm">
-              <p> 2025 EdGoing All rights reserved.</p>
+              <p> 2025 引里信息咨询（上海）有限公司 保留所有权</p>
             </div>
           </>
         )}

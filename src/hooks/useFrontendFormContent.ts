@@ -155,12 +155,11 @@ export const useFrontendFormContent = () => {
           { id: "other", label: lang === 'en' ? "Other" : "其他" }
         ],
         gradeLevels: [
-          { id: "elementary", label: lang === 'en' ? "Elementary School (Grades 1-5)" : "小学 (1-5年级)" },
-          { id: "middleSchool", label: lang === 'en' ? "Middle School (Grades 6-8)" : "初中 (6-8年级)" },
-          { id: "highSchool", label: lang === 'en' ? "High School (Grades 9-12)" : "高中 (9-12年级)" },
-          { id: "undergraduate", label: lang === 'en' ? "Undergraduate" : "本科" },
-          { id: "graduate", label: lang === 'en' ? "Graduate" : "研究生" },
-          { id: "other", label: lang === 'en' ? "Other" : "其他" }
+          { id: "elementary", label: lang === 'en' ? "Elementary School" : "小学" },
+          { id: "middleSchool", label: lang === 'en' ? "Middle School" : "初中" },
+          { id: "highSchool", label: lang === 'en' ? "High School" : "高中" },
+          { id: "university", label: lang === 'en' ? "University" : "大学" },
+          { id: "adult", label: lang === 'en' ? "Adult" : "成人" }
         ],
         provinces: [
           { id: "beijing", label: lang === 'en' ? "Beijing" : "北京" },
@@ -185,13 +184,11 @@ export const useFrontendFormContent = () => {
           { id: "other", label: lang === 'en' ? "Other" : "其他" }
         ],
         destinations: [
-          { id: "usa", label: "USA" },
-          { id: "uk", label: "UK" },
-          { id: "canada", label: lang === 'en' ? "Canada" : "加拿大" },
           { id: "australia", label: lang === 'en' ? "Australia" : "澳大利亚" },
-          { id: "newZealand", label: lang === 'en' ? "New Zealand" : "新西兰" },
+          { id: "france", label: lang === 'en' ? "France" : "法国" },
           { id: "japan", label: lang === 'en' ? "Japan" : "日本" },
-          { id: "singapore", label: lang === 'en' ? "Singapore" : "新加坡" },
+          { id: "uk", label: lang === 'en' ? "UK" : "英国" },
+          { id: "usa", label: lang === 'en' ? "USA" : "美国" },
           { id: "other", label: lang === 'en' ? "Other" : "其他" }
         ],
         interests: [
@@ -204,8 +201,7 @@ export const useFrontendFormContent = () => {
           { id: "community", label: lang === 'en' ? "Community Engagement" : "社区参与" },
           { id: "sports", label: lang === 'en' ? "Sports" : "体育" },
           { id: "specialty", label: lang === 'en' ? "Specialty" : "专业" },
-          { id: "academic", label: lang === 'en' ? "Academic" : "学术" },
-          { id: "others", label: lang === 'en' ? "Others" : "其他" }
+          { id: "other", label: lang === 'en' ? "Other" : "其他" }
         ]
       }
     };

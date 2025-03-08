@@ -35,9 +35,9 @@ const ProgramInterestsSection: React.FC<ProgramInterestsSectionProps> = ({
 }) => {
   return (
     <>
-      {/* 感兴趣的项目类型 */}
+      {/* 感兴趣的活动 */}
       <CheckboxGroup
-        label={text.programTypes}
+        label="感兴趣的项目"
         options={options.programTypes}
         selectedValues={formData.programTypes}
         onChange={handleCheckboxChange}

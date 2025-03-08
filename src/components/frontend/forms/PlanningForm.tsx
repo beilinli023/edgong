@@ -48,7 +48,7 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
     city: currentLanguage === 'en' ? "City" : "城市",
     programTypes: currentLanguage === 'en' ? "Interested Program Types (Multiple Choice)" : "感兴趣的项目类型（多选）",
     destinations: currentLanguage === 'en' ? "Preferred Destinations (Multiple Choice)" : "首选目的地（多选）",
-    interests: currentLanguage === 'en' ? "I WANT TO LEARN ABOUT" : "我想了解的内容",
+    interests: currentLanguage === 'en' ? "I WANT TO LEARN ABOUT" : "感兴趣的项目",
     questions: currentLanguage === 'en' ? "Your Questions or Requirements" : "您的问题或要求",
     questionsPlaceholder: currentLanguage === 'en' ? "Please describe your specific needs or questions" : "请描述您的具体需求或问题",
     agreeToReceive: currentLanguage === 'en' 

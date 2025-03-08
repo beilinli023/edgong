@@ -108,7 +108,7 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
 
     return (
       <div className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-8 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div>
               <p className="text-sm mb-2">{introData.subtitle}</p>

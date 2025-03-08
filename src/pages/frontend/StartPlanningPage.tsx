@@ -24,8 +24,8 @@ const StartPlanningPage: React.FC = () => {
       ? "Fill out our form and we'll respond within 2 business days."
       : "填写我们的表单，我们将在2个工作日内回复。",
     phoneContact: currentLanguage === 'en'
-      ? "Or Call Us @ 400-400-400"
-      : "或致电 400-400-400",
+      ? "Or Call Us @ 400-115-3558"
+      : "或致电 400-115-3558",
     errorTitle: currentLanguage === 'en' ? "Unable to load form" : "无法加载表单",
     errorMessage: currentLanguage === 'en' 
       ? "Sorry, we couldn't load the form. Please try again later or contact us directly." 
@@ -88,7 +88,7 @@ const StartPlanningPage: React.FC = () => {
           <PlanningFormIntro
             title={content.formSection.title || text.helpText}
             responseTimeText={content.formSection.responseTimeText || text.responseTime}
-            phoneContact={content.formSection.phoneContact || text.phoneContact}
+            phoneContact={text.phoneContact}
           />
 
           {/* 表单 */}

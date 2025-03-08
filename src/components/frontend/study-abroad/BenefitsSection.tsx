@@ -58,7 +58,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) => {
 
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-8 md:px-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-black mb-4">
             {currentLanguage === 'en' ? 'Benefits of Studying Abroad' : '留学的优势'}

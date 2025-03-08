@@ -56,7 +56,7 @@ const EducationInfoSection: React.FC<EducationInfoSectionProps> = ({
       {/* 年级 */}
       <div>
         <label className="block text-sm font-medium mb-1">
-          {text.gradeLevel}<span className="text-red-500">*</span>
+          {text.gradeLevel}
         </label>
         <Select 
           name="gradeLevel" 
