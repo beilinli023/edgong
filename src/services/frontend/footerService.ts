@@ -2,18 +2,53 @@
 import apiClient from '../api/apiClient';
 import { extractData } from '../api/responseHelpers';
 
+// 定义接口
+interface ContactInfo {
+  phone?: string;
+  email?: string;
+  address?: string;
+  hours_en?: string;
+  hours_zh?: string;
+}
+
+interface QuickLink {
+  text_en: string;
+  text_zh: string;
+  url: string;
+}
+
+interface SocialLink {
+  name: string;
+  url: string;
+  icon: string;
+}
+
+interface FooterData {
+  contactInfo: {
+    phone: string;
+    email: string;
+    address: string;
+    hours: string;
+  };
+  quickLinks: Array<{
+    text: string;
+    url: string;
+  }>;
+  socialLinks: SocialLink[];
+}
+
 // 获取页脚信息
-export const getFooterInfo = async (language = 'en') => {
+export const getFooterInfo = async (language = 'en'): Promise<FooterData> => {
   try {
     // 获取联系信息
     const contactResponse = await apiClient.get('/contact-info');
-    const contactInfo = extractData<any>(contactResponse) || {};
+    const contactInfo = extractData<ContactInfo>(contactResponse) || {};
     
     // 获取快速链接
     const linksResponse = await apiClient.get('/quick-links');
-    const quickLinksData = extractData<any[]>(linksResponse);
+    const quickLinksData = extractData<QuickLink[]>(linksResponse);
     const quickLinks = Array.isArray(quickLinksData) 
-      ? quickLinksData.map((link: any) => ({
+      ? quickLinksData.map((link: QuickLink) => ({
           text: language === 'en' ? link.text_en : link.text_zh,
           url: link.url
         }))
@@ -21,15 +56,15 @@ export const getFooterInfo = async (language = 'en') => {
     
     // 获取社交媒体链接
     const socialResponse = await apiClient.get('/social-media');
-    const socialLinks = extractData<any[]>(socialResponse) || [];
+    const socialLinks = extractData<SocialLink[]>(socialResponse) || [];
     
     return {
       contactInfo: {
-        phone: contactInfo.phone || "400-400-400",
-        email: contactInfo.email || "info@younicko.com",
+        phone: contactInfo.phone || "4001153558",
+        email: contactInfo.email || "Hello@edgoing.com",
         address: language === 'en' 
-          ? "330 Congress Street Suite 5 Boston, MA 02210" 
-          : "330 Congress Street Suite 5 波士顿, MA 02210",
+          ? "18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai" 
+          : "上海市黄埔区黄陂南路838号中海国际B座18楼",
         hours: language === 'en' ? contactInfo.hours_en : contactInfo.hours_zh,
       },
       quickLinks: quickLinks.length > 0 ? quickLinks : getDefaultQuickLinks(language),
@@ -39,11 +74,11 @@ export const getFooterInfo = async (language = 'en') => {
     console.error('Error fetching footer info:', error);
     return {
       contactInfo: {
-        phone: "400-400-400",
-        email: "info@younicko.com",
+        phone: "4001153558",
+        email: "Hello@edgoing.com",
         address: language === 'en' 
-          ? "330 Congress Street Suite 5 Boston, MA 02210" 
-          : "330 Congress Street Suite 5 波士顿, MA 02210",
+          ? "18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai" 
+          : "上海市黄埔区黄陂南路838号中海国际B座18楼",
         hours: ""
       },
       quickLinks: getDefaultQuickLinks(language),
@@ -60,46 +95,55 @@ const getDefaultQuickLinks = (language = 'en') => {
       url: '/programs'
     },
     {
+      text: language === 'en' ? 'Study Abroad' : '留学',
+      url: '/study-abroad'
+    },
+    {
       text: language === 'en' ? 'View Blog' : '浏览博客',
       url: '/blog'
     },
     {
-      text: language === 'en' ? 'Meet YouNiKco' : '认识YouNiKco',
+      text: language === 'en' ? 'About EdGoing' : '关于EdGoing',
       url: '/about'
     },
     {
-      text: language === 'en' ? 'Learn How' : '学习指南',
+      text: language === 'en' ? 'FAQ' : 'FAQ',
       url: '/learn-how'
     },
     {
-      text: language === 'en' ? 'Let\'s Plan' : '开始计划',
+      text: language === 'en' ? 'Start Project' : '开始项目',
       url: '/start-planning'
     }
   ];
 };
 
 // 获取联系信息
-export const getContactInfo = async (language = 'en') => {
+export const getContactInfo = async (language = 'en'): Promise<{
+  phone: string;
+  email: string;
+  address: string;
+  hours: string;
+}> => {
   try {
     const response = await apiClient.get('/contact-info');
-    const contactInfo = extractData<any>(response) || {};
+    const contactInfo = extractData<ContactInfo>(response) || {};
     
     return {
-      phone: contactInfo.phone || "400-400-400",
-      email: contactInfo.email || "info@younicko.com",
+      phone: contactInfo.phone || "4001153558",
+      email: contactInfo.email || "Hello@edgoing.com",
       address: language === 'en' 
-        ? "330 Congress Street Suite 5 Boston, MA 02210" 
-        : "330 Congress Street Suite 5 波士顿, MA 02210",
+        ? "18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai" 
+        : "上海市黄埔区黄陂南路838号中海国际B座18楼",
       hours: language === 'en' ? contactInfo.hours_en : contactInfo.hours_zh,
     };
   } catch (error) {
     console.error('Error fetching contact info:', error);
     return {
-      phone: "400-400-400",
-      email: "info@younicko.com",
+      phone: "4001153558",
+      email: "Hello@edgoing.com",
       address: language === 'en' 
-        ? "330 Congress Street Suite 5 Boston, MA 02210" 
-        : "330 Congress Street Suite 5 波士顿, MA 02210",
+        ? "18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai" 
+        : "上海市黄埔区黄陂南路838号中海国际B座18楼",
       hours: ""
     };
   }

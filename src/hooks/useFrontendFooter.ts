@@ -7,9 +7,9 @@ export const useFrontendFooter = () => {
   const { currentLanguage } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
   const [contactInfo, setContactInfo] = useState({
-    phone: "400-400-400",
-    email: "info@younicko.com",
-    address: "330 Congress Street\nSuite 5 Boston, MA 02210",
+    phone: "4001153558",
+    email: "Hello@edgoing.com",
+    address: "18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai",
     hours: ""
   });
   const [quickLinks, setQuickLinks] = useState([]);

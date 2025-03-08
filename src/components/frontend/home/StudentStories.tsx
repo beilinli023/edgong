@@ -41,8 +41,8 @@ const StudentStories: React.FC<StudentStoriesProps> = ({ currentLanguage }) => {
         background: currentLanguage === 'en' ? "UCLA Cognitive Science Major" : "加州大学洛杉矶分校认知科学专业",
         rating: 5,
         testimony: currentLanguage === 'en' 
-          ? "The program exceeded all my expectations. The cultural immersion and academic experience were incredible."
-          : "该项目超出了我所有的期望。文化沉浸和学术体验令人难以置信。"
+          ? "I had an enjoyable time exploring the streets of Kyoto and immersing myself in its rich culture, especially experiencing the powerful beats of Japanese drums and participating in vibrant summer festivals."
+          : "我在京都的街头漫步，沉浸在其丰富的文化中，度过了非常愉快的时光，尤其是体验了日本太鼓的强劲节奏，并参加了充满活力的夏日祭典。"
       },
       {
         id: 2,
@@ -102,6 +102,7 @@ const StudentStories: React.FC<StudentStoriesProps> = ({ currentLanguage }) => {
                 </div>
                 <h3 className="font-semibold text-gray-900">{story.name}</h3>
                 <p className="text-sm text-gray-600">{story.background}</p>
+                <p className="text-sm text-blue-600 mt-1 font-medium">{story.program}</p>
                 
                 <div className="flex items-center justify-center mt-2">
                   {[...Array(5)].map((_, i) => (

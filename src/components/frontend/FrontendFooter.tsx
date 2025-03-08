@@ -64,10 +64,18 @@ const FrontendFooter: React.FC = () => {
                       <div className="text-base mb-1">
                         {currentLanguage === 'zh' ? '地址:' : 'Address:'}
                       </div>
-                      <address className="not-italic text-base text-blue-600 leading-relaxed">
-                        {contactInfo.address?.split(', ').map((line, index) => (
-                          <div key={index}>{line}</div>
-                        ))}
+                      <address className="not-italic text-base text-blue-600 leading-relaxed text-left">
+                        {currentLanguage === 'zh' ? (
+                          <>
+                            <div>上海市黄埔区黄陂南路838号</div>
+                            <div>中海国际B座18楼</div>
+                          </>
+                        ) : (
+                          <>
+                            <div>18F, Tower B, China Overseas,</div>
+                            <div>838 S. Huangpi Road, Huangpu, Shanghai</div>
+                          </>
+                        )}
                       </address>
                     </div>
                   </li>
@@ -117,7 +125,7 @@ const FrontendFooter: React.FC = () => {
             </div>
 
             <div className="mt-10 pt-6 border-t border-gray-200 text-center text-sm">
-              <p> {new Date().getFullYear()} {currentLanguage === 'zh' ? '引里信息咨询（上海）有限公司' : 'YOUNICKO'} {currentLanguage === 'zh' ? '保留所有权利.' : 'All rights reserved.'}</p>
+              <p> 2025 EdGoing All rights reserved.</p>
             </div>
           </>
         )}
