@@ -1,4 +1,3 @@
-
 import React from "react";
 import { 
   Globe, 
@@ -66,29 +65,16 @@ const AboutPage: React.FC = () => {
   return (
     <FrontendLayout>
       {/* Hero Section */}
-      <section 
-        className="relative py-24 text-center text-white bg-cover bg-center"
-        style={{ backgroundImage: `url(${safeContent?.hero?.background_image || '/lovable-uploads/f0b87c9a-14ef-4e95-ae65-07fe4018b1fc.png'})` }}
-      >
-        <div className="absolute inset-0 bg-black opacity-60"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          {isLoading ? (
-            <>
-              <Skeleton className="h-12 w-1/2 mx-auto mb-4" />
-              <Skeleton className="h-6 w-3/4 mx-auto" />
-            </>
-          ) : (
-            <>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                {getLocalizedText(safeContent?.hero?.title_en || '', safeContent?.hero?.title_zh || '')}
-              </h1>
-              <p className="text-xl max-w-3xl mx-auto">
-                {getLocalizedText(safeContent?.hero?.subtitle_en || '', safeContent?.hero?.subtitle_zh || '')}
-              </p>
-            </>
-          )}
+      <div className="relative pt-32 pb-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
+        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+            {getLocalizedText(safeContent?.hero?.title_en || '', safeContent?.hero?.title_zh || '')}
+          </h1>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 text-center">
+            {getLocalizedText(safeContent?.hero?.subtitle_en || '', safeContent?.hero?.subtitle_zh || '')}
+          </p>
         </div>
-      </section>
+      </div>
 
       {/* Mission Statement Section */}
       <section className="py-16 bg-white">

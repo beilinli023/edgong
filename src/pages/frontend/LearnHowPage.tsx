@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Search, ChevronDown, AlertCircle } from "lucide-react";
 import FrontendLayout from "@/components/frontend/FrontendLayout";
@@ -76,32 +75,15 @@ const LearnHowPage = () => {
   return (
     <FrontendLayout>
       {/* Hero Section */}
-      <div 
-        className="bg-gray-500 bg-opacity-70 bg-blend-overlay py-16 md:py-24 text-white text-center bg-cover bg-center"
-        style={{ backgroundImage: `url('${content?.hero?.backgroundImage || "/lovable-uploads/095982ef-a87c-40ba-a4fe-d4d95ab84dae.png"}')` }}
-      >
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">{content?.hero?.title || "了解更多"}</h1>
-          <p className="max-w-2xl mx-auto">{content?.hero?.subtitle || "获取有关我们国际教育项目、活动和服务的常见问题解答。"}</p>
+      <div className="relative pt-32 pb-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
+        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">{content?.hero?.title || "了解更多"}</h1>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 text-center">{content?.hero?.subtitle || "获取有关我们国际教育项目、活动和服务的常见问题解答。"}</p>
         </div>
       </div>
 
       {/* FAQ Section */}
       <div className="container mx-auto px-4 py-12 md:py-16">
-        {/* Search Box */}
-        <div className="max-w-2xl mx-auto mb-10">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <Input
-              type="search"
-              placeholder={currentLanguage === 'zh' ? "搜索问题..." : "Search FAQs..."}
-              className="pl-10 py-6 rounded-md"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div>
-
         {/* Accordion */}
         <div className="max-w-3xl mx-auto">
           {faqs && faqs.length > 0 ? (

@@ -13,15 +13,15 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) => {
   
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
-      case 'lightbulb': return <Lightbulb className="h-12 w-12 text-indigo-600" />;
-      case 'award': return <Award className="h-12 w-12 text-indigo-600" />;
-      case 'book': return <BookOpen className="h-12 w-12 text-indigo-600" />;
-      case 'globe': return <Globe className="h-12 w-12 text-indigo-600" />;
-      case 'graduation': return <GraduationCap className="h-12 w-12 text-indigo-600" />;
-      case 'users': return <Users className="h-12 w-12 text-indigo-600" />;
-      case 'book-marked': return <BookMarked className="h-12 w-12 text-indigo-600" />;
-      case 'file-text': return <FileText className="h-12 w-12 text-indigo-600" />;
-      default: return <Lightbulb className="h-12 w-12 text-indigo-600" />;
+      case 'lightbulb': return <Lightbulb className="h-8 w-8 text-blue-500" />;
+      case 'award': return <Award className="h-8 w-8 text-blue-500" />;
+      case 'book': return <BookOpen className="h-8 w-8 text-blue-500" />;
+      case 'globe': return <Globe className="h-8 w-8 text-blue-500" />;
+      case 'graduation': return <GraduationCap className="h-8 w-8 text-blue-500" />;
+      case 'users': return <Users className="h-8 w-8 text-blue-500" />;
+      case 'book-marked': return <BookMarked className="h-8 w-8 text-blue-500" />;
+      case 'file-text': return <FileText className="h-8 w-8 text-blue-500" />;
+      default: return <Lightbulb className="h-8 w-8 text-blue-500" />;
     }
   };
 
@@ -60,10 +60,10 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) => {
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-indigo-900 mb-4">
+          <h2 className="text-3xl font-bold text-black mb-4">
             {currentLanguage === 'en' ? 'Benefits of Studying Abroad' : '留学的优势'}
           </h2>
-          <p className="text-lg text-indigo-700 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-800 max-w-3xl mx-auto">
             {currentLanguage === 'en' 
               ? 'Discover how international education can transform your future' 
               : '了解国际教育如何改变您的未来'}
@@ -74,20 +74,19 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) => {
           {defaultBenefits.map((benefit, index) => (
             <div 
               key={index} 
-              className={cn(
-                "bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1",
-                "border border-indigo-100 flex flex-col items-center text-center"
-              )}
+              className="bg-white p-5 rounded-lg shadow-md flex flex-col items-center text-center max-w-[380px] mx-auto h-[250px] justify-between"
             >
-              <div className="mb-4 bg-indigo-50 p-3 rounded-full">
+              <div className="mt-4">
                 {getIconComponent(benefit.icon)}
               </div>
-              <h3 className="text-lg font-semibold text-indigo-800 mb-2">
-                {currentLanguage === 'en' ? benefit.title_en : benefit.title_zh}
-              </h3>
-              <p className="text-gray-600 text-sm">
-                {currentLanguage === 'en' ? benefit.description_en : benefit.description_zh}
-              </p>
+              <div className="flex-1 flex flex-col justify-center py-3">
+                <h3 className="text-lg font-bold mb-2 line-clamp-2 h-[3.5rem]">
+                  {currentLanguage === 'en' ? benefit.title_en : benefit.title_zh}
+                </h3>
+                <p className="text-gray-600 text-sm line-clamp-3 h-[4.5rem]">
+                  {currentLanguage === 'en' ? benefit.description_en : benefit.description_zh}
+                </p>
+              </div>
             </div>
           ))}
         </div>
