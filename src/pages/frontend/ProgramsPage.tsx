@@ -7,62 +7,53 @@ import { Card } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Link } from "react-router-dom";
+import { useProgramList } from "@/hooks/program/useProgramList";
+import { Program } from "@/types/programTypes";
 
 const ProgramsPage: React.FC = () => {
   const { currentLanguage } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);
+  const { programs: allPrograms, loading, error } = useProgramList();
   
-  // Mock program data
-  const programs = [
-    {
-      id: "1",
-      title: "伦敦艺术与文化探索",
-      titleEn: "London Arts and Culture",
-      location: "英国",
-      locationEn: "UK",
-      duration: "3 weeks",
-      tags: ["学术研究", "文化体验"],
-      tagsEn: ["Academic Research", "Cultural Experience"],
-      image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1470&auto=format&fit=crop",
-      levels: ["High School", "University"]
-    },
-    {
-      id: "2",
-      title: "东京科技创新之旅",
-      titleEn: "Tokyo Tech Innovation Tour",
-      location: "日本",
-      locationEn: "Japan",
-      duration: "2 weeks",
-      tags: ["学术研究", "文化体验"],
-      tagsEn: ["Academic Research", "Cultural Experience"],
-      image: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?q=80&w=1436&auto=format&fit=crop",
-      levels: ["High School", "University"]
-    },
-    {
-      id: "3",
-      title: "加州大学伯克利分校STEM创新项目",
-      titleEn: "UC Berkeley STEM Innovation Program",
-      location: "美国",
-      locationEn: "USA",
-      duration: "2 weeks",
-      tags: ["学术研究", "文化体验"],
-      tagsEn: ["Academic Research", "Cultural Experience"],
-      image: "https://images.unsplash.com/photo-1581362716668-d8a5233b14c0?q=80&w=1470&auto=format&fit=crop",
-      levels: ["High School", "University"]
-    },
-    {
-      id: "4",
-      title: "澳大利亚海洋生物探索",
-      titleEn: "Australian Marine Biology Exploration",
-      location: "澳大利亚",
-      locationEn: "Australia",
-      duration: "2 weeks",
-      tags: ["学术研究", "文化体验"],
-      tagsEn: ["Academic Research", "Cultural Experience"],
-      image: "https://images.unsplash.com/photo-1579688768822-7d44e4584d42?q=80&w=1374&auto=format&fit=crop",
-      levels: ["High School", "University"]
-    }
-  ];
+  // 分页逻辑
+  const itemsPerPage = 6; // 每页显示 6 个项目
+  const totalPages = Math.ceil(allPrograms.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPrograms = allPrograms.slice(startIndex, endIndex);
+  
+  // 如果没有数据，显示占位内容
+  if (loading) {
+    return (
+      <FrontendLayout>
+        <ProgramsHero />
+        <div className="container mx-auto py-8 px-4">
+          <div className="flex justify-center items-center h-64">
+            <p className="text-lg text-gray-500">
+              {currentLanguage === 'en' ? 'Loading programs...' : '正在加载项目...'}
+            </p>
+          </div>
+        </div>
+      </FrontendLayout>
+    );
+  }
+  
+  if (error) {
+    return (
+      <FrontendLayout>
+        <ProgramsHero />
+        <div className="container mx-auto py-8 px-4">
+          <div className="flex justify-center items-center h-64">
+            <p className="text-lg text-red-500">
+              {currentLanguage === 'en' ? 'Error loading programs' : '加载项目时出错'}: {error}
+            </p>
+          </div>
+        </div>
+      </FrontendLayout>
+    );
+  }
+  
+  // 实际项目数据
 
   return (
     <FrontendLayout>
@@ -238,49 +229,67 @@ const ProgramsPage: React.FC = () => {
           
           {/* Programs list */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {programs.map((program) => (
-                <Link key={program.id} to={`/programs/${program.id}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {currentPrograms.map((program: Program) => {
+                // 添加调试信息
+                console.log(`渲染项目卡片: ID=${program.id}, 标题=${program.title_zh}, 链接=/programs/${program.id}`);
+                
+                return (
+                <Link key={program.id} to={`/programs/${program.id}`} data-testid={`program-card-${program.id}`}>
                   <Card className="overflow-hidden h-full flex flex-col">
                     <div className="h-48 overflow-hidden">
                       <img 
                         src={program.image} 
-                        alt={program.title} 
+                        alt={currentLanguage === 'en' ? program.title_en : program.title_zh} 
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="p-4 flex-1 flex flex-col">
-                      <h3 className="text-lg font-medium mb-4">{program.title}</h3>
+                    <div className="p-3 flex-1 flex flex-col">
+                      <h3 className="text-base font-medium mb-2">{currentLanguage === 'en' ? program.title_en : program.title_zh}</h3>
                       
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-1 mb-2">
                         {program.tags.map((tag, idx) => (
                           <span 
                             key={idx} 
-                            className="inline-block bg-blue-50 text-blue-700 px-2 py-1 text-xs rounded"
+                            className="inline-block bg-blue-50 text-blue-700 px-1.5 py-0.5 text-xs rounded"
                           >
-                            {tag}
+                            {currentLanguage === 'en' ? tag.name_en : tag.name_zh}
                           </span>
                         ))}
                       </div>
                       
-                      <div className="flex items-center gap-3 text-sm text-gray-600 mt-auto">
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600 mt-1 mb-2">
+                        {/* 项目类型 - 与 ProgramInfoSidebar 保持一致 */}
                         <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                          </svg>
-                          {program.location}
+                          <span className="font-medium text-gray-700 mr-1">
+                            {currentLanguage === 'en' ? 'Type:' : '类型:'}
+                          </span>
+                          <span className="text-gray-600">
+                            {currentLanguage === 'en' ? program.program_type_en : program.program_type_zh}
+                          </span>
                         </div>
+                        
+                        {/* 时长 - 与 ProgramInfoSidebar 保持一致 */}
                         <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                          </svg>
-                          {program.duration}
+                          <span className="font-medium text-gray-700 mr-1">
+                            {currentLanguage === 'en' ? 'Duration:' : '时长:'}
+                          </span>
+                          <span className="text-gray-600">{program.duration}</span>
+                        </div>
+                        
+                        {/* 目的地 - 与 ProgramInfoSidebar 保持一致 */}
+                        <div className="flex items-center">
+                          <span className="font-medium text-gray-700 mr-1">
+                            {currentLanguage === 'en' ? 'Destination:' : '目的地:'}
+                          </span>
+                          <span className="text-gray-600">
+                            {currentLanguage === 'en' ? program.destination_en || program.location_en : program.destination_zh || program.location_zh}
+                          </span>
                         </div>
                       </div>
                       
-                      <div className="border-t mt-4 pt-3 flex flex-wrap gap-2">
-                        {program.levels.map((level, idx) => (
+                      <div className="border-t mt-auto pt-3 flex flex-wrap gap-2">
+                        {program.grade_levels.map((level, idx) => (
                           <span 
                             key={idx} 
                             className="inline-block bg-gray-100 text-gray-800 px-2 py-0.5 text-xs rounded"
@@ -292,32 +301,41 @@ const ProgramsPage: React.FC = () => {
                     </div>
                   </Card>
                 </Link>
-              ))}
+              );
+              })}
             </div>
             
             {/* Pagination */}
             <div className="flex justify-center items-center mt-8 gap-2">
               <div className="text-sm text-gray-600 mr-4">
-                显示第 1 至 4 项，共 4 项结果
+                {currentLanguage === 'en' ? 
+                  `Showing ${startIndex + 1} to ${Math.min(endIndex, allPrograms.length)} of ${allPrograms.length} results` : 
+                  `显示第 ${startIndex + 1} 至 ${Math.min(endIndex, allPrograms.length)} 项，共 ${allPrograms.length} 项结果`
+                }
               </div>
               
               <button
                 disabled={currentPage === 1}
                 className="p-2 rounded-md border disabled:opacity-50"
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
               
-              <button
-                className="w-8 h-8 flex items-center justify-center rounded-md bg-blue-600 text-white"
-                onClick={() => setCurrentPage(1)}
-              >
-                1
-              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button
+                  key={page}
+                  className={`w-8 h-8 flex items-center justify-center rounded-md ${currentPage === page ? 'bg-blue-600 text-white' : 'border'}`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              ))}
               
               <button
-                disabled={currentPage === 1}
+                disabled={currentPage === totalPages}
                 className="p-2 rounded-md border disabled:opacity-50"
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               >
                 <ChevronRight className="h-4 w-4" />
               </button>

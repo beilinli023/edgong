@@ -1,10 +1,13 @@
-
 import React from 'react';
-import { useLanguage } from "@/context/LanguageContext";
-import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Program, ProgramTag } from "@/types/programTypes";
+import { useLanguage } from '@/context/LanguageContext';
+import { Program } from '@/types/programTypes';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+// CSS类名常量，避免重复
+const IMAGE_STYLES = "w-full h-48 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-105";
+const BADGE_STYLES = "rounded-full px-2 py-1 text-xs bg-primary/10 text-primary border-none mb-1 mr-1";
 
 interface ProgramCardProps {
   program: Program;
@@ -13,83 +16,66 @@ interface ProgramCardProps {
 const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   const { currentLanguage } = useLanguage();
   
+  // 多语言文本和内容获取
   const title = currentLanguage === 'en' ? program.title_en : program.title_zh;
   const location = currentLanguage === 'en' ? program.location_en : program.location_zh;
   
-  // Ensure id is string for the URL
-  const programId = program.id.toString();
+  // 标签显示逻辑
+  const displayTags = program.tags ? program.tags.slice(0, 3) : [];
   
   return (
-    <Link to={`/programs/${programId}`} className="block">
-      <div className="border border-gray-200 rounded-lg overflow-hidden transition-shadow hover:shadow-md flex flex-col h-full">
-        {/* Program Image */}
-        <div className="h-48 overflow-hidden relative">
-          <img 
-            src={program.image || "/placeholder.svg"} 
-            alt={title} 
-            className="w-full h-full object-cover"
+    <Link to={`/programs/${program.id}`} className="block">
+      <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 h-full group overflow-hidden">
+        {/* 主图 */}
+        <div className="overflow-hidden">
+          <img
+            src={program.image || "/placeholder.svg"}
+            alt={title}
+            className={IMAGE_STYLES}
           />
-          {/* Program ID overlay removed */}
         </div>
         
-        {/* Program Content */}
-        <div className="p-4 flex-grow">
-          {/* Program Title */}
-          <h3 className="text-lg font-semibold mb-3 line-clamp-2">
-            {title}
-          </h3>
+        {/* 内容区域 */}
+        <div className="p-5">
+          {/* 标题 */}
+          <h3 className="text-xl font-bold mb-2 line-clamp-2">{title}</h3>
           
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {program.tags && program.tags.length > 0 ? (
-              program.tags.map((tag, index) => (
-                <Badge 
-                  key={index}
-                  variant="outline"
-                  className="bg-blue-50 text-blue-700 border-blue-100"
-                >
+          {/* 位置和时长 */}
+          <div className="flex items-center gap-5 text-gray-600 mb-3">
+            {location && (
+              <div className="flex items-center gap-1">
+                <MapPin size={16} />
+                <span className="text-sm">{location}</span>
+              </div>
+            )}
+            
+            {program.duration && (
+              <div className="flex items-center gap-1">
+                <Calendar size={16} />
+                <span className="text-sm">{program.duration}</span>
+              </div>
+            )}
+          </div>
+          
+          {/* 标签 */}
+          {displayTags.length > 0 && (
+            <div className="flex flex-wrap">
+              {displayTags.map(tag => (
+                <Badge key={tag.id} className={BADGE_STYLES}>
                   {currentLanguage === 'en' ? tag.name_en : tag.name_zh}
                 </Badge>
-              ))
-            ) : (
-              <Badge variant="outline" className="bg-gray-50 text-gray-700">
-                {currentLanguage === 'en' ? 'General' : '通用'}
-              </Badge>
-            )}
-          </div>
+              ))}
+            </div>
+          )}
           
-          {/* Location and Duration */}
-          <div className="flex items-center gap-4 text-sm text-gray-600">
-            <div className="flex items-center gap-1">
-              <MapPin className="h-4 w-4" />
-              <span>{location}</span>
+          {/* 价格 */}
+          {program.price && (
+            <div className="mt-3 text-right">
+              <span className="font-bold text-lg text-primary">
+                ${program.price}
+              </span>
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span>{program.duration}</span>
-            </div>
-          </div>
-        </div>
-        
-        {/* Grade Levels */}
-        <div className="p-4 pt-0 mt-2 border-t border-gray-100 text-sm">
-          <div className="flex items-center flex-wrap gap-1">
-            {program.grade_levels && program.grade_levels.length > 0 ? (
-              program.grade_levels.map((level, index) => (
-                <Badge 
-                  key={index}
-                  variant="outline"
-                  className="bg-gray-50"
-                >
-                  {level}
-                </Badge>
-              ))
-            ) : (
-              <Badge variant="outline" className="bg-gray-50">
-                {currentLanguage === 'en' ? 'All Grades' : '所有年级'}
-              </Badge>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </Link>

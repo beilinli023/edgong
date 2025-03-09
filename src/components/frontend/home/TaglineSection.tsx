@@ -11,7 +11,7 @@ const TaglineSection: React.FC = () => {
           <span className="text-orange-500">Grow.</span>
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Your Lifetime Itinerary Awaits.
+          您的终身行程计划等待着您。
         </p>
       </div>
     </div>

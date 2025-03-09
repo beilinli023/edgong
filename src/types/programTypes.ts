@@ -17,6 +17,16 @@ export interface Program {
   country: string;
   tags: ProgramTag[];
   grade_levels: string[]; // Changed from optional to required
+  
+  // 新增字段 - 用于CMS和Supabase同步
+  program_type_en?: string; // 项目类型（英文）
+  program_type_zh?: string; // 项目类型（中文）
+  destination_en?: string;  // 目的地（英文）
+  destination_zh?: string;  // 目的地（中文）
+  grade_level_en?: string;  // 年级水平（英文）
+  grade_level_zh?: string;  // 年级水平（中文）
+  duration_weeks?: number;   // 时长（周数）
+  
   description_en?: string;
   description_zh?: string;
   highlights_en?: string;
@@ -29,6 +39,12 @@ export interface Program {
   information_zh?: string;
   price?: string;
   gallery_images?: string[]; // 添加轮播图片数组
+  school_info_en?: string; // 学校介绍（英文）
+  school_info_zh?: string; // 学校介绍（中文）
+  
+  // 程序状态字段
+  status?: string;          // 程序状态（如 'published', 'draft' 等）
+  published_at?: string;    // 发布日期
 }
 
 export interface ProgramFilterParams {

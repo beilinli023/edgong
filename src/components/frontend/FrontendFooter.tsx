@@ -38,7 +38,7 @@ const FrontendFooter: React.FC = () => {
               {/* 需要帮助? */}
               <div className="flex flex-col items-center md:items-start">
                 <h3 className="text-2xl font-bold uppercase mb-6 tracking-wide text-gray-800">
-                  {currentLanguage === 'zh' ? '需要帮助?' : 'NEED HELP?'}
+                  {currentLanguage === 'zh' ? '联系我们' : 'CONTACT US'}
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex gap-2 items-start">
@@ -85,7 +85,7 @@ const FrontendFooter: React.FC = () => {
               {/* 联系我们 */}
               <div className="flex flex-col items-center md:pr-4">
                 <h3 className="text-2xl font-bold uppercase mb-6 tracking-wide text-gray-800">
-                  {currentLanguage === 'zh' ? '联系我们' : 'CONNECT WITH US'}
+                  {currentLanguage === 'zh' ? '关注我们' : 'FOLLOW US'}
                 </h3>
 
                 <div className="flex flex-col items-center">

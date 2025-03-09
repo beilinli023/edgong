@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 import CheckboxGroup from "../CheckboxGroup";
@@ -37,7 +36,7 @@ const ProgramInterestsSection: React.FC<ProgramInterestsSectionProps> = ({
     <>
       {/* 感兴趣的活动 */}
       <CheckboxGroup
-        label="感兴趣的项目"
+        label="希望了解（多选）"
         options={options.programTypes}
         selectedValues={formData.programTypes}
         onChange={handleCheckboxChange}

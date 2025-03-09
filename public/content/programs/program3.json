@@ -1,0 +1,53 @@
+{
+  "id": "3",
+  "title_en": "Singapore Science and Innovation STEM Summer Camp 2025",
+  "title_zh": "2025年新加坡科学与创新STEM夏令营",
+  "program_id": "SGSTEM-2025-001",
+  "image": "https://images.unsplash.com/photo-1518770660439-4636190af475",
+  "location_en": "Singapore",
+  "location_zh": "新加坡",
+  "duration": "7 days",
+  "country": "Singapore",
+  "tags": [
+      {
+          "id": "1",
+          "name_en": "STEM Education",
+          "name_zh": "STEM教育"
+      },
+      {
+          "id": "2",
+          "name_en": "Artificial Intelligence",
+          "name_zh": "人工智能"
+      },
+      {
+          "id": "3",
+          "name_en": "Cultural Heritage",
+          "name_zh": "文化遗产"
+      }
+  ],
+  "grade_levels": [
+      "Primary School and above",
+      "小学及以上"
+  ],
+  "program_type_en": "Science and Innovation",
+  "program_type_zh": "科学与创新",
+  "destination_en": "Singapore",
+  "destination_zh": "新加坡",
+  "description_en": "The Singapore Science and Innovation STEM Summer Camp is a 7-day program designed for students aged 7 and above (with optional parental participation). This camp offers a unique opportunity to explore cutting-edge technology through hands-on practice, interactive workshops, and visits to iconic institutions like the Singapore Science Centre and Nanyang Technological University (NTU). Participants will engage in STEM projects, learn about artificial intelligence and environmental sustainability, and experience Singapore’s rich cultural heritage while enjoying world-class attractions such as Gardens by the Bay and Universal Studios Singapore.",
+  "description_zh": "新加坡科学与创新STEM夏令营是一个为期7天的项目，专为7岁及以上学生设计（家长可选择参与）。该夏令营为学生提供了一个独特的机会，通过动手实践、互动工作坊以及参观新加坡科学馆和南洋理工大学（NTU）等标志性机构，探索新加坡的前沿科技。参与者将参与STEM项目，学习人工智能与环境可持续发展的知识，并体验新加坡丰富的文化遗产，同时还能享受滨海湾花园和新加坡环球影城等世界级景点的乐趣。",
+  "highlights_en": "STEM Immersion: Participate in official STEM courses at the Singapore Science Centre, guided by expert instructors.\n\nAI Exploration: Learn about artificial intelligence and its societal impact through workshops at Nanyang Technological University (NTU).\n\nCultural and Environmental Education: Discover Singapore’s multicultural heritage and innovative sustainability practices.\n\nUniversity Visits: Tour top institutions like Nanyang Technological University (NTU) to explore academic excellence.\n\nFun and Learning: Enjoy visits to Universal Studios Singapore, Gardens by the Bay, and other iconic attractions for an educational yet entertaining experience.",
+  "highlights_zh": "STEM沉浸体验：在新加坡科学馆参与官方STEM课程，由专业导师指导学习。\n\n人工智能探索：通过南洋理工大学的研讨会，了解人工智能及其对社会的影响。\n\n文化与环保教育：探索新加坡多元文化遗产及其可持续发展的创新实践。\n\n大学参访：参观南洋理工大学（NTU）等顶尖学府，深入了解其学术卓越成就。\n\n趣味与学习结合：畅游新加坡环球影城、滨海湾花园等标志性景点，寓教于乐。",
+  "itinerary_en": "\n\n[Day 1]\nMorning: Departure\nAfternoon: In Flight\nEvening: Seafood dinner and icebreaker activity\n\n[Day 2]\nMorning: Singapore Polytechnic (Marine) AI Course\nAfternoon: Merlion Park, Suspension Bridge, Yakun Heritage Museum\nEvening: Group Assignment\n\n[Day 3]\nMorning: Science Centre STEM Course\nAfternoon: Science Camp, Omni-Theatre 4D Movie\nEvening: Group Assignment\n\n[Day 4]\nMorning: Explore Duo Factory\nAfternoon: Gardens by the Bay, TechSmart, Cloud Forest\nEvening: Group Assignment\n\n[Day 5]\nMorning: Stream Sanctuary Environmental Demo\nAfternoon: Kampong Glam, Bean Sprout Mosque, Little India, Chinatown\nEvening: Group Assignment\n\n[Day 6]\nMorning: Universal Studios Singapore\nAfternoon: Sentosa Island\nEvening: Group Assignment\n\n[Day 7]\nMorning: Jewel Changi Airport Rain Vortex\nAfternoon: In Flight\nEvening: Arrival",
+  "itinerary_zh": "\n\n[第一天]\n上午：整装出发\n下午：飞行中\n晚上：海鲜特色豪客，分水活动\n\n[第二天]\n上午：海洋理工大学AI课程\n下午：鱼尾狮公园，百年吊桥，亚坤文史博物馆\n晚上：小组作业\n\n[第三天]\n上午：科学中心STEM课程\n下午：科学营，万象馆4D电影\n晚上：小组作业\n\n[第四天]\n上午：探索多工厂\n下午：深海花园，技之智，云梦林\n晚上：小组作业\n\n[第五天]\n上午：溪涧圣地环保展示\n下午：日榜格南，豆芽回教营，小印度，牛车水\n晚上：小组作业\n\n[第六天]\n上午：环球影城\n下午：圣淘沙岛\n晚上：小组作业\n\n[第七天]\n上午：珍宝天瀑\n下午：飞行中\n晚上：抵达",
+  "features_en": "Dining: Enjoy local and international cuisine, including Hainanese chicken rice, laksa, and Nyonya dishes.\n\nActivities: Combine STEM learning, AI workshops, cultural tours, and fun adventures at Universal Studios and Gardens by the Bay.\n\nSafety: 24-hour supervision by experienced staff ensures the safety and security of all participants.\n\nLearning: Hands-on STEM courses at the Singapore Science Centre, AI workshops at Nanyang Technological University (NTU), and visits to top institutions like the National University of Singapore (NUS).",
+  "features_zh": "餐饮：享用本地与国际美食，包括海南鸡饭、叻沙和娘惹菜肴。\n\n活动：结合STEM学习、AI工作坊、文化游览以及环球影城和滨海湾花园等趣味探险。\n\n安全：由经验丰富的工作人员提供24小时监护，确保所有参与者的安全与保障。\n\n学习：在新加坡科学中心参与实践STEM课程，在南洋理工大学（NTU）参加AI工作坊，并参观新加坡国立大学（NUS）等顶尖学府。",
+  "gallery_images": [
+      "https://images.unsplash.com/photo-1518770660439-4636190af475",
+      "https://images.unsplash.com/photo-1566222242028-03a8c0d0eefe",
+      "https://images.unsplash.com/photo-1517816428104-4898499529e8"
+  ],
+  "status": "published",
+  "published_at": "2025-03-09",
+  "school_info_en": "Small Class Sizes: Limited to 12-15 students per class for personalized attention and active participation.\n\nCultural Immersion: Expert-led tours of iconic landmarks provide deep insights into Singapore’s culture and history.\n\nSafety and Supervision: Trained staff offer 24-hour supervision, ensuring a safe and supportive environment.\n\nGlobal Networking: Students build friendships with peers from around the world, fostering cross-cultural understanding.\n\nLife Skills Development: Structured activities help students develop independence, teamwork, and problem-solving skills alongside academic learning.",
+  "school_info_zh": "小班教学：每班人数限制在12至15名学生，确保个性化关注和积极参与。\n\n文化沉浸：由专家带领参观标志性景点，深入了解新加坡的文化与历史。\n\n安全与监护：经过培训的工作人员提供24小时监护，确保安全与支持性环境。\n\n全球社交网络：学生与来自世界各地的同龄人建立友谊，促进跨文化理解。\n\n生活技能培养：通过结构化活动，学生不仅学习学术知识，还培养了独立性、团队合作和解决问题的能力。"
+}

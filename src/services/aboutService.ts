@@ -5,8 +5,8 @@ import { AboutContent, AboutHero, AboutMission, AboutValue } from "@/types/about
 // Mock data for development
 const defaultAboutContent: AboutContent = {
   hero: {
-    title_en: "About YOUNIKCO",
-    title_zh: "关于 YOUNIKCO",
+    title_en: "About EdGoing",
+    title_zh: "关于 EdGoing",
     subtitle_en: "Empowering global education and cultural exchange",
     subtitle_zh: "赋能全球教育和文化交流",
     background_image: "/lovable-uploads/f0b87c9a-14ef-4e95-ae65-07fe4018b1fc.png"
@@ -14,8 +14,8 @@ const defaultAboutContent: AboutContent = {
   mission: {
     title_en: "Our Mission",
     title_zh: "我们的使命",
-    content_en: "At YOUNIKCO, we are dedicated to empowering the younger generation to explore the world, experience diverse cultures, and achieve personal growth through transformative educational programs and cultural exchanges.\n\nWe believe that by fostering understanding and appreciation for different cultures, we can contribute to a more connected and compassionate world.",
-    content_zh: "在YOUNIKCO，我们致力于赋能年轻一代探索世界，体验多元文化，并通过变革性的教育项目和文化交流实现个人成长。\n\n我们相信，通过培养对不同文化的理解和欣赏，我们可以为建立一个更紧密联系和更有同情心的世界做出贡献。",
+    content_en: "At EdGoing, we are dedicated to empowering the younger generation to explore the world, experience diverse cultures, and achieve personal growth through transformative educational programs and cultural exchanges.\n\nWe believe that by fostering understanding and appreciation for different cultures, we can contribute to a more connected and compassionate world.",
+    content_zh: "在EdGoing，我们致力于赋能年轻一代探索世界，体验多元文化，并通过变革性的教育项目和文化交流实现个人成长。\n\n我们相信，通过培养对不同文化的理解和欣赏，我们可以为建立一个更紧密联系和更有同情心的世界做出贡献。",
     image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070"
   },
   values: [

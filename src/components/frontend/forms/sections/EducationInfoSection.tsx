@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FormOption } from "@/hooks/useFrontendFormContent";
@@ -38,6 +38,34 @@ const EducationInfoSection: React.FC<EducationInfoSectionProps> = ({
   text,
   currentLanguage
 }) => {
+  // 根据选择的省份过滤城市
+  const [filteredCities, setFilteredCities] = useState<FormOption[]>([]);
+  
+  // 当省份选择变化时，更新城市选项
+  useEffect(() => {
+    if (formData.province) {
+      // 如果选择了省份，过滤出对应的城市
+      const filtered = cities.filter(city => {
+        // 确保城市有provinceId属性，并且与选择的省份匹配
+        const cityProvinceId = city.provinceId || '';
+        return cityProvinceId === formData.province;
+      });
+      
+      setFilteredCities(filtered);
+      
+      // 如果当前选择的城市不在过滤后的列表中，清空城市选择
+      if (formData.city && !filtered.some(city => city.id === formData.city)) {
+        handleSelectChange("city", "no-city");
+      }
+    } else {
+      // 如果没有选择省份，显示空列表
+      setFilteredCities([]);
+      // 清空城市选择
+      if (formData.city) {
+        handleSelectChange("city", "no-city");
+      }
+    }
+  }, [formData.province, formData.city, cities, handleSelectChange]);
   return (
     <>
       {/* 学校名称 */}
@@ -107,16 +135,23 @@ const EducationInfoSection: React.FC<EducationInfoSectionProps> = ({
             name="city" 
             value={formData.city} 
             onValueChange={(value) => handleSelectChange("city", value)}
+            disabled={!formData.province} // 如果没有选择省份，禁用城市选择
           >
             <SelectTrigger>
               <SelectValue placeholder={text.selectYourCity} />
             </SelectTrigger>
             <SelectContent>
-              {cities.map(city => (
-                <SelectItem key={city.id} value={city.id}>
-                  {city.label}
+              {filteredCities.length > 0 ? (
+                filteredCities.map(city => (
+                  <SelectItem key={city.id} value={city.id}>
+                    {city.label}
+                  </SelectItem>
+                ))
+              ) : (
+                <SelectItem value="no-city" disabled>
+                  {currentLanguage === 'en' ? "Please select a province first" : "请先选择省份"}
                 </SelectItem>
-              ))}
+              )}
             </SelectContent>
           </Select>
         </div>

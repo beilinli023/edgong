@@ -1,0 +1,53 @@
+{
+    "id": "6",
+    "title_en": "Cambridge Summit Academic Summer Camp 2025",
+    "title_zh": "2025年剑桥峰会学术夏令营",
+    "program_id": "UKCAM-2025-001",
+    "image": "https://images.unsplash.com/photo-1505664194779-8dc13cd7eecb",
+    "location_en": "Cambridge, United Kingdom",
+    "location_zh": "英国剑桥",
+    "duration": "16 days",
+    "country": "United Kingdom",
+    "tags": [
+        {
+            "id": "1",
+            "name_en": "Academic Excellence",
+            "name_zh": "学术卓越"
+        },
+        {
+            "id": "2",
+            "name_en": "University Experience",
+            "name_zh": "大学体验"
+        },
+        {
+            "id": "3",
+            "name_en": "Cultural Immersion",
+            "name_zh": "文化沉浸"
+        }
+    ],
+    "grade_levels": [
+        "Ages 13-18",
+        "13至18岁"
+    ],
+    "program_type_en": "Academic and Cultural Immersion",
+    "program_type_zh": "学术与文化沉浸",
+    "destination_en": "Cambridge, United Kingdom",
+    "destination_zh": "英国剑桥",
+    "description_en": "The 'Cambridge Summit' Academic Summer Camp is a 16-day program designed for students aged 13 to 18 eager to experience life at a world-leading university. Hosted at the University of Cambridge, this program combines rigorous academic courses, hands-on workshops, and cultural immersion experiences. Participants will engage with Cambridge professors, explore cutting-edge topics in artificial intelligence, business, sociology, and computer science, and gain valuable insights into university life and career planning. Focused on academic excellence and personal growth, this program serves as a bridge to Ivy League schools and beyond.",
+    "description_zh": "‘剑桥峰会’学术夏令营是一个为期16天的项目，专为13至18岁、渴望体验世界顶尖大学生活的学生设计。该项目在剑桥大学举办，结合了严谨的学术课程、实践工作坊和文化沉浸体验。参与者将与剑桥大学教授互动，探索人工智能、商业、社会学和计算机科学等领域的前沿话题，并获得关于大学生活和职业规划的宝贵见解。该项目注重学术卓越与个人成长，是通往常春藤盟校及更广阔天地的桥梁。",
+    "highlights_en": "Cambridge University Faculty: Learn directly from University of Cambridge staff renowned for their expertise and groundbreaking research.\n\nPersonalized Academic Mentorship: Receive one-on-one guidance and essay feedback to enhance your academic profile.\n\nOfficial Certification: Earn a completion certificate and personalized reference letter from Cambridge professors.\n\nElite Scholarship: Outstanding participants may receive a £500 scholarship.\n\nCultural Immersion: Experience Cambridge life with punting on the River Cam, formal dinners, and tours of Oxford and London.\n\nSmall Class Sizes: Limited to 99 students per session, ensuring personalized attention and a supportive learning environment.",
+    "highlights_zh": "剑桥大学教授：直接向剑桥大学教职员工学习，他们以其专业知识和开创性研究而闻名。\n\n个性化学术指导：获得一对一的导师指导和论文反馈，提升学术背景。\n\n官方认证：获得剑桥大学教授颁发的结业证书及个性化推荐信。\n\n精英奖学金：优秀参与者有机会获得500英镑奖学金。\n\n文化沉浸：体验剑桥生活，包括康河撑船、正式晚宴以及牛津和伦敦的游览。\n\n小班教学：每期课程限99名学生，确保个性化关注和支持性学习环境。",
+    "itinerary_en": "\n\n[Day 1]\nActivity: Airport pick-up to Cambridge University college, room key distribution, campus orientation, and dinner\n\n[Day 2]\nMorning: Lesson 1\nAfternoon: Cambridge walking tour\nEvening: Opening ceremony\n\n[Day 3]\nMorning: Lesson 2\nAfternoon: Punting on the River Cam (Xu Zhimo style)\nEvening: Fun book club\n\n[Day 4]\nMorning: Lesson 3\nAfternoon: Post-lesson workshop\nEvening: Mini debate competition\n\n[Day 5]\nMorning: Lesson 4\nAfternoon: Oxbridge traditional rowing experience\nEvening: Frisbee activity\n\n[Day 6]\nMorning: Lesson 5\nAfternoon: Post-lesson workshop\nEvening: Campfire night\n\n[Day 7]\nFull Day: London trip\n\n[Day 8]\nFull Day: London trip\n\n[Day 9]\nMorning: Lesson 6\nAfternoon: Visit to Fitzwilliam Museum\nEvening: Sherlock Holmes night\n\n[Day 10]\nMorning: Lesson 7\nAfternoon: Post-lesson workshop\nEvening: Mini sports event\n\n[Day 11]\nMorning: Lesson 8\nAfternoon: Visit to Cavendish Laboratory\nEvening: Cambridge alumni sharing session\n\n[Day 12]\nMorning: Lesson 9\nAfternoon: Post-lesson workshop\nEvening: Formal dinner\n\n[Day 13]\nMorning: Lesson 10\nAfternoon: Essay defense\nEvening: Closing ceremony\n\n[Day 14]\nFull Day: Oxford trip\n\n[Day 15]\nFull Day: Farewell and airport drop-off\n\n[Day 16]\nActivity: Safe arrival home",
+    "itinerary_zh": "\n\n[第一天]\n活动：接机至剑桥大学学院集合，分发房间钥匙，熟悉生活环境以及晚餐\n\n[第二天]\n上午：课程1\n下午：剑桥徒步探索\n晚上：入营仪式\n\n[第三天]\n上午：课程2\n下午：徐志摩同款康河泛舟\n晚上：趣味读书会\n\n[第四天]\n上午：课程3\n下午：课后工作坊\n晚上：迷你辩论赛\n\n[第五天]\n上午：课程4\n下午：牛剑传统赛艇体验\n晚上：飞盘活动\n\n[第六天]\n上午：课程5\n下午：课后工作坊\n晚上：篝火晚会\n\n[第七天]\n全天：伦敦之旅\n\n[第八天]\n全天：伦敦之旅\n\n[第九天]\n上午：课程6\n下午：参观菲兹威廉博物馆\n晚上：福尔摩斯之夜\n\n[第十天]\n上午：课程7\n下午：课后工作坊\n晚上：迷你运动会\n\n[第十一天]\n上午：课程8\n下午：参观卡文迪许实验室\n晚上：剑桥学长分享会\n\n[第十二天]\n上午：课程9\n下午：课后工作坊\n晚上：正装晚宴\n\n[第十三天]\n上午：课程10\n下午：论文答辩\n晚上：结营仪式\n\n[第十四天]\n全天：牛津之旅\n\n[第十五天]\n全天：欢送离营，专车送机\n\n[第十六天]\n活动：安全抵达国内",
+    "features_en": "Accommodation: Stay in Cambridge University student dormitories for an authentic campus experience.\n\nDining: Enjoy traditional British meals and formal dining experiences, including Harry Potter-style formal dinners.\n\nActivities: Blend of academic courses, workshops, and extracurriculars like punting, debates, and sports.\n\nSafety: 24-hour supervision by experienced staff throughout the program.\n\nCertification: Receive an official certificate and personalized reference letter from Cambridge University professors.",
+    "features_zh": "住宿：入住剑桥大学学生宿舍，体验真实的大学校园生活。\n\n餐饮：享用传统英式餐点及正式晚宴体验，包括哈利波特风格的正式晚宴。\n\n活动：结合学术课程、工作坊以及课外活动，如撑船、辩论和体育运动。\n\n安全：全程监护，由经验丰富的工作人员提供24小时支持。\n\n认证：获得剑桥大学教授颁发的官方证书及个性化推荐信。",
+    "gallery_images": [
+        "https://images.unsplash.com/photo-1505664194779-8dc13cd7eecb",
+        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
+        "https://images.unsplash.com/photo-1531263529768-180212ecc78b"
+    ],
+    "status": "published",
+    "published_at": "2025-03-09",
+    "school_info_en": "Small Class Sizes: Ensure personalized attention and active participation in academic courses.\n\nCultural Immersion: Expert-led tours of iconic landmarks offer deep insights into British culture and history.\n\nSafety and Supervision: Trained staff provide 24-hour oversight, ensuring a safe and supportive environment.\n\nGlobal Networking: Students build friendships with peers from around the world, fostering cross-cultural understanding.\n\nLife Skills Development: Beyond academics, students develop independence, teamwork, and problem-solving skills through structured activities.",
+    "school_info_zh": "小班教学：确保每位学生都能获得个性化关注，并积极参与学术课程。\n\n文化沉浸：由专家带领参观标志性景点，深入了解英国文化与历史。\n\n安全与监管：经过培训的工作人员提供24小时监管，确保安全且支持性的环境。\n\n全球社交：学生与来自世界各地的同龄人建立友谊，促进跨文化理解。\n\n生活技能培养：除了学术学习，学生通过结构化活动培养独立性、团队合作和解决问题的能力。"
+}

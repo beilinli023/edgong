@@ -1,13 +1,29 @@
-
 import blogApi from './api';
 import { validateResponse } from './utils';
 import { BlogPost, BlogPostFormData } from '@/types/blogTypes';
-import { getMockBlogPosts } from './mockData';
+import { loadBlogPostsFromFiles, loadBlogPostFromFile } from './fileService';
+
+// 判断是否使用模拟数据
+const isMockDataEnabled = () => {
+  return import.meta.env.VITE_USE_MOCK_DATA === 'true';
+};
+
+// 判断是否使用文件系统数据而不是API
+const isFileSystemEnabled = () => {
+  return import.meta.env.VITE_USE_FILE_SYSTEM === 'true' ||
+         import.meta.env.MODE === 'development' && !import.meta.env.VITE_API_URL;
+};
 
 /**
  * 获取所有博客文章
  */
 export const getAllBlogPosts = async (locale: string = 'en') => {
+  // 如果配置使用文件系统，从文件加载
+  if (isFileSystemEnabled()) {
+    console.log('从文件系统加载博客文章...');
+    return loadBlogPostsFromFiles();
+  }
+  
   try {
     console.log('Fetching blog posts...');
     const response = await blogApi.get(`/blog/posts?locale=${locale}`);
@@ -18,10 +34,11 @@ export const getAllBlogPosts = async (locale: string = 'en') => {
     );
     
     console.log('Blog posts response:', validatedData);
-    return Array.isArray(validatedData) ? validatedData : getMockBlogPosts();
+    return Array.isArray(validatedData) ? validatedData : [];
   } catch (error) {
     console.error('获取博客文章失败:', error);
-    return getMockBlogPosts();
+    // 如果API调用失败，尝试从文件系统加载
+    return loadBlogPostsFromFiles();
   }
 };
 
@@ -29,6 +46,12 @@ export const getAllBlogPosts = async (locale: string = 'en') => {
  * 获取单个博客文章 - 支持通过slug或id获取
  */
 export const getBlogPostById = async (idOrSlug: string, locale: string = 'en'): Promise<BlogPost | null> => {
+  // 如果配置使用文件系统，从文件加载
+  if (isFileSystemEnabled()) {
+    console.log(`从文件系统加载博客文章: ${idOrSlug}`);
+    return loadBlogPostFromFile(idOrSlug);
+  }
+  
   try {
     // 判断是通过ID还是slug查询
     const isSlug = idOrSlug.includes('-') || isNaN(Number(idOrSlug));
@@ -102,7 +125,9 @@ export const getBlogPostById = async (idOrSlug: string, locale: string = 'en'): 
       }
     }
     
-    return null;
+    // 如果API调用失败，尝试从文件系统加载
+    console.log('API calls failed, trying to load post from file system');
+    return loadBlogPostFromFile(idOrSlug);
   } catch (error) {
     console.error(`获取博客文章(ID/Slug: ${idOrSlug})失败:`, error);
     return null;
@@ -126,7 +151,7 @@ export const createBlogPost = async (postData: BlogPostFormData) => {
 /**
  * 更新博客文章
  */
-export const updateBlogPost = async (id: string, postData: any) => {
+export const updateBlogPost = async (id: string, postData: BlogPostFormData) => {
   try {
     console.log(`Updating blog post ID: ${id} with data:`, postData);
     const response = await blogApi.put(`/blog/posts/${id}`, postData);

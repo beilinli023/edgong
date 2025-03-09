@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Program } from '@/types/programTypes';
 import { useLanguage } from '@/context/LanguageContext';
+import { fetchProgramById } from '@/services/frontendProgramService';
 
 // Mock program data for development
 const mockProgram: Program = {
@@ -73,25 +73,24 @@ export function useProgramDetail() {
       setLoading(true);
       setError(null);
       
+      // 添加调试信息
+      console.log(`useProgramDetail - 开始获取项目，ID: ${id}`);
+      
       try {
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
         if (!id) {
           throw new Error(currentLanguage === 'en' ? 'Program ID is required' : '项目ID是必需的');
         }
         
-        // Look up the program by ID from our mock data
-        const foundProgram = mockPrograms[id];
-        
-        if (!foundProgram) {
-          throw new Error(currentLanguage === 'en' ? 'Program not found' : '未找到项目');
-        }
-        
-        setProgram(foundProgram);
-      } catch (error: any) {
-        console.error('Error fetching program:', error);
-        setError(error.message || (currentLanguage === 'en' ? 'Failed to load program' : '加载项目失败'));
+        // 使用服务获取指定ID的项目
+        const program = await fetchProgramById(id);
+        console.log(`useProgramDetail - 成功获取项目:`, program);
+        setProgram(program);
+      } catch (error: unknown) {
+        console.error(`useProgramDetail - 获取项目出错 (ID: ${id}):`, error);
+        const errorMessage = error instanceof Error 
+          ? error.message 
+          : (currentLanguage === 'en' ? 'Failed to load program' : '加载项目失败');
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

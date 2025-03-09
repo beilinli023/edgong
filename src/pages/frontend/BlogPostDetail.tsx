@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FrontendLayout from "@/components/frontend/FrontendLayout";
@@ -6,7 +5,7 @@ import { BlogPostLoading } from "@/components/frontend/blog/detail/BlogPostLoadi
 import BlogPostHero from "@/components/frontend/blog/detail/BlogPostHero";
 import BlogPostNavigation from "@/components/frontend/blog/detail/BlogPostNavigation";
 import BlogPostContent from "@/components/frontend/blog/detail/BlogPostContent";
-import BlogPostHeader from "@/components/frontend/blog/detail/BlogPostHeader";
+import BlogPostHeaderNew from "@/components/frontend/blog/detail/BlogPostHeaderNew";
 import BlogPostTags from "@/components/frontend/blog/detail/BlogPostTags";
 import BlogPostError from "@/components/frontend/blog/detail/BlogPostError";
 import { useLanguage } from "@/context/LanguageContext";
@@ -94,12 +93,15 @@ const BlogPostDetail: React.FC = () => {
           )}
 
           {/* Post header with author and date info */}
-          <BlogPostHeader 
+          <BlogPostHeaderNew 
             title={localizedTitle || ''}
             author={post?.author || ''}
             publishedDate={post?.published_at || ''}
             primaryCategory={post?.primary_category}
             currentLanguage={currentLanguage}
+            tags={normalizedTags}
+            tagsLabel={tagsLabel}
+            getLocalizedText={getLocalizedText}
           />
 
           {/* Main post content */}
@@ -110,12 +112,7 @@ const BlogPostDetail: React.FC = () => {
             showFeaturedImage={true}
           />
 
-          {/* Tags section */}
-          <BlogPostTags 
-            tags={normalizedTags}
-            tagsLabel={tagsLabel}
-            getLocalizedText={getLocalizedText}
-          />
+          {/* 标签已移至文章标题下方，与日期并列显示 */}
         </div>
       </section>
     </FrontendLayout>

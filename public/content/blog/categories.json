@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name_en": "Education",
+    "name_zh": "教育",
+    "slug": "education",
+    "description_en": "Educational experiences and learning journeys",
+    "description_zh": "教育经历和学习之旅"
+  },
+  {
+    "id": 2,
+    "name_en": "Travel",
+    "name_zh": "旅行",
+    "slug": "travel",
+    "description_en": "Travel experiences and adventures around the world",
+    "description_zh": "环球旅行体验和冒险故事"
+  },
+  {
+    "id": 3,
+    "name_en": "Cultural Exchange",
+    "name_zh": "文化交流",
+    "slug": "cultural-exchange",
+    "description_en": "Stories about cultural exchange and international experiences",
+    "description_zh": "关于文化交流和国际体验的故事"
+  },
+  {
+    "id": 4,
+    "name_en": "Technology",
+    "name_zh": "技术",
+    "slug": "technology",
+    "description_en": "Technology experiences and learning",
+    "description_zh": "技术体验与学习"
+  }
+] 

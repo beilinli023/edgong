@@ -1,10 +1,10 @@
-
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/utils/dateUtils";
-import { BlogCategory } from "@/types/blogTypes";
-import { User, Calendar } from "lucide-react";
+import { BlogCategory, BlogTag } from "@/types/blogTypes";
+import { User, Calendar, Tag } from "lucide-react";
 import { Link } from "react-router-dom";
+import BlogPostTags from "./BlogPostTags";
 
 interface BlogPostHeaderProps {
   title: string;
@@ -12,6 +12,9 @@ interface BlogPostHeaderProps {
   publishedDate: string;
   primaryCategory?: BlogCategory;
   currentLanguage?: string;
+  tags?: BlogTag[];
+  tagsLabel?: string;
+  getLocalizedText?: (en: string, zh: string) => string;
 }
 
 const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({
@@ -19,7 +22,10 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({
   author,
   publishedDate,
   primaryCategory,
-  currentLanguage
+  currentLanguage,
+  tags,
+  tagsLabel,
+  getLocalizedText = (en, zh) => currentLanguage === 'zh' ? zh : en
 }) => {
   const formattedDate = formatLocalizedDate(publishedDate, currentLanguage);
   
@@ -41,6 +47,9 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({
     }
   }
   
+  // 打印组件接收到的参数，以进行调试
+  console.log('BlogPostHeader props:', { title, author, publishedDate, tags });
+  
   return (
     <div className="mb-8">
       <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
@@ -56,12 +65,30 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({
           <span>{formattedDate}</span>
         </div>
         
-        {primaryCategory && (
-          <Link to={`/blog/category/${primaryCategory.slug}`}>
-            <Badge className="bg-blue-500 hover:bg-blue-600">
-              {primaryCategory.name_en || primaryCategory.name_zh}
-            </Badge>
-          </Link>
+        {/* 主分类标签已移除 */}
+        
+        {tags && tags.length > 0 && (
+          <div className="flex items-center gap-2">
+            <Tag className="w-4 h-4" />
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag, index) => {
+                // 根据tag类型选择正确的属性
+                const tagName = typeof tag === 'string' 
+                  ? tag 
+                  : (currentLanguage === 'zh' ? tag.name_zh : tag.name_en);
+                
+                return (
+                  <Badge 
+                    key={index}
+                    variant="outline" 
+                    className="px-3 py-1 text-sm hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
+                  >
+                    {tagName}
+                  </Badge>
+                );
+              })}
+            </div>
+          </div>
         )}
       </div>
     </div>

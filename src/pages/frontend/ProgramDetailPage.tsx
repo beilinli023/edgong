@@ -9,7 +9,15 @@ import ProgramDetailLoading from '@/components/frontend/programs/detail/ProgramD
 import ProgramDetailError from '@/components/frontend/programs/detail/ProgramDetailError';
 
 const ProgramDetailPage = () => {
-  const { program, loading, error } = useProgramDetail();
+  const { id, program, loading, error } = useProgramDetail();
+  
+  // 添加调试信息，仅在开发环境中显示
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('ProgramDetailPage - ID:', id);
+      console.log('ProgramDetailPage - Program:', program);
+    }
+  }, [id, program]);
   
   if (loading) {
     return (

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Program } from '@/types/programTypes';
@@ -7,6 +6,15 @@ import ProgramPrimaryInfo from './detail/ProgramPrimaryInfo';
 import ProgramSidebar from './detail/ProgramSidebar';
 import ProgramTabs from './detail/ProgramTabs';
 import ProgramTabContent from './detail/ProgramTabContent';
+
+// 提取标签配置到常量
+const PROGRAM_TABS = [
+  { id: 'highlights', label_en: 'Highlights', label_zh: '亮点' },
+  { id: 'itinerary', label_en: 'Itinerary', label_zh: '行程' },
+  { id: 'features', label_en: 'Features', label_zh: '特色' },
+  { id: 'info', label_en: 'Info', label_zh: '信息' },
+  { id: 'gallery', label_en: 'Gallery', label_zh: '图片库' }
+];
 
 interface ProgramDetailContentProps {
   program: Program;
@@ -20,14 +28,6 @@ const ProgramDetailContent: React.FC<ProgramDetailContentProps> = ({ program }) 
   const programImages = program.gallery_images 
     ? [program.image || "/placeholder.svg", ...program.gallery_images] 
     : [program.image || "/placeholder.svg"];
-  
-  const programTabs = [
-    { id: 'highlights', label_en: 'Highlights', label_zh: '亮点' },
-    { id: 'itinerary', label_en: 'Itinerary', label_zh: '行程' },
-    { id: 'features', label_en: 'Features', label_zh: '特色' },
-    { id: 'info', label_en: 'Info', label_zh: '信息' },
-    { id: 'gallery', label_en: 'Gallery', label_zh: '图片库' }
-  ];
   
   return (
     <div className="bg-gray-50 py-12">
@@ -44,7 +44,7 @@ const ProgramDetailContent: React.FC<ProgramDetailContentProps> = ({ program }) 
         </div>
         
         <Tabs defaultValue="highlights" className="w-full">
-          <ProgramTabs programTabs={programTabs} />
+          <ProgramTabs programTabs={PROGRAM_TABS} />
           <ProgramTabContent program={program} programImages={programImages} />
         </Tabs>
       </div>

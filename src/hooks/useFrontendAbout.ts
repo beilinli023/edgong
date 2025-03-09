@@ -22,8 +22,8 @@ export const useFrontendAbout = () => {
     // 使用默认值确保永远不会返回undefined
     initialData: {
       hero: {
-        title_en: "About YOUNIKCO",
-        title_zh: "关于 YOUNIKCO",
+        title_en: "About EdGoing",
+        title_zh: "关于 EdGoing",
         subtitle_en: "Empowering global education and cultural exchange",
         subtitle_zh: "赋能全球教育和文化交流",
         background_image: "/lovable-uploads/f0b87c9a-14ef-4e95-ae65-07fe4018b1fc.png"
@@ -31,8 +31,8 @@ export const useFrontendAbout = () => {
       mission: {
         title_en: "Our Mission",
         title_zh: "我们的使命",
-        content_en: "At YOUNIKCO, we are dedicated to empowering the younger generation.",
-        content_zh: "在YOUNIKCO，我们致力于赋能年轻一代。",
+        content_en: "Redefine education by creating transformative, real-world learning experiences beyond the classroom.",
+        content_zh: "通过创造超越课堂的变革性、真实世界的学习体验，重新定义教育。",
         image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070"
       },
       values: [

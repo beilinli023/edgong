@@ -6,8 +6,8 @@ import { useLanguage } from "@/context/LanguageContext";
 
 // Default values that match the design in the image
 const defaultHero: AboutHero = {
-  title_en: "About YOUNIKCO",
-  title_zh: "关于 YOUNIKCO",
+  title_en: "About EdGoing",
+  title_zh: "关于 EdGoing",
   subtitle_en: "Empowering global education and cultural exchange",
   subtitle_zh: "赋能全球教育和文化交流",
   background_image: "/lovable-uploads/46fca3c1-4f18-4f48-935c-a97e8bb6eeb8.png"
@@ -16,8 +16,8 @@ const defaultHero: AboutHero = {
 const defaultMission: AboutMission = {
   title_en: "Our Mission",
   title_zh: "我们的使命",
-  content_en: "At YOUNIKCO, we are dedicated to empowering the younger generation to explore the world, experience diverse cultures, and achieve personal growth through transformative educational programs and cultural exchanges.\n\nWe believe that by fostering understanding and appreciation for different cultures, we can contribute to a more connected and compassionate world.",
-  content_zh: "在YOUNIKCO，我们致力于赋能年轻一代探索世界，体验多元文化，并通过变革性的教育项目和文化交流实现个人成长。\n\n我们相信，通过培养对不同文化的理解和欣赏，我们可以为建立一个更紧密联系和更有同情心的世界做出贡献。",
+  content_en: "Redefine education by creating transformative, real-world learning experiences beyond the classroom.\n\nBridge cultures and foster global connections through curated educational travel programs.\n\nInspire curiosity and personal growth through immersive, hands-on learning opportunities.\n\nPartner with top universities worldwide to offer high-quality programs in fields like AI, technology, and humanities.\n\nEmpower students from China and around the world to explore new fields and develop critical skills.\n\nShape the future by cultivating thoughtful, innovative, and globally-minded leaders.",
+  content_zh: "通过创造超越课堂的变革性、真实世界的学习体验，重新定义教育。\n\n通过精心策划的教育旅行项目，架起文化桥梁，促进全球连接。\n\n通过沉浸式、实践性的学习机会，激发好奇心和个人成长。\n\n与全球顶级大学合作，提供人工智能、技术、人文学科等领域的高质量课程。\n\n赋能来自中国及世界各地的学生，探索新领域并发展关键技能。\n\n通过培养富有思想、创新和全球视野的领导者，塑造未来。",
   image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070"
 };
 

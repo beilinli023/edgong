@@ -1,0 +1,53 @@
+{
+    "id": "7",
+    "title_en": "2025 Japan Tokyo Anime Culture Exploration Summer Program",
+    "title_zh": "2025年夏季日本东京动漫文化探索项目",
+    "program_id": "JPANI-2025-001",
+    "image": "https://images.unsplash.com/photo-1542051841857-5f90071e7989",
+    "location_en": "Tokyo, Japan",
+    "location_zh": "日本东京",
+    "duration": "7 days",
+    "country": "Japan",
+    "tags": [
+        {
+            "id": "1",
+            "name_en": "Anime Culture",
+            "name_zh": "动漫文化"
+        },
+        {
+            "id": "2",
+            "name_en": "University Visits",
+            "name_zh": "大学参访"
+        },
+        {
+            "id": "3",
+            "name_en": "Cultural Exploration",
+            "name_zh": "文化探索"
+        }
+    ],
+    "grade_levels": [
+        "Ages 7 and above",
+        "7岁及以上"
+    ],
+    "program_type_en": "Anime and Cultural Immersion",
+    "program_type_zh": "动漫与文化沉浸",
+    "destination_en": "Tokyo, Japan",
+    "destination_zh": "日本东京",
+    "description_en": "The 2025 Japan Tokyo Anime Culture Exploration Summer Program is a 7-day immersive experience designed for students aged 7 and above (with optional parental participation). This program offers a unique opportunity to dive deep into Japan’s vibrant anime culture, visit iconic manga museums, interact face-to-face with professional manga artists, and explore top universities like the University of Tokyo and Waseda University. Participants will also enjoy excursions to Tokyo Disneyland and Mount Fuji, creating unforgettable memories while gaining insights into Japan’s rich cultural heritage and technological traditions.",
+    "description_zh": "2025年夏季日本东京动漫文化探索项目是一个为期7天的沉浸式体验，专为7岁及以上学生设计（家长可选择参与）。该项目为学生提供了一个独特的机会，深入探索日本充满活力的动漫文化，参观标志性的漫画博物馆，与职业漫画家面对面交流，并探访东京大学和早稻田大学等顶尖学府。参与者还将畅游迪士尼乐园和富士山，在创造难忘回忆的同时，深入了解日本丰富的文化底蕴与科技传统。",
+    "highlights_en": "Anime Culture Immersion: Explore Japan’s anime history and industry through visits to Suginami Animation Museum and Fujiko F. Fujio Museum (Doraemon Museum).\n\nAnime Creation Practice: Learn to create your own manga and animation under the guidance of professional manga artists.\n\nTop University Visits: Tour prestigious institutions like the University of Tokyo and Waseda University to understand Japan’s academic excellence.\n\nCultural and Natural Exploration: Experience Japan’s natural beauty at Mount Fuji and cutting-edge technology at the Miraikan (National Museum of Emerging Science and Innovation).\n\nDisneyland Adventure: Spend a day at Tokyo Disneyland, enjoying its magical attractions and learning financial literacy through fun activities.",
+    "highlights_zh": "动漫文化沉浸：通过参观杉并动画博物馆和藤子·F·不二雄博物馆（哆啦A梦博物馆）等知名博物馆，深入了解日本的动漫历史与产业。\n\n动漫创作实践：在专业漫画家的指导下，学习创作自己的漫画和动画作品。\n\n顶尖大学参访：参观东京大学和早稻田大学等知名学府，深入了解日本的学术卓越成就。\n\n文化与自然探索：在富士山体验日本的自然美景，并在日本未来科学馆感受尖端科技的魅力。\n\n迪士尼乐园冒险：在东京迪士尼乐园度过一天，享受其神奇景点，并通过趣味活动学习理财知识。",
+    "itinerary_en": "\n\n[Day 1]\nMorning: Departure\nAfternoon: Arrival in Tokyo, check-in\nEvening: Welcome dinner and orientation\n\n[Day 2]\nMorning: Visit Suginami Animation Museum\nAfternoon: Manga creation workshop with professional artists\nEvening: Group discussion\n\n[Day 3]\nMorning: Tour of the University of Tokyo\nAfternoon: Visit Fujiko F. Fujio Museum (Doraemon Museum)\nEvening: Free time\n\n[Day 4]\nMorning: Visit Waseda University\nAfternoon: Explore Miraikan (National Museum of Emerging Science and Innovation)\nEvening: Cultural reflection activity\n\n[Day 5]\nFull Day: Day trip to Mount Fuji\nEvening: Return to Tokyo\n\n[Day 6]\nFull Day: Tokyo Disneyland adventure with financial literacy activities\nEvening: Farewell dinner\n\n[Day 7]\nMorning: Visit a local cultural site\nAfternoon: Departure from Tokyo\nEvening: Arrival home",
+    "itinerary_zh": "\n\n[第一天]\n上午：出发\n下午：抵达东京，入住\n晚上：欢迎晚宴和项目介绍\n\n[第二天]\n上午：参观杉并动画博物馆\n下午：与专业漫画家一起进行漫画创作工作坊\n晚上：小组讨论\n\n[第三天]\n上午：参观东京大学\n下午：参观藤子·F·不二雄博物馆（哆啦A梦博物馆）\n晚上：自由时间\n\n[第四天]\n上午：参观早稻田大学\n下午：探索日本未来科学馆\n晚上：文化反思活动\n\n[第五天]\n全天：富士山一日游\n晚上：返回东京\n\n[第六天]\n全天：东京迪士尼乐园冒险，含理财知识活动\n晚上：告别晚宴\n\n[第七天]\n上午：参观当地文化景点\n下午：从东京出发返程\n晚上：抵达家中",
+    "features_en": "Accommodation: Stay in comfortable hotels or dormitories near program sites in Tokyo.\n\nDining: Enjoy a mix of Japanese cuisine (e.g., sushi, ramen) and international options, with meals tailored to dietary needs.\n\nActivities: Blend of anime workshops, university tours, cultural excursions, and fun adventures at Tokyo Disneyland and Mount Fuji.\n\nSafety: 24-hour supervision by experienced staff ensures a secure environment for all participants.",
+    "features_zh": "住宿：入住东京项目地点附近的舒适酒店或宿舍。\n\n餐饮：享用日本料理（如寿司、拉面）和国际美食，满足特殊饮食需求。\n\n活动：结合动漫工作坊、大学参观、文化游览以及东京迪士尼乐园和富士山的趣味探险。\n\n安全：由经验丰富的工作人员提供24小时监护，确保所有参与者的安全环境。",
+    "gallery_images": [
+        "https://images.unsplash.com/photo-1542051841857-5f90071e7989",
+        "https://images.unsplash.com/photo-1549692520-acc6669e2f0c",
+        "https://images.unsplash.com/photo-1578637387939-43c525f3197e"
+    ],
+    "status": "published",
+    "published_at": "2025-03-09",
+    "school_info_en": "Waseda University\n\n- A world-renowned research university and one of Japan’s top institutions.\n- Part of Japan’s 'Super Global University Project' (Type A) to enhance international competitiveness.\n- Founding member of the Asia-Pacific Association for International Education (APAIE).\n- Notable Alumni: Seven Japanese prime ministers, nearly one-third of Japan’s National Diet members, and founders/CEOs of Sony, Casio, Samsung, Toshiba, Rakuten, Nintendo, Panasonic, and Sanyo.\n- Cultural Impact: 30 alumni have won the Akutagawa Prize, Japan’s highest literary award.\n- Global Influence: Known for producing graduates with global impact in politics, business, and culture.\n\nThe University of Tokyo\n\n- Overview: A world-renowned research university and one of the most prestigious comprehensive universities globally.\n- Known as Japan’s highest academic institution and the first of the original Imperial Universities.\n- History: Founded in 1877 as Japan’s first national comprehensive university and one of Asia’s earliest Western-style universities.\n- Ranking: Ranked 13th globally and 1st in Japan in the 2016 CWUR World University Rankings.\n- Achievements: Alumni include Nobel Prize winners, Fields Medalists, Japanese prime ministers, and Speakers of the House of Representatives.\n- Global Influence: Unmatched influence in Japan and worldwide.",
+    "school_info_zh": "早稻田大学\n\n- 世界知名的研究型大学，日本顶尖学府之一。\n- 日本‘超级国际化大学计划’（A类）成员，旨在提升国际竞争力。\n- 亚太国际教育协会（APAIE）的创始成员之一。\n- 杰出校友：七位日本前首相，近三分之一的日本国会议员，以及索尼、卡西欧、三星、东芝、乐天、任天堂、松下和三洋的创始人及CEO。\n- 文化影响：30位校友获得日本最高文学奖——芥川奖，为日本大学之最。\n- 全球影响力：以培养在政治、商业和文化领域具有全球影响力的毕业生而闻名。\n\n东京大学\n\n- 概述：世界知名的研究型大学，全球最负盛名的综合性大学之一。\n- 被誉为日本最高学术机构，也是原七所帝国大学之首。\n- 历史：成立于1877年，是日本第一所国立综合性大学，亚洲最早的西式大学之一。\n- 排名：在2016年CWUR世界大学排名中位列全球第13位，日本第1位。\n- 杰出成就：培养了众多杰出校友，包括诺贝尔奖得主、菲尔兹奖获得者、日本首相和国会众议院议长。\n- 全球影响力：在日本及全球范围内具有无可比拟的影响力。"
+}

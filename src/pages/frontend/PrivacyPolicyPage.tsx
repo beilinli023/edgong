@@ -1,4 +1,3 @@
-
 import React from "react";
 import FrontendLayout from "@/components/frontend/FrontendLayout";
 import { useLanguage } from "@/context/LanguageContext";
@@ -8,9 +7,11 @@ const PrivacyPolicyPage: React.FC = () => {
   const { currentLanguage } = useLanguage();
   
   const title = currentLanguage === 'en' ? 'Privacy Policy' : '隐私政策';
-  const lastUpdated = currentLanguage === 'en' 
-    ? 'Last Updated: June 1, 2023' 
-    : '最后更新: 2023年6月1日';
+  const lastUpdated = new Date().toLocaleDateString(currentLanguage === 'en' ? 'en-US' : 'zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   return (
     <FrontendLayout>
@@ -20,7 +21,7 @@ const PrivacyPolicyPage: React.FC = () => {
             {title}
           </h1>
           <p className="text-gray-600 text-center">
-            {lastUpdated}
+            {currentLanguage === 'en' ? 'Effective Date: ' : '生效日期：'}{lastUpdated}
           </p>
         </div>
       </div>
@@ -32,10 +33,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
                 <p className="mb-4">
-                  YouNiKco ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
-                </p>
-                <p>
-                  Please read this Privacy Policy carefully. By accessing or using our services, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy.
+                  At Edgoing, we are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This Privacy Policy outlines how we collect, use, disclose, and protect your information when you engage with our educational travel services, including our website, mobile applications, and any related services. By using our services, you agree to the terms of this Privacy Policy.
                 </p>
               </section>
 
@@ -43,11 +41,21 @@ const PrivacyPolicyPage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Information We Collect</h2>
-                <p className="mb-4">We may collect the following types of information:</p>
+                <p className="mb-4">We may collect personal information from you when you:</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Personal Information:</strong> Names, email addresses, phone numbers, educational background, and other information you provide when filling out forms on our website.</li>
-                  <li><strong>Usage Data:</strong> Information about how you use our website, including pages visited, time spent on pages, and other statistics.</li>
-                  <li><strong>Device Information:</strong> Information about your device, IP address, browser type, and operating system.</li>
+                  <li>Register for an account</li>
+                  <li>Book a trip or educational program</li>
+                  <li>Subscribe to our newsletter</li>
+                  <li>Fill out forms on our website</li>
+                  <li>Contact our customer service team</li>
+                </ul>
+                <p className="mt-4 mb-2">The types of personal information we may collect include:</p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li><strong>Contact Information:</strong> Name, email address, phone number, and mailing address.</li>
+                  <li><strong>Payment Information:</strong> Credit card details and other payment-related information.</li>
+                  <li><strong>Demographic Information:</strong> Age, gender, and travel preferences.</li>
+                  <li><strong>Travel Information:</strong> Details about your travel itinerary, preferences, and any special requirements.</li>
+                  <li><strong>Feedback and Communication:</strong> Information you provide when you contact us or participate in surveys.</li>
                 </ul>
               </section>
 
@@ -55,13 +63,13 @@ const PrivacyPolicyPage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">How We Use Your Information</h2>
-                <p className="mb-4">We may use the information we collect for various purposes, including:</p>
+                <p className="mb-4">Edgoing uses your information for various purposes, including:</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Providing, maintaining, and improving our services</li>
-                  <li>Processing your program applications and inquiries</li>
-                  <li>Communicating with you about our programs and services</li>
-                  <li>Analyzing usage patterns to enhance user experience</li>
-                  <li>Compliance with legal obligations</li>
+                  <li>To process and manage your bookings and payments.</li>
+                  <li>To communicate with you regarding your travel arrangements and provide customer support.</li>
+                  <li>To send you promotional materials, newsletters, and updates about our services.</li>
+                  <li>To improve our website, services, and customer experience.</li>
+                  <li>To comply with legal obligations and protect our rights.</li>
                 </ul>
               </section>
 
@@ -69,32 +77,72 @@ const PrivacyPolicyPage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Sharing Your Information</h2>
-                <p className="mb-4">We may share your information with:</p>
+                <p className="mb-4">We do not sell or trade your personal information. However, we may share your information in the following circumstances:</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Educational Partners:</strong> Schools, universities, and other educational institutions that are part of our programs.</li>
-                  <li><strong>Service Providers:</strong> Third-party vendors who assist us in providing our services.</li>
-                  <li><strong>Legal Requirements:</strong> When required by law or to protect our rights.</li>
+                  <li><strong>Service Providers:</strong> We may share your information with trusted third-party service providers who assist us in operating our website, processing payments, and delivering services.</li>
+                  <li><strong>Legal Compliance:</strong> We may disclose your information if required by law or in response to valid requests by public authorities.</li>
+                  <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of all or a portion of our assets, your information may be transferred as part of that transaction.</li>
                 </ul>
               </section>
 
               <Separator className="my-6" />
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">Your Choices</h2>
-                <p className="mb-4">You have certain rights regarding your personal information:</p>
+                <h2 className="text-2xl font-semibold mb-4">Data Security</h2>
+                <p className="mb-4">
+                  We implement appropriate technical and organizational measures to protect your personal information from unauthorized access, loss, or misuse. However, no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to protect your information, we cannot guarantee its absolute security.
+                </p>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Your Rights</h2>
+                <p className="mb-4">You have the right to:</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Access and update your personal information</li>
-                  <li>Opt-out of marketing communications</li>
-                  <li>Request deletion of your personal information (subject to legal obligations)</li>
+                  <li>Access the personal information we hold about you.</li>
+                  <li>Request correction of any inaccuracies in your personal information.</li>
+                  <li>Request deletion of your personal information, subject to certain exceptions.</li>
+                  <li>Opt-out of receiving marketing communications from us.</li>
                 </ul>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Cookies and Tracking Technologies</h2>
+                <p className="mb-4">
+                  Our website uses cookies and similar technologies to enhance your experience. Cookies are small text files stored on your device that help us understand how you use our website. You can manage your cookie preferences through your browser settings.
+                </p>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Third-Party Links</h2>
+                <p className="mb-4">
+                  Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these websites. We encourage you to review the privacy policies of any third-party sites you visit.
+                </p>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Changes to This Privacy Policy</h2>
+                <p className="mb-4">
+                  Edgoing reserves the right to update this Privacy Policy at any time. We will notify you of any changes by posting the new Privacy Policy on our website with a new effective date. We encourage you to review this Privacy Policy periodically for any updates.
+                </p>
               </section>
 
               <Separator className="my-6" />
 
               <section>
                 <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-                <p>
-                  If you have questions or concerns about this Privacy Policy, please contact us at privacy@younikco.com.
+                <p className="mb-4">
+                  If you have any questions or concerns about this Privacy Policy or our data practices, please contact us.
+                </p>
+                <p className="mt-4">
+                  Thank you for choosing Edgoing for your educational travel experiences. Your privacy is important to us, and we are committed to protecting your personal information.
                 </p>
               </section>
             </>
@@ -103,10 +151,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">引言</h2>
                 <p className="mb-4">
-                  YouNiKco（"我们"或"我们的"）致力于保护您的隐私。本隐私政策解释了我们在您访问我们的网站或使用我们的服务时如何收集、使用、披露和保护您的信息。
-                </p>
-                <p>
-                  请仔细阅读本隐私政策。通过访问或使用我们的服务，您确认您已阅读、理解并同意受本隐私政策所有条款的约束。
+                  在Edgoing，我们致力于保护您的隐私，并确保您的个人信息得到安全、负责任的处理。本隐私政策概述了当您使用我们的教育旅行服务（包括我们的网站、移动应用程序及相关服务）时，我们如何收集、使用、披露和保护您的信息。通过使用我们的服务，您同意本隐私政策的条款。
                 </p>
               </section>
 
@@ -114,11 +159,21 @@ const PrivacyPolicyPage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">我们收集的信息</h2>
-                <p className="mb-4">我们可能收集以下类型的信息：</p>
+                <p className="mb-4">我们可能会在以下情况下收集您的个人信息：</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>个人信息：</strong>姓名、电子邮件地址、电话号码、教育背景以及您在填写我们网站上的表格时提供的其他信息。</li>
-                  <li><strong>使用数据：</strong>有关您如何使用我们网站的信息，包括访问的页面、在页面上花费的时间和其他统计数据。</li>
-                  <li><strong>设备信息：</strong>有关您的设备、IP地址、浏览器类型和操作系统的信息。</li>
+                  <li>注册账户</li>
+                  <li>预订旅行或教育项目</li>
+                  <li>订阅我们的新闻通讯</li>
+                  <li>填写网站上的表格</li>
+                  <li>联系我们的客服团队</li>
+                </ul>
+                <p className="mt-4 mb-2">我们可能收集的个人信息类型包括：</p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li><strong>联系信息：</strong>姓名、电子邮件地址、电话号码和邮寄地址。</li>
+                  <li><strong>支付信息：</strong>信用卡信息及其他支付相关信息。</li>
+                  <li><strong>人口统计信息：</strong>年龄、性别和旅行偏好。</li>
+                  <li><strong>旅行信息：</strong>旅行行程、偏好及特殊要求的详细信息。</li>
+                  <li><strong>反馈与沟通：</strong>您联系我们或参与调查时提供的信息。</li>
                 </ul>
               </section>
 
@@ -126,13 +181,13 @@ const PrivacyPolicyPage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">我们如何使用您的信息</h2>
-                <p className="mb-4">我们可能将收集的信息用于各种目的，包括：</p>
+                <p className="mb-4">Edgoing将您的信息用于以下目的：</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>提供、维护和改进我们的服务</li>
-                  <li>处理您的项目申请和咨询</li>
-                  <li>就我们的项目和服务与您沟通</li>
-                  <li>分析使用模式以提升用户体验</li>
-                  <li>遵守法律义务</li>
+                  <li>处理和安排您的预订及付款。</li>
+                  <li>就您的旅行安排与您沟通并提供客户支持。</li>
+                  <li>向您发送促销材料、新闻通讯及服务更新。</li>
+                  <li>改进我们的网站、服务及客户体验。</li>
+                  <li>遵守法律义务并保护我们的权利。</li>
                 </ul>
               </section>
 
@@ -140,32 +195,72 @@ const PrivacyPolicyPage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">分享您的信息</h2>
-                <p className="mb-4">我们可能与以下各方共享您的信息：</p>
+                <p className="mb-4">我们不会出售或交易您的个人信息。但在以下情况下，我们可能会共享您的信息：</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>教育合作伙伴：</strong>我们项目中的学校、大学和其他教育机构。</li>
-                  <li><strong>服务提供商：</strong>协助我们提供服务的第三方供应商。</li>
-                  <li><strong>法律要求：</strong>法律要求或为保护我们的权利时。</li>
+                  <li><strong>服务提供商：</strong>我们可能会与可信赖的第三方服务提供商共享您的信息，以协助我们运营网站、处理付款和提供服务。</li>
+                  <li><strong>法律合规：</strong>如果法律要求或响应公共机构的有效请求，我们可能会披露您的信息。</li>
+                  <li><strong>业务转让：</strong>在合并、收购或出售全部或部分资产的情况下，您的信息可能会作为交易的一部分被转移。</li>
                 </ul>
               </section>
 
               <Separator className="my-6" />
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">您的选择</h2>
-                <p className="mb-4">您对您的个人信息有某些权利：</p>
+                <h2 className="text-2xl font-semibold mb-4">数据安全</h2>
+                <p className="mb-4">
+                  我们采取适当的技术和组织措施，保护您的个人信息免受未经授权的访问、丢失或滥用。然而，互联网传输或电子存储方法并非100%安全。尽管我们努力保护您的信息，但我们无法保证其绝对安全。
+                </p>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">您的权利</h2>
+                <p className="mb-4">您有权：</p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>访问和更新您的个人信息</li>
-                  <li>选择不接收营销通信</li>
-                  <li>要求删除您的个人信息（受法律义务约束）</li>
+                  <li>访问我们持有的您的个人信息。</li>
+                  <li>要求更正您个人信息中的任何不准确之处。</li>
+                  <li>要求删除您的个人信息（受某些例外情况限制）。</li>
+                  <li>选择退出接收我们的营销通讯。</li>
                 </ul>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Cookie和跟踪技术</h2>
+                <p className="mb-4">
+                  我们的网站使用Cookie和类似技术来增强您的体验。Cookie是存储在您设备上的小型文本文件，可帮助我们了解您如何使用我们的网站。您可以通过浏览器设置管理您的Cookie偏好。
+                </p>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">第三方链接</h2>
+                <p className="mb-4">
+                  我们的网站可能包含指向第三方网站的链接。我们对这些网站的隐私实践或内容不承担责任。我们建议您访问任何第三方网站时，查看其隐私政策。
+                </p>
+              </section>
+
+              <Separator className="my-6" />
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">隐私政策的变更</h2>
+                <p className="mb-4">
+                  Edgoing保留随时更新本隐私政策的权利。我们将在网站上发布新的隐私政策并更新生效日期，以通知您任何变更。我们建议您定期查看本隐私政策以了解更新内容。
+                </p>
               </section>
 
               <Separator className="my-6" />
 
               <section>
                 <h2 className="text-2xl font-semibold mb-4">联系我们</h2>
-                <p>
-                  如果您对本隐私政策有任何疑问或疑虑，请通过privacy@younikco.com与我们联系。
+                <p className="mb-4">
+                  如果您对本隐私政策或我们的数据实践有任何疑问或疑虑，请联系我们。
+                </p>
+                <p className="mt-4">
+                  感谢您选择Edgoing作为您的教育旅行伙伴。您的隐私对我们至关重要，我们致力于保护您的个人信息。
                 </p>
               </section>
             </>

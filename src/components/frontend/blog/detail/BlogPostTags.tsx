@@ -6,20 +6,26 @@ import { Link } from "react-router-dom";
 
 interface BlogPostTagsProps {
   tags: BlogTag[]; // This explicitly requires BlogTag[] type
-  tagsLabel: string;
+  tagsLabel?: string;
   getLocalizedText: (en: string, zh: string) => string;
+  className?: string;
+  showHeader?: boolean;
 }
 
 const BlogPostTags: React.FC<BlogPostTagsProps> = ({
   tags,
   tagsLabel,
-  getLocalizedText
+  getLocalizedText,
+  className = "mt-12 pt-6 border-t border-gray-200",
+  showHeader = true
 }) => {
   if (!tags || tags.length === 0) return null;
   
   return (
-    <div className="mt-12 pt-6 border-t border-gray-200">
-      <h3 className="text-lg font-semibold mb-3">{tagsLabel}</h3>
+    <div className={className}>
+      {showHeader && tagsLabel && (
+        <h3 className="text-lg font-semibold mb-3">{tagsLabel}</h3>
+      )}
       <div className="flex flex-wrap gap-2">
         {tags.map((tag: BlogTag) => (
           <Link to={`/blog/tag/${tag.slug}`} key={tag.id}>

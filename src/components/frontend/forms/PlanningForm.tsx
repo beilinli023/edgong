@@ -52,8 +52,8 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
     questions: currentLanguage === 'en' ? "Your Questions or Requirements" : "您的问题或要求",
     questionsPlaceholder: currentLanguage === 'en' ? "Please describe your specific needs or questions" : "请描述您的具体需求或问题",
     agreeToReceive: currentLanguage === 'en' 
-      ? "I agree to receive educational information and activity notifications from YOUNIKCO. I understand that I can unsubscribe at any time." 
-      : "我同意接收来自YOUNIKCO的教育信息和活动通知。我了解我可以随时取消订阅。",
+      ? "I agree to receive educational information and activity notifications from EdGoing. I understand that I can unsubscribe at any time." 
+      : "我同意接收来自EdGoing的教育信息和活动通知。我了解我可以随时取消订阅。",
     privacyPolicy: currentLanguage === 'en'
       ? "I have read and agree to the Privacy Policy"
       : "我已阅读并同意隐私政策",
@@ -180,9 +180,9 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
         formData={formData}
         handleInputChange={handleInputChange}
         handleSelectChange={handleSelectChange}
-        gradeLevels={content.options.gradeLevels}
-        provinces={content.options.provinces}
-        cities={content.options.cities}
+        gradeLevels={content.options.gradeLevels || []}
+        provinces={content.options.provinces || []}
+        cities={content.options.cities || []}
         text={text}
         currentLanguage={currentLanguage}
       />

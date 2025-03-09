@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "title_en": "US Language Camp: Learning, Friends, and Fun!",
+  "title_zh": "美国语言夏令营：学习、友谊与乐趣！",
+  "slug": "us-language-camp",
+  "content_en": "<p>I had an amazing time at the camp!</p>",
+  "content_zh": "<p>我在夏令营度过了非常愉快的时光！</p>",
+  "excerpt_en": "Join me as I share my amazing experience at a US language camp",
+  "excerpt_zh": "跟随我分享我在美国语言夏令营的精彩经历",
+  "featured_image": "/placeholder.svg",
+  "status": "published",
+  "published_at": "2024-12-04",
+  "author": "Natalie",
+  "date": "2024-12-04",
+  "category": "education",
+  "primary_category": {
+    "id": 1,
+    "name_en": "Education",
+    "name_zh": "教育",
+    "slug": "education"
+  },
+  "tags": ["Language Camp in US", "Middle School student", "education", "cultural-exchange"]
+} 

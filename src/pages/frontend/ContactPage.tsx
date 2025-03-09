@@ -446,8 +446,8 @@ const ContactPage = () => {
                 />
                 <label htmlFor="agree" className="text-sm">
                   {currentLanguage === 'zh' 
-                    ? '我同意接收来自YOUNIKCO的教育信息和活动通知。我理解我可以随时取消订阅。' 
-                    : 'I agree to receive educational information and activity notifications from YOUNIKCO. I understand that I can unsubscribe at any time.'}
+                    ? '我同意接收来自EdGoing的教育信息和活动通知。我理解我可以随时取消订阅。' 
+                    : 'I agree to receive educational information and activity notifications from EdGoing. I understand that I can unsubscribe at any time.'}
                 </label>
               </div>
             </div>

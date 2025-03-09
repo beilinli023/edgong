@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name_en": "React",
+    "name_zh": "React框架",
+    "slug": "react",
+    "color": "#61dafb"
+  },
+  {
+    "id": 2,
+    "name_en": "Vue",
+    "name_zh": "Vue框架",
+    "slug": "vue",
+    "color": "#42b883"
+  },
+  {
+    "id": 3,
+    "name_en": "Angular",
+    "name_zh": "Angular框架",
+    "slug": "angular",
+    "color": "#dd0031"
+  },
+  {
+    "id": 4,
+    "name_en": "JavaScript",
+    "name_zh": "JavaScript",
+    "slug": "javascript",
+    "color": "#f7df1e"
+  },
+  {
+    "id": 5,
+    "name_en": "TypeScript",
+    "name_zh": "TypeScript",
+    "slug": "typescript",
+    "color": "#3178c6"
+  },
+  {
+    "id": 6,
+    "name_en": "Node.js",
+    "name_zh": "Node.js",
+    "slug": "nodejs",
+    "color": "#339933"
+  },
+  {
+    "id": 7,
+    "name_en": "UI/UX",
+    "name_zh": "UI/UX设计",
+    "slug": "ui-ux",
+    "color": "#ff6b6b"
+  },
+  {
+    "id": 8,
+    "name_en": "Mobile",
+    "name_zh": "移动开发",
+    "slug": "mobile",
+    "color": "#a29bfe"
+  }
+] 
