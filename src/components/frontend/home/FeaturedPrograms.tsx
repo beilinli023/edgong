@@ -1,16 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { useFrontendFeaturedPrograms } from '@/hooks/useFrontendFeaturedPrograms';
 import { Link } from 'react-router-dom';
+
+// 程序数据类型接口
+interface ProgramData {
+  id: string;
+  title_en: string;
+  title_zh: string;
+  description_en: string;
+  description_zh: string;
+  image: string;
+  location_en: string;
+  location_zh: string;
+  duration: string;
+  duration_en?: string;
+  duration_zh?: string;
+  country: string;
+  tags: Array<{
+    id: string;
+    name_en: string;
+    name_zh: string;
+  }>;
+}
 
 interface FeaturedProgramsProps {
   currentLanguage: 'en' | 'zh';
 }
 
 const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) => {
-  const { programs, intro, isLoading } = useFrontendFeaturedPrograms(currentLanguage);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [programsData, setProgramsData] = useState<ProgramData[]>([]);
+  
+  // 固定使用Program1, Program2, Program3数据
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        // 获取三个特定程序的数据
+        const program1Response = await fetch('/content/programs/program1.json');
+        const program2Response = await fetch('/content/programs/program2.json');
+        const program3Response = await fetch('/content/programs/program3.json');
+        
+        // 解析JSON数据
+        const program1 = await program1Response.json();
+        const program2 = await program2Response.json();
+        const program3 = await program3Response.json();
+        
+        // 设置程序数据
+        setProgramsData([program1, program2, program3]);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching program data:', error);
+        setIsLoading(false);
+      }
+    };
+    
+    fetchPrograms();
+  }, []);
+  
   if (isLoading) {
     return (
       <div className="py-16 bg-white">
@@ -20,91 +67,30 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
       </div>
     );
   }
-
-  // 如果没有数据，显示一个回退版本
-  if (!programs || programs.length === 0) {
-    const fallbackPrograms = [
-      { 
-        id: 1, 
-        image: "/placeholder.svg", 
-        title: currentLanguage === 'en' ? "Youth Art Advanced Program" : "青少年艺术高级课程",
-        description: currentLanguage === 'en' 
-          ? "In collaboration with Mass Academy, perfectly balanced between digital technology, creativity and imagination."
-          : "与大众学院合作，在数字技术、创造力和想象力之间完美平衡。",
-        location: currentLanguage === 'en' ? "USA" : "美国",
-        duration: "7 weeks",
-        country: "USA"
-      },
-      { 
-        id: 2, 
-        image: "/placeholder.svg", 
-        title: currentLanguage === 'en' ? "Japan Tech Innovation Tour" : "日本科技创新之旅",
-        description: currentLanguage === 'en'
-          ? "Explore Japan's advanced technology and experience the perfect blend between innovation and traditional culture."
-          : "探索日本的先进技术，体验创新与传统文化之间的完美融合。",
-        location: currentLanguage === 'en' ? "Japan" : "日本",
-        duration: "14 days",
-        country: "Japan"
-      },
-      { 
-        id: 3, 
-        image: "/placeholder.svg", 
-        title: currentLanguage === 'en' ? "UK Business Management Experience" : "英国商业管理体验",
-        description: currentLanguage === 'en'
-          ? "Gain direct insights into UK business to learn and understand organizational strategy and operational excellence."
-          : "直接了解英国商业，学习和理解组织战略和卓越运营。",
-        location: currentLanguage === 'en' ? "UK" : "英国",
-        duration: "3 weeks",
-        country: "UK"
-      }
-    ];
-
-    const fallbackIntro = {
-      subtitle: currentLanguage === 'en' 
-        ? "Every EdGoing program is a carefully crafted adventure, designed to go beyond sightseeing—challenging assumptions, building empathy, and empowering students to see the world, and themselves, in new ways. Through these transformative experiences, we open minds, build bridges, and create memories that last a lifetime."
-        : "每一个 EdGoing 项目都是精心打造的探险之旅，旨在超越简单的观光——挑战固有观念、培养共情能力，并赋予学生以全新的方式看待世界和自我。通过这些变革性的体验，我们开拓思维、搭建桥梁，并创造终生难忘的回忆。",
-      title: currentLanguage === 'en'
-        ? "Study Abroad Reimagined: journeys that inspire, connect, and transform."
-        : "留学新视角：激发灵感、建立联系、实现蜕变的旅程。",
-      linkText: currentLanguage === 'en' ? "View All Programs" : "查看所有项目",
-      linkUrl: "/programs"
-    };
-
-    return renderContent(fallbackPrograms, fallbackIntro);
-  }
-
-  // 添加新的intro文本
-  if (intro) {
-    intro.subtitle = currentLanguage === 'en' 
-      ? "Every EdGoing program is a carefully crafted adventure, designed to go beyond sightseeing—challenging assumptions, building empathy, and empowering students to see the world, and themselves, in new ways. Through these transformative experiences, we open minds, build bridges, and create memories that last a lifetime."
-      : "每一个 EdGoing 项目都是精心打造的探险之旅，旨在超越简单的观光——挑战固有观念、培养共情能力，并赋予学生以全新的方式看待世界和自我。通过这些变革性的体验，我们开拓思维、搭建桥梁，并创造终生难忘的回忆。";
-    
-    intro.title = currentLanguage === 'en'
+  
+  // 介绍文本数据
+  const introData = {
+    subtitle: currentLanguage === 'en' 
+      ? "Every EdGoing program is a carefully crafted adventure, designed to go beyond sightseeing—challenging assumptions, building empathy, and empowering students to see the world, and themselves, in new ways."
+      : "每一个 EdGoing 项目都是精心打造的探险之旅，旨在超越简单的观光——挑战固有观念、培养共情能力，并赋予学生以全新的方式看待世界和自我。",
+    title: currentLanguage === 'en'
       ? "Study Abroad Reimagined: journeys that inspire, connect, and transform."
-      : "留学新视角：激发灵感、建立联系、实现蜕变的旅程。";
-  }
-
-  return renderContent(programs, intro);
+      : "留学新视角：激发灵感、建立联系、实现蜕变的旅程。",
+    linkText: currentLanguage === 'en' ? "View All Programs" : "查看所有项目",
+    linkUrl: "/programs"
+  };
+  
+  return renderContent(programsData, introData);
 
   // 渲染内容的辅助函数
-  function renderContent(programsData: any[], introData: any) {
+  function renderContent(programsData: ProgramData[], introData: {
+    subtitle: string;
+    title: string;
+    linkText: string;
+    linkUrl: string;
+  }) {
     // 确保我们始终有三个项目
     const displayPrograms = programsData.slice(0, 3);
-    
-    // 如果不够三个，添加占位项目
-    while (displayPrograms.length < 3) {
-      displayPrograms.push({
-        id: `placeholder-${displayPrograms.length + 1}`,
-        image: "/placeholder.svg",
-        title: currentLanguage === 'en' ? "New Program Coming Soon" : "新项目即将推出",
-        description: currentLanguage === 'en' 
-          ? "Stay tuned for more exciting educational opportunities."
-          : "敬请期待更多精彩的教育机会。",
-        location: "",
-        duration: "",
-        country: ""
-      });
-    }
 
     return (
       <div className="py-16 bg-white">
@@ -133,17 +119,22 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
                 <div className="h-48 overflow-hidden">
                   <img 
                     src={program.image} 
-                    alt={program.title} 
+                    alt={currentLanguage === 'en' ? program.title_en : program.title_zh} 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="p-4 flex-grow">
-                  <h3 className="text-lg font-semibold mb-2">{program.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{program.description}</p>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {currentLanguage === 'en' ? program.title_en : program.title_zh}
+                  </h3>
                 </div>
                 <div className="p-4 pt-0 mt-auto bg-gray-50 text-sm text-gray-500 flex items-center justify-between">
-                  <span>{program.location}</span>
-                  <span>{program.duration}</span>
+                  <span>{currentLanguage === 'en' ? program.location_en : program.location_zh}</span>
+                  <span>
+                    {currentLanguage === 'en' 
+                      ? (program.duration_en || program.duration) 
+                      : (program.duration_zh || program.duration)}
+                  </span>
                 </div>
               </div>
             ))}

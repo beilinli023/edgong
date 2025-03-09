@@ -10,13 +10,14 @@ const StudyAbroadPage = () => {
   const { currentLanguage } = useLanguage();
   const { content, isLoading, error } = useFrontendStudyAbroad(currentLanguage as 'en' | 'zh');
   
-  const title = content?.title_en && content?.title_zh 
-    ? (currentLanguage === 'en' ? content.title_en : content.title_zh)
-    : (currentLanguage === 'en' ? 'Study Abroad Programs' : '留学项目');
+  // 更新标题和描述文本
+  const title = currentLanguage === 'en' 
+    ? 'Study Abroad: Expand Your Horizons' 
+    : '留学：拓展你的视野';
     
-  const description = content?.description_en && content?.description_zh
-    ? (currentLanguage === 'en' ? content.description_en : content.description_zh)
-    : '';
+  const description = currentLanguage === 'en'
+    ? 'Embark on a life-changing study abroad journey to explore new cultures, gain a global perspective, and enhance your education. Whether you seek academic excellence, language immersion, or unforgettable experiences, studying abroad opens doors to endless opportunities.'
+    : '踏上改变人生的留学之旅，探索新文化，获得全球视野，并提升你的教育水平。无论你追求学术卓越、语言深浸还是难忘的经历，留学都将为你打开无限机遇的大门。';
   
   if (isLoading) {
     return (

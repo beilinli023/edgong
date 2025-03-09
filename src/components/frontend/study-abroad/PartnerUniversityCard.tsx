@@ -24,7 +24,8 @@ const PartnerUniversityCard: React.FC<PartnerUniversityCardProps> = ({ universit
   
   return (
     <Card 
-      className="h-full overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer group"
+      noDefaultStyles
+      className="h-full overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer group rounded-lg"
       onClick={handleClick}
     >
       <div className="relative h-52 overflow-hidden">

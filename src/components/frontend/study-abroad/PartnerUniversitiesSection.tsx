@@ -54,10 +54,23 @@ const PartnerUniversitiesSection: React.FC<PartnerUniversitiesSectionProps> = ({
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentUniversities.map((university) => (
-            <PartnerUniversityCard key={university.id} university={university} />
-          ))}
+        <div className="flex flex-wrap items-start gap-6">
+          {/* 大学卡片区域 */}
+          <div className="flex-grow max-w-full md:max-w-[65%]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {currentUniversities.map((university) => (
+                <PartnerUniversityCard key={university.id} university={university} />
+              ))}
+            </div>
+          </div>
+          
+          {/* 更多大学准备中提示块 - 放置在卡片右边并垂直居中 */}
+          <div className="w-full md:w-auto md:flex-grow flex items-center justify-center">
+            <div className="h-auto w-full max-w-xs overflow-hidden border border-gray-200 rounded-lg bg-white flex flex-col justify-center items-center p-8 text-center shadow-sm hover:shadow transition-shadow">
+              <div className="text-gray-800 font-semibold text-xl mb-3">{currentLanguage === 'en' ? 'More Top Universities' : '更多一流大学'}</div>
+              <div className="text-gray-600">{currentLanguage === 'en' ? 'Coming Soon' : '正在准备中'}</div>
+            </div>
+          </div>
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center items-center gap-2 md:gap-4">

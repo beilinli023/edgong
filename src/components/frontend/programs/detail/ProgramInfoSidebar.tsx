@@ -54,12 +54,27 @@ const ProgramInfoSidebar: React.FC<ProgramInfoSidebarProps> = ({ program }) => {
       ? program.destination_en || program.location_en
       : program.destination_zh || program.location_zh;
       
+    // 时长 - 先尝试使用原始duration字段，再根据当前语言选择显示
+    let duration = program.duration;
+    
+    // 检查是否包含中文字符，如果当前是中文模式但duration是英文，则尝试转换
+    if (currentLanguage === 'zh' && duration && !(/[\u4e00-\u9fa5]/.test(duration))) {
+      // 将英文时长转为中文时长的简单逻辑
+      if (duration.includes('week')) {
+        const weeks = duration.replace(/[^0-9]/g, '');
+        duration = `${weeks}周`;
+      } else if (duration.includes('day')) {
+        const days = duration.replace(/[^0-9]/g, '');
+        duration = `${days}天`;
+      }
+    }
+      
     // 年级水平 - 根据语言选择合适的年级显示
     const gradeLevel = currentLanguage === 'en'
       ? program.grade_level_en || findSuitableGradeLevel(program.grade_levels, true)
       : program.grade_level_zh || findSuitableGradeLevel(program.grade_levels, false);
     
-    return { programType, destination, gradeLevel };
+    return { programType, destination, duration, gradeLevel };
   };
   
   // 辅助函数：根据语言找到合适的年级
@@ -77,7 +92,7 @@ const ProgramInfoSidebar: React.FC<ProgramInfoSidebarProps> = ({ program }) => {
     return suitable || gradeLevels[0];
   };
   
-  const { programType, destination, gradeLevel } = getProgramContent();
+  const { programType, destination, duration, gradeLevel } = getProgramContent();
 
   return (
     <Card className="p-6">
@@ -85,7 +100,7 @@ const ProgramInfoSidebar: React.FC<ProgramInfoSidebarProps> = ({ program }) => {
       
       <div className="space-y-4">
         <InfoItem label={t.programType} value={programType} />
-        <InfoItem label={t.duration} value={program.duration} />
+        <InfoItem label={t.duration} value={duration} />
         <InfoItem label={t.destination} value={destination} />
         <InfoItem label={t.gradeLevel} value={gradeLevel} />
       </div>

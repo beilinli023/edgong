@@ -4,11 +4,11 @@ import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & { noDefaultStyles?: boolean }
+>(({ className, noDefaultStyles = false, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
+    className={noDefaultStyles ? className : cn(
       "rounded-lg border bg-card text-card-foreground shadow-sm",
       className
     )}

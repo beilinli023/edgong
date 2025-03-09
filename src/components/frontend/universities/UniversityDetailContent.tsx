@@ -5,6 +5,7 @@ import { PartnerUniversityDetail } from '@/types/studyAbroadTypes';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Trophy, BookOpen, Building, GraduationCap } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface UniversityDetailContentProps {
   university: PartnerUniversityDetail;
@@ -150,11 +151,11 @@ const UniversityDetailContent: React.FC<UniversityDetailContentProps> = ({ unive
           <TabsContent value="highlights" className="mt-0">
             <div className="prose prose-blue max-w-none">
               {university.highlights_en || university.highlights_zh ? (
-                <div dangerouslySetInnerHTML={{ 
-                  __html: currentLanguage === 'en' 
+                <ReactMarkdown>
+                  {currentLanguage === 'en' 
                     ? university.highlights_en || '' 
-                    : university.highlights_zh || '' 
-                }} />
+                    : university.highlights_zh || ''}
+                </ReactMarkdown>
               ) : (
                 <p className="text-gray-500">{currentLanguage === 'en' ? 'No highlights available' : '暂无亮点信息'}</p>
               )}
@@ -164,11 +165,11 @@ const UniversityDetailContent: React.FC<UniversityDetailContentProps> = ({ unive
           <TabsContent value="academics" className="mt-0">
             <div className="prose max-w-none">
               {university.academics_en || university.academics_zh ? (
-                <div dangerouslySetInnerHTML={{ 
-                  __html: currentLanguage === 'en' 
+                <ReactMarkdown>
+                  {currentLanguage === 'en' 
                     ? university.academics_en || '' 
-                    : university.academics_zh || '' 
-                }} />
+                    : university.academics_zh || ''}
+                </ReactMarkdown>
               ) : (
                 <p className="text-gray-500">{currentLanguage === 'en' ? 'Academic information not available.' : '学术信息暂不可用。'}</p>
               )}
@@ -178,11 +179,11 @@ const UniversityDetailContent: React.FC<UniversityDetailContentProps> = ({ unive
           <TabsContent value="facilities" className="mt-0">
             <div className="prose max-w-none">
               {university.facilities_en || university.facilities_zh ? (
-                <div dangerouslySetInnerHTML={{ 
-                  __html: currentLanguage === 'en' 
+                <ReactMarkdown>
+                  {currentLanguage === 'en' 
                     ? university.facilities_en || '' 
-                    : university.facilities_zh || '' 
-                }} />
+                    : university.facilities_zh || ''}
+                </ReactMarkdown>
               ) : (
                 <p className="text-gray-500">{currentLanguage === 'en' ? 'Facilities information not available' : '设施信息暂不可用'}</p>
               )}
@@ -192,11 +193,11 @@ const UniversityDetailContent: React.FC<UniversityDetailContentProps> = ({ unive
           <TabsContent value="admission" className="mt-0">
             <div className="prose max-w-none">
               {university.admission_en || university.admission_zh ? (
-                <div dangerouslySetInnerHTML={{ 
-                  __html: currentLanguage === 'en' 
+                <ReactMarkdown>
+                  {currentLanguage === 'en' 
                     ? university.admission_en || '' 
-                    : university.admission_zh || '' 
-                }} />
+                    : university.admission_zh || ''}
+                </ReactMarkdown>
               ) : (
                 <p className="text-gray-500">{currentLanguage === 'en' ? 'Admission information not available' : '入学信息暂不可用'}</p>
               )}
