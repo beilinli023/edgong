@@ -1,53 +1,55 @@
 {
-    "id": "5",
-    "title_en": "Epsom College International Summer Camp 2025",
-    "title_zh": "2025年爱普森学院国际夏令营",
-    "program_id": "UKESL-2025-001",
-    "image": "https://images.unsplash.com/photo-1519125323398-675f398f6978",
-    "location_en": "United Kingdom",
-    "location_zh": "英国",
-    "duration": "16 days",
-    "country": "United Kingdom",
-    "tags": [
-        {
-            "id": "1",
-            "name_en": "English Language",
-            "name_zh": "英语语言"
-        },
-        {
-            "id": "2",
-            "name_en": "Cultural Immersion",
-            "name_zh": "文化沉浸"
-        },
-        {
-            "id": "3",
-            "name_en": "Elite Education",
-            "name_zh": "精英教育"
-        }
-    ],
-    "grade_levels": [
-        "Ages 10-17",
-        "10至17岁"
-    ],
-    "program_type_en": "Academic and Cultural Enrichment",
-    "program_type_zh": "学术与文化丰富",
-    "destination_en": "United Kingdom",
-    "destination_zh": "英国",
-    "description_en": "The Epsom College International Summer Camp is a 16-day program designed for students aged 10 to 17, blending academic enhancement, cultural immersion, and personal growth. Hosted at Epsom College, one of the UK’s top private schools, this program offers students an exceptional opportunity to experience British education, explore iconic landmarks, and forge lifelong friendships with peers from around the world. From language courses to cultural tours, every aspect is meticulously crafted to unlock the potential of young learners and empower their growth.",
-    "description_zh": "爱普森学院国际夏令营是一个为期16天的项目，专为10至17岁的学生设计，融合了学术提升、文化沉浸和个人成长。该项目位于英国顶尖私立学校之一的爱普森学院，为学生提供了体验英式教育、探索标志性地标以及与来自世界各地的同龄人建立终身友谊的绝佳机会。从语言课程到文化游览，项目的每一个环节都经过精心设计，旨在激发年轻学习者的潜力并赋予他们成长的力量。",
-    "highlights_en": "Top UK Destination: Experience premier British education in a country renowned for its world-class academic resources.\n\nElite School Experience: Live and dine at Epsom College, a historic institution known for academic excellence and a nurturing environment.\n\nLanguage Immersion: Small classes (under 20 students) taught by British Council-accredited teachers, ensuring personalized attention and engagement.\n\nGlobal Community: Interact with students from diverse backgrounds, fostering international friendships and cultural confidence.\n\nCultural Tours: Explore London, Oxford, and Cambridge with expert-led visits to the British Museum, National Gallery, and more.\n\nSafety and Comfort: Secure campus with 24/7 supervision, ensuring a safe and supportive environment for all participants.",
-    "highlights_zh": "顶级英国目的地：在这个以世界一流学术资源闻名的英语国家，体验最优质的英式教育。\n\n精英学校体验：在爱普森学院（Epsom College）住宿和用餐，这是一所历史悠久、学术卓越并充满关怀环境的学府。\n\n语言沉浸：小班教学（每班少于20名学生），由英国文化协会认证的教师授课，确保个性化关注和积极参与。\n\n全球社区：与来自不同背景的学生互动，培养国际友谊和文化自信。\n\n文化游览：探索伦敦、牛津和剑桥，由专家带领参观大英博物馆和国家美术馆等标志性景点。\n\n安全与舒适：校园安全，提供24/7全天候监管，确保所有参与者的安全和支持性环境。",
-    "itinerary_en": "\n\n[Day 1]\nActivity: First round of airport pick-up and hotel check-in\n\n[Day 2]\nActivity: Placement test, ESL course, welcome dance\n\n[Day 3]\nActivity: London tour – Hyde Park and Natural History Museum\n\n[Day 4-5]\nActivity: ESL courses, sports activities, evening events (e.g., mystery games)\n\n[Day 6]\nActivity: Expert-led tour of the British Museum\n\n[Day 7]\nActivity: Day trip to Oxford, exploring historic universities and landmarks\n\n[Day 8-9]\nActivity: ESL courses, cultural workshops, team-building activities\n\n[Day 10]\nActivity: London Science Museum and city landmark tour\n\n[Day 11-12]\nActivity: ESL courses, sports activities, farewell graduation ceremony\n\n[Day 13]\nActivity: National Gallery tour, featuring masterpieces by Van Gogh and Monet\n\n[Day 14]\nActivity: Day trip to Cambridge\n\n[Day 15]\nActivity: Departure from London\n\n[Day 16]\nActivity: Arrive home with unforgettable memories",
-    "itinerary_zh": "\n\n[第一天]\n活动：第一轮接机并安排入住酒店\n\n[第二天]\n活动：分班测试、ESL课程，以及欢迎舞会\n\n[第三天]\n活动：伦敦游览——海德公园和自然历史博物馆\n\n[第4-5天]\n活动：ESL课程、体育活动，以及晚间活动（如神秘游戏）\n\n[第六天]\n活动：大英博物馆专家讲解导览\n\n[第七天]\n活动：牛津一日游，探索历史悠久大学和地标\n\n[第8-9天]\n活动：ESL课程、文化工作坊和团队建设活动\n\n[第十天]\n活动：伦敦科学博物馆及城市地标游览\n\n[第11-12天]\n活动：ESL课程、体育活动，以及告别毕业典礼\n\n[第十三天]\n活动：国家美术馆导览，欣赏梵高和莫奈的杰作\n\n[第十四天]\n活动：剑桥一日游\n\n[第十五天]\n活动：从伦敦出发返程\n\n[第十六天]\n活动：带着难忘的回忆抵达家中",
-    "features_en": "Accommodation: Stay in Epsom College’s top-tier dormitories with single, double, or quad rooms and shared facilities.\n\nDining: Enjoy meals prepared by professional chefs, offering international and local cuisine with special dietary needs accommodated.\n\nActivities: Blend of academic courses, sports, arts, and evening social events like dances, movie nights, and team-building games.\n\nExpert Guidance: Learn from experienced teachers and local experts during immersive tours of historical and cultural landmarks.",
-    "features_zh": "住宿：入住爱普森学院一流的宿舍，提供单人间、双人间或四人间，配备共享设施。\n\n餐饮：享用由专业厨师准备的美食，包括国际和本地菜肴。特殊饮食需求也可得到满足。\n\n活动：结合学术课程、体育运动、艺术活动以及晚间社交活动，如舞会、电影之夜和团队建设游戏。\n\n专业指导：在历史和文化地标的沉浸式游览中，向经验丰富的教师和当地专家学习。",
-    "gallery_images": [
-        "https://images.unsplash.com/photo-1519125323398-675f398f6978",
-        "https://images.unsplash.com/photo-1526129318478-45c2e059bb07",
-        "https://images.unsplash.com/photo-1533929736458-ca588d08c8be"
-    ],
-    "status": "published",
-    "published_at": "2025-03-09",
-    "school_info_en": "Small Class Sizes: Ensure personalized attention and active participation in language courses.\n\nCultural Immersion: Expert-led tours to the British Museum, National Gallery, and more, offering deep insights into British history and art.\n\nSafety and Supervision: 24/7 supervision by trained staff ensures a safe and supportive environment.\n\nGlobal Networking: Students build friendships with peers from around the world, fostering cross-cultural understanding and collaboration.\n\nLife Skills Development: Beyond academics, students learn independence, teamwork, and problem-solving through structured activities.",
-    "school_info_zh": "小班教学：确保语言课程中的个性化关注和积极参与。\n\n文化沉浸：由专家带领的导览，参观大英博物馆和国家美术馆等标志性景点，深入了解英国历史与艺术。\n\n安全与监督：经过培训的工作人员提供24/7全天候监督，确保安全和支持性的环境。\n\n全球社交网络：学生与来自世界各地的同伴建立友谊，促进跨文化理解与合作。\n\n生活技能培养：除了学术知识，学生通过结构化活动学习独立性、团队合作和解决问题的能力。"
+  "id": "5",
+  "title_en": "Epsom College International Summer Camp 2025",
+  "title_zh": "2025年爱普森学院国际夏令营",
+  "program_id": "UKEPSOM-2025-001",
+  "image": "/Edgoing/Program_Page/UK/EpsomCollege/Picture_5.png",
+  "location_en": "United Kingdom",
+  "location_zh": "英国",
+  "duration_en": "1 week",
+  "duration_zh": "1 周",
+  "country_en": "United Kingdom",
+  "country_zh": "英国",
+  "tags": [
+    {
+      "id": "1",
+      "name_en": "Language Enhancement",
+      "name_zh": "语言强化"
+    },
+    {
+      "id": "2",
+      "name_en": "Academic Immersion",
+      "name_zh": "学术沉浸"
+    },
+    {
+      "id": "3",
+      "name_en": "Cultural Experience",
+      "name_zh": "文化体验"
+    }
+  ],
+  "program_type_en": "Performing Arts",
+  "program_type_zh": "表演艺术",
+  "destination_en": "Surrey, England",
+  "destination_zh": "英格兰，萨里",
+  "highlights_en": "Top UK Destination: Experience the best of British education in a leading English-speaking country renowned for its world-class academic resources.\nElite School Experience: Stay and dine at Epsom College, a historic institution with a legacy of academic excellence and a nurturing environment.\nLanguage Immersion: Small class sizes (under 20 students) with British Council-certified teachers, ensuring personalized attention and active participation.\nGlobal Community: Interact with students from diverse backgrounds, fostering international friendships and cultural confidence.\nCultural Excursions: Explore London, Oxford, and Cambridge, with expert-guided tours of iconic sites like the British Museum and National Gallery.\nSafety and Comfort: Secure campus with 24/7 supervision, ensuring a safe and supportive environment for all participants.​",
+  "highlights_zh": "顶级英国目的地： 在这个以世界一流学术资源闻名的英语国家，体验最优质的英式教育。\n精英学校体验： 在埃普森学院（Epsom College）住宿和用餐，这是一所历史悠久、学术卓越并充满关怀环境的学府。\n语言沉浸： 小班教学（每班少于20名学生），由英国文化协会认证的教师授课，确保个性化关注和积极参与。\n全球社区： 与来自不同背景的学生互动，培养国际友谊和文化自信。\n文化游览： 探索伦敦、牛津和剑桥，由专家带领参观大英博物馆和国家美术馆等标志性景点。\n安全与舒适： 校园安全，提供24/7全天候监管，确保所有参与者的安全和支持性环境。",
+  "itinerary_en": "\n\n[Typical Weekday Schedule]\n\n07:30-08:15\nBreakfast\n\n08:30-10:30\nEnglish Language Classes\n\n10:30-10:45\nBreak\n\n10:45-12:45\nAcademic Subject Classes\n\n12:45-13:45\nLunch\n\n14:00-16:00\nSports and Activities\n\n16:00-16:15\nBreak\n\n16:15-18:15\nCreative Workshops or Free Time\n\n18:30-19:30\nDinner\n\n19:45-21:30\nEvening Activities\n\n21:30-22:00\nRoom Time\n\n22:00\nLights Out\n\n\n[Weekend Excursions]\n\nSaturday\n08:00\nBreakfast\n\n09:00-18:00\nLondon Excursion (Buckingham Palace, Houses of Parliament, British Museum) or Oxford Tour\n\n18:30\nDinner\n\n19:45-21:30\nEvening Social Event\n\n\nSunday\n08:30\nLate Breakfast\n\n10:00-16:00\nLocal Cultural Visit or Adventure Activities\n\n16:30-18:00\nFree Time\n\n18:30\nDinner\n\n19:45-21:30\nInternational Night or Themed Party",
+  "itinerary_zh": "\n\n【工作日典型日程】\n\n07:30-08:15\n早餐\n\n08:30-10:30\n英语语言课程\n\n10:30-10:45\n休息\n\n10:45-12:45\n学术主题课程\n\n12:45-13:45\n午餐\n\n14:00-16:00\n体育和活动\n\n16:00-16:15\n休息\n\n16:15-18:15\n创意工作坊或自由时间\n\n18:30-19:30\n晚餐\n\n19:45-21:30\n晚间活动\n\n21:30-22:00\n宿舍时间\n\n22:00\n熄灯\n\n\n【周末远足】\n\n周六\n08:00\n早餐\n\n09:00-18:00\n伦敦远足（白金汉宫、议会大厦、大英博物馆）或牛津游览\n\n18:30\n晚餐\n\n19:45-21:30\n晚间社交活动\n\n\n周日\n08:30\n晚早餐\n\n10:00-16:00\n当地文化参观或冒险活动\n\n16:30-18:00\n自由时间\n\n18:30\n晚餐\n\n19:45-21:30\n国际之夜或主题派对",
+  "features_en": "Accommodation: Stay in Epsom College's superb boarding houses with single, twin, or quad rooms with shared facilities.\n\nDining: Enjoy meals prepared by professional chefs, including international and local cuisine. Special dietary requirements can be accommodated.\n\nActivities: Combine academic courses, sports, arts activities, and evening social events such as discos, movie nights, and team-building games.\n\nExpert Guidance: Learn from experienced teachers and local experts during immersive tours of historical and cultural landmarks.",
+  "features_zh": "住宿：入住爱普森学院一流的宿舍，提供单人间、双人间或四人间，配备共享设施。\n\n餐饮：享用由专业厨师准备的美食，包括国际和本地菜肴。特殊饮食需求也可得到满足。\n\n活动：结合学术课程、体育运动、艺术活动以及晚间社交活动，如舞会、电影之夜和团队建设游戏。\n\n专业指导：在历史和文化地标的沉浸式游览中，向经验丰富的教师和当地专家学习。",
+  "gallery_images": [
+    "/Edgoing/Program_Page/UK/EpsomCollege/Picture_5.png",
+    "/Edgoing/Program_Page/UK/EpsomCollege/Picture_1.png",
+    "/Edgoing/Program_Page/UK/EpsomCollege/Picture_2.png"
+  ],
+  "status": "published",
+  "published_at": "2025-03-09",
+  "school_info_en": "Exclusive Campus: Epsom College, one of the UK's most respected boarding schools, welcomes international students to its historic campus, set amidst 84 acres of beautiful Surrey countryside.\n\nAcademic Excellence: Founded in 1855, Epsom College boasts a rich heritage of academic excellence, preparing students for admission to top universities including Oxford and Cambridge.\n\nState-of-the-Art Facilities: Students benefit from exceptional facilities, including a 250-seat theater, modern science laboratories, art and design center, music school, and extensive sports facilities.\n\nQualified Teachers: All courses are taught by qualified and experienced educators, many from Epsom College itself, ensuring high-quality instruction.\n\nEngland's Cultural Hub: Located just 15 miles from central London, students can easily access the capital's world-famous attractions while enjoying the safety and tranquility of a suburban campus.",
+  "school_info_zh": "独特校园：爱普森学院是英国最受尊敬的寄宿学校之一，其历史悠久的校园位于萨里郡美丽的84英亩乡村中，欢迎来自世界各地的国际学生。\n\n学术卓越：创建于1855年，爱普森学院拥有丰富的学术卓越传统，为学生进入牛津、剑桥等顶尖大学做准备。\n\n最先进的设施：学生可以使用卓越的设施，包括250座剧院、现代科学实验室、艺术和设计中心、音乐学校以及广泛的体育设施。\n\n合格教师：所有课程均由合格且经验丰富的教育者教授，其中许多来自爱普森学院本身，确保高质量的教学。\n\n英格兰文化中心：校园距离伦敦市中心仅15英里，学生可以轻松前往首都的世界著名景点，同时享受郊区校园的安全与宁静。",
+  "overview_en": "The Epsom College International Summer Camp offers students aged 12-17 a unique opportunity to experience elite British education in a prestigious boarding school environment. This program combines intensive English language learning with a wide range of academic subjects and extracurricular activities. Located on Epsom College's beautiful 84-acre campus just 15 miles from London, students benefit from world-class facilities while exploring British culture through organized excursions to London, Oxford, and other historic sites. With expert teaching from qualified staff, 24-hour supervision, and comprehensive boarding facilities, this summer camp provides the perfect balance of academic enrichment, cultural immersion, and recreational activities.",
+  "overview_zh": "爱普森学院国际夏令营为12-17岁的学生提供了在一个享有盛誉的英国寄宿学校环境中体验精英英国教育的独特机会。该项目将密集的英语语言学习与广泛的学术科目和课外活动相结合。爱普森学院美丽的84英亩校园位于距离伦敦仅15英里的地方，学生可以使用世界一流的设施，同时通过组织前往伦敦、牛津和其他历史遗址的远足来探索英国文化。在合格教师的专业教学、24小时监督和全面的寄宿设施下，这个夏令营提供了学术丰富、文化沉浸和娱乐活动的完美平衡。",
+  "grade_level_en": "Middle School",
+  "grade_level_zh": "初中",
+  "other_info_en": "Small Class Sizes: Ensures personalized attention and active participation in language classes.\nCultural Immersion: Expert-guided tours of iconic sites like the British Museum and National Gallery provide deep insights into British history and art.\nSafety and Supervision: 24/7 supervision by trained staff ensures a safe and supportive environment.\nGlobal Networking: Students form friendships with peers from around the world, fostering cross-cultural understanding and collaboration.\nLife Skills Development: Beyond academics, students learn independence, teamwork, and problem-solving through structured activities.​",
+  "other_info_zh": "小班教学：确保语言课程中的个性化关注和积极参与。\n文化沉浸：由专家带领的导览，参观大英博物馆和国家美术馆等标志性景点，深入了解英国历史与艺术。\n安全与监督：经过培训的工作人员提供24/7全天候监督，确保安全和支持性的环境。\n全球社交网络：学生与来自世界各地的同伴建立友谊，促进跨文化理解与合作。\n生活技能培养：除了学术知识，学生通过结构化活动学习独立性、团队合作和解决问题的能力。"
 }

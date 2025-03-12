@@ -1,53 +1,55 @@
 {
-    "id": "4",
-    "title_en": "Singapore NTU AI Exploration Program 2025",
-    "title_zh": "2025年新加坡南洋理工大学AI探索项目",
-    "program_id": "SGAI-2025-001",
-    "image": "https://images.unsplash.com/photo-1620712943543-bcc468048578",
-    "location_en": "Singapore",
-    "location_zh": "新加坡",
-    "duration": "5 days",
-    "country": "Singapore",
-    "tags": [
-        {
-            "id": "1",
-            "name_en": "Artificial Intelligence",
-            "name_zh": "人工智能"
-        },
-        {
-            "id": "2",
-            "name_en": "University Experience",
-            "name_zh": "大学体验"
-        },
-        {
-            "id": "3",
-            "name_en": "Innovation",
-            "name_zh": "创新"
-        }
-    ],
-    "grade_levels": [
-        "Grade 9 and above",
-        "9年级及以上"
-    ],
-    "program_type_en": "AI and Technology Exploration",
-    "program_type_zh": "人工智能与技术探索",
-    "destination_en": "Singapore",
-    "destination_zh": "新加坡",
-    "description_en": "We warmly invite outstanding high school students passionate about artificial intelligence to join us in exploring the mysteries of AI and its impact on the future of society. From January 20 to January 24, 2025, participants will engage in a 5-day AI Exploration Program at Nanyang Technological University (NTU) in Singapore. By learning cutting-edge AI technologies such as ChatGPT, students will gain a global perspective and insights into the latest advancements in the field. This program offers a unique opportunity to experience life at a world-leading university while developing critical skills for the future.",
-    "description_zh": "诚邀对人工智能充满热情的优秀高中生加入，共同探索AI领域的奥秘及其对未来社会的影响。2025年1月20日至1月24日，参与者将在新加坡南洋理工大学（NTU）参加为期5天的AI探索项目。通过学习ChatGPT等前沿AI技术，学生将获得全球视野，了解该领域的最新进展。此项目为学生提供了一个独特的机会，体验世界顶尖大学的学习生活，同时培养未来所需的关键技能。",
-    "highlights_en": "Official Courses: Taught by NTU’s distinguished faculty on campus, ensuring high-quality educational content.\n\nTop University Experience: Immerse in the academic atmosphere of a world-class university and preview university life.\n\nIndustry Visits: Explore leading Singaporean companies to gain insights into cutting-edge industry trends.\n\nDiverse Enrichment: Covers global awareness and cultural experiences, enhancing overall personal development.\n\nUniversity Application Guidance: Professional support from experts to assist with future university applications.",
-    "highlights_zh": "官方课程：由南洋理工大学资深教授团队在NTU校园授课，确保高质量的教学内容。\n\n名校体验：亲身感受顶尖大学的学习氛围，提前体验名校生活。\n\n企业参访：走进新加坡知名企业，深入了解行业前沿动态。\n\n多元拓展：涵盖国际化认知、文化体验等，全面提升个人综合能力。\n\n申学辅导：专业机构提供申学指导，助力未来大学申请。",
-    "itinerary_en": "\n\n[Day 1]\nMorning: First round of airport pick-up and hotel check-in\nAfternoon: Second round of airport pick-up and hotel check-in\nEvening: Registration, receive NTU camp T-shirt, welcome dinner\n\n[Day 2]\nMorning: Opening ceremony, AI Basics Course\nAfternoon: AI Applications (1), Visit to Singapore cultural venue\nEvening: Free time\n\n[Day 3]\nMorning: AI Applications (2)\nAfternoon: AI Applications (3), Group discussion and exchange\nEvening: Free time\n\n[Day 4]\nMorning: AI Applications (4)\nAfternoon: AI Applications Course\nEvening: Closing dinner and course review\n\n[Day 5]\nMorning: AI Applications Course summary, Certificate ceremony, Closing ceremony\nAfternoon: Departure",
-    "itinerary_zh": "\n\n[第一天]\n上午：第一轮接机并安排入住酒店\n下午：第二轮接机并安排入住酒店\n晚上：登记，领取校方入营纪念衫，欢迎晚宴\n\n[第二天]\n上午：开营仪式，AI基础课程\n下午：AI人工智能应用（1），新加坡特色场馆参观\n晚上：自由时间\n\n[第三天]\n上午：AI人工智能应用（2）\n下午：AI人工智能应用（3），小组讨论及交流\n晚上：自由时间\n\n[第四天]\n上午：AI人工智能应用（4）\n下午：AI人工智能应用课程\n晚上：结束晚宴及课程回顾\n\n[第五天]\n上午：AI人工智能应用课程总结，证书颁发，结营仪式\n下午：离营",
-    "features_en": "Target Audience: Outstanding high school students in Grade 9 and above.\n\nLanguage of Instruction: English.\n\nProgram Location: Nanyang Technological University (NTU), Singapore.\n\nCore Theme: Artificial Intelligence, ChatGPT, and their societal impact.\n\nSkills Development: Critical thinking, teamwork, and global perspective.",
-    "features_zh": "招生对象：9年级及以上优秀高中生。\n\n授课语言：英语。\n\n项目地点：新加坡南洋理工大学（NTU）。\n\n核心主题：人工智能、ChatGPT及其对社会的影响。\n\n能力培养：批判性思维、团队合作和全球视野。",
-    "gallery_images": [
-        "https://images.unsplash.com/photo-1620712943543-bcc468048578",
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-    ],
-    "status": "published",
-    "published_at": "2025-03-09",
-    "school_info_en": "NTU’s Role in AI and Technology\n\nNanyang Technological University (NTU) stands at the forefront of artificial intelligence research and development, with key initiatives including:\n\nAI Research Hub: Focused on machine learning, natural language processing, and robotics.\n\nPartnerships with Tech Giants: Collaborations with companies like Alibaba, Tencent, and NVIDIA to advance AI applications.\n\nAI for Social Good: Projects leveraging AI to address societal challenges in healthcare, education, and environmental sustainability.\n\nBy participating in this NTU program, students will experience one of the world’s most innovative academic environments, preparing them for success in an AI-driven future.\n\nNanyang Technological University: Where Innovation Meets Excellence!",
-    "school_info_zh": "南洋理工大学在AI与技术领域的角色\n\n南洋理工大学（NTU）处于人工智能研究与发展的前沿，其重要举措包括：\n\nAI研究中心：专注于机器学习、自然语言处理和机器人技术。\n\n与科技巨头的合作：与阿里巴巴、腾讯和英伟达等公司合作，推动AI技术的应用与发展。\n\nAI造福社会：利用AI技术解决社会挑战的项目，如医疗保健、教育和环境可持续发展。\n\n通过参加NTU的这一项目，学生将亲身体验全球最具创新性的学术环境，为未来在AI驱动的世界中取得成功做好准备。\n\n南洋理工大学：创新与卓越的交汇之地！"
+  "id": "4",
+  "title_en": "Singapore NTU AI Exploration Program 2025",
+  "title_zh": "2025年新加坡南洋理工大学AI探索项目",
+  "program_id": "SGAI-2025-001",
+  "image": "/Edgoing/Program_Page/Singapore/NTUAI/Picture2.jpeg",
+  "location_en": "Singapore",
+  "location_zh": "新加坡",
+  "duration_en": "16 days",
+  "duration_zh": "16 天",
+  "country_en": "Singapore",
+  "country_zh": "新加坡",
+  "tags": [
+    {
+      "id": "1",
+      "name_en": "Artificial Intelligence",
+      "name_zh": "人工智能"
+    },
+    {
+      "id": "2",
+      "name_en": "University Experience",
+      "name_zh": "大学体验"
+    },
+    {
+      "id": "3",
+      "name_en": "Innovation",
+      "name_zh": "创新"
+    }
+  ],
+  "program_type_en": "Language Intensive, Cultural Exploration",
+  "program_type_zh": "语言强化, 文化探索",
+  "destination_en": "Singapore",
+  "destination_zh": "新加坡",
+  "overview_en": "We warmly invite outstanding high school students passionate about artificial intelligence to join us in exploring the mysteries of AI and its impact on the future of society. From January 20 to January 24, 2025, participants will engage in a 5-day AI Exploration Program at Nanyang Technological University (NTU) in Singapore. By learning cutting-edge AI technologies such as ChatGPT, students will gain a global perspective and insights into the latest advancements in the field. This program offers a unique opportunity to experience life at a world-leading university while developing critical skills for the future.",
+  "overview_zh": "诚邀对人工智能充满热情的优秀高中生加入，共同探索AI领域的奥秘及其对未来社会的影响。2025年1月20日至1月24日，参与者将在新加坡南洋理工大学（NTU）参加为期5天的AI探索项目。通过学习ChatGPT等前沿AI技术，学生将获得全球视野，了解该领域的最新进展。此项目为学生提供了一个独特的机会，体验世界顶尖大学的学习生活，同时培养未来所需的关键技能。",
+  "highlights_en": "Official Courses: Taught by NTU's distinguished faculty on campus, ensuring high-quality educational content.\n\nTop University Experience: Immerse in the academic atmosphere of a world-class university and preview university life.\n\nIndustry Visits: Explore leading Singaporean companies to gain insights into cutting-edge industry trends.\n\nDiverse Enrichment: Covers global awareness and cultural experiences, enhancing overall personal development.\n\nUniversity Application Guidance: Professional support from experts to assist with future university applications.",
+  "highlights_zh": "官方课程：由南洋理工大学资深教授团队在NTU校园授课，确保高质量的教学内容。\n\n名校体验：亲身感受顶尖大学的学习氛围，提前体验名校生活。\n\n企业参访：走进新加坡知名企业，深入了解行业前沿动态。\n\n多元拓展：涵盖国际化认知、文化体验等，全面提升个人综合能力。\n\n申学辅导：专业机构提供申学指导，助力未来大学申请。",
+  "itinerary_en": "\n\n[Day 1]\nMorning: First round of airport pick-up and hotel check-in\nAfternoon: Second round of airport pick-up and hotel check-in\nEvening: Registration, receive NTU camp T-shirt, welcome dinner\n\n[Day 2]\nMorning: Opening ceremony, AI Basics Course\nAfternoon: AI Applications (1), Visit to Singapore cultural venue\nEvening: Free time\n\n[Day 3]\nMorning: AI Applications (2)\nAfternoon: AI Applications (3), Group discussion and exchange\nEvening: Free time\n\n[Day 4]\nMorning: AI Applications (4)\nAfternoon: AI Applications Course\nEvening: Closing dinner and course review\n\n[Day 5]\nMorning: AI Applications Course summary, Certificate ceremony, Closing ceremony\nAfternoon: Departure",
+  "itinerary_zh": "\n\n[第一天]\n上午：第一轮接机并安排入住酒店\n下午：第二轮接机并安排入住酒店\n晚上：登记，领取校方入营纪念衫，欢迎晚宴\n\n[第二天]\n上午：开营仪式，AI基础课程\n下午：AI人工智能应用（1），新加坡特色场馆参观\n晚上：自由时间\n\n[第三天]\n上午：AI人工智能应用（2）\n下午：AI人工智能应用（3），小组讨论及交流\n晚上：自由时间\n\n[第四天]\n上午：AI人工智能应用（4）\n下午：AI人工智能应用课程\n晚上：结束晚宴及课程回顾\n\n[第五天]\n上午：AI人工智能应用课程总结，证书颁发，结营仪式\n下午：离营",
+  "features_en": "Target Audience: Outstanding high school students in Grade 9 and above.\n\nLanguage of Instruction: English.\n\nProgram Location: Nanyang Technological University (NTU), Singapore.\n\nCore Theme: Artificial Intelligence, ChatGPT, and their societal impact.\n\nSkills Development: Critical thinking, teamwork, and global perspective.",
+  "features_zh": "招生对象：9年级及以上优秀高中生。\n\n授课语言：英语。\n\n项目地点：新加坡南洋理工大学（NTU）。\n\n核心主题：人工智能、ChatGPT及其对社会的影响。\n\n能力培养：批判性思维、团队合作和全球视野。",
+  "gallery_images": [
+    "/Edgoing/Program_Page/Singapore/NTUAI/Picture2.jpeg",
+    "/Edgoing/Program_Page/Singapore/NTUAI/Picture1.webp",
+    "/Edgoing/Program_Page/Singapore/NTUAI/Picture3.jpeg"
+  ],
+  "status": "published",
+  "published_at": "2025-03-09",
+  "school_info_en": "NTU's Role in AI and Technology\n\nNanyang Technological University (NTU) stands at the forefront of artificial intelligence research and development, with key initiatives including:\n\nAI Research Hub: Focused on machine learning, natural language processing, and robotics.\n\nPartnerships with Tech Giants: Collaborations with companies like Alibaba, Tencent, and NVIDIA to advance AI applications.\n\nAI for Social Good: Projects leveraging AI to address societal challenges in healthcare, education, and environmental sustainability.\n\nBy participating in this NTU program, students will experience one of the world's most innovative academic environments, preparing them for success in an AI-driven future.\n\nNanyang Technological University: Where Innovation Meets Excellence!",
+  "school_info_zh": "南洋理工大学在AI与技术领域的角色\n\n南洋理工大学（NTU）处于人工智能研究与发展的前沿，其重要举措包括：\n\nAI研究中心：专注于机器学习、自然语言处理和机器人技术。\n\n与科技巨头的合作：与阿里巴巴、腾讯和英伟达等公司合作，推动AI技术的应用与发展。\n\nAI造福社会：利用AI技术解决社会挑战的项目，如医疗保健、教育和环境可持续发展。\n\n通过参加NTU的这一项目，学生将亲身体验全球最具创新性的学术环境，为未来在AI驱动的世界中取得成功做好准备。\n\n南洋理工大学：创新与卓越的交汇之地！",
+  "grade_level_en": "Primary School,Middle School; High School",
+  "grade_level_zh": "小学,初中,高中",
+  "other_info_en": "NTU’s Role in AI and Technology NTU is at the forefront of AI research and development, with initiatives like: AI Research Centers: Focused on machine learning, natural language processing, and robotics. Collaborations with Tech Giants: Partnerships with companies like Alibaba, Tencent, and NVIDIA to advance AI applications. AI for Social Good: Projects that use AI to address societal challenges, such as healthcare, education, and environmental sustainability. By joining this program at NTU, students will gain firsthand experience in one of the world’s most innovative academic environments, preparing them for future success in the AI-driven world. NTU: Where Innovation Meets Excellence!",
+  "other_info_zh": "南洋理工大学（NTU）处于人工智能研究与发展的前沿，其重要举措包括：\nAI研究中心：专注于机器学习、自然语言处理和机器人技术。\n与科技巨头的合作：与阿里巴巴、腾讯和英伟达等公司合作，推动AI技术的应用与发展。\nAI造福社会：利用AI技术解决社会挑战的项目，如医疗保健、教育和环境可持续发展。\n通过参加NTU的这一项目，学生将亲身体验全球最具创新性的学术环境，为未来在AI驱动的世界中取得成功做好准备。\n南洋理工大学：创新与卓越的交汇之地！"
 }
