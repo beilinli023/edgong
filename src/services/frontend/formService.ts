@@ -1,16 +1,74 @@
-
-
-import apiClient from '../api/apiClient';
-import { extractData } from '../api/responseHelpers';
+// import apiClient from '../api/apiClient';
+// import { extractData } from '../api/responseHelpers';
 import type { NewsletterSubscription, NewsletterSubscriptionInput } from '@/types/newsletterTypes';
 import { toast } from 'sonner';
+import type { FormContent, PlanningFormData, FormOption } from '@/types/formTypes';
+import { getCompatibleProvinces, getCompatibleCities } from '@/data/chinaRegions';
 
 // 获取表单页面内容
-export const getFrontendFormContent = async (language = 'en') => {
+export const getFrontendFormContent = async (language = 'en'): Promise<FormContent | null> => {
   try {
-    const response = await apiClient.get('/form-content');
-    const data = extractData(response);
-    return data;
+    // 模拟API响应延迟
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // 返回模拟的表单内容
+    return {
+      hero: {
+        title: language === 'en' ? "Start Your Planning" : "开始计划",
+        subtitle: language === 'en' 
+          ? "Ready to begin your educational journey? Let us help you create the perfect study abroad experience." 
+          : "准备开始您的教育之旅？让我们帮助您创造完美的海外学习体验。",
+        backgroundImage: "/lovable-uploads/47bf9bbe-157b-4ebd-8119-331c7101bce3.png",
+      },
+      formSection: {
+        title: language === 'en' ? "Need help with assistance, or just have a question for us?" : "需要帮助或有任何问题？",
+        responseTimeText: language === 'en' ? "Fill out our form and we'll respond within 2 business days." : "填写我们的表单，我们将在2个工作日内回复。",
+        phoneContact: language === 'en' ? "Or Call Us @ 400-115-3558 (Email: Hello@edgoing.com)" : "或致电 400-115-3558（邮件：Hello@edgoing.com）",
+      },
+      options: {
+        roles: [
+          { id: "student", label: language === 'en' ? "Student" : "学生" },
+          { id: "parent", label: language === 'en' ? "Parent" : "家长" },
+          { id: "teacher", label: language === 'en' ? "Teacher" : "教师" },
+          { id: "other", label: language === 'en' ? "Other" : "其他" }
+        ],
+        gradeLevels: [
+          { id: "elementary", label: language === 'en' ? "Elementary School" : "小学" },
+          { id: "middle", label: language === 'en' ? "Middle School" : "初中" },
+          { id: "high", label: language === 'en' ? "High School" : "高中" },
+          { id: "university", label: language === 'en' ? "University" : "大学" },
+          { id: "graduate", label: language === 'en' ? "Graduate School" : "研究生" },
+          { id: "other", label: language === 'en' ? "Other" : "其他" }
+        ],
+        // 使用从chinaRegions模块导入的数据
+        provinces: getCompatibleProvinces(language),
+        cities: getCompatibleCities(language),
+        programTypes: [
+          { id: "summer", label: language === 'en' ? "Summer Program" : "夏季项目" },
+          { id: "semester", label: language === 'en' ? "Semester Program" : "学期项目" },
+          { id: "year", label: language === 'en' ? "Year-long Program" : "全年项目" },
+          { id: "language", label: language === 'en' ? "Language Program" : "语言项目" },
+          { id: "university", label: language === 'en' ? "University Program" : "大学项目" }
+        ],
+        destinations: [
+          { id: "usa", label: language === 'en' ? "United States" : "美国" },
+          { id: "uk", label: language === 'en' ? "United Kingdom" : "英国" },
+          { id: "canada", label: language === 'en' ? "Canada" : "加拿大" },
+          { id: "australia", label: language === 'en' ? "Australia" : "澳大利亚" },
+          { id: "europe", label: language === 'en' ? "Europe" : "欧洲" },
+          { id: "singapore", label: language === 'en' ? "Singapore" : "新加坡" },
+          { id: "malaysia", label: language === 'en' ? "Malaysia" : "马来西亚" },
+          { id: "japan", label: language === 'en' ? "Japan" : "日本" }
+        ],
+        interests: [
+          { id: "language", label: language === 'en' ? "Language Learning" : "语言学习" },
+          { id: "culture", label: language === 'en' ? "Cultural Experience" : "文化体验" },
+          { id: "academic", label: language === 'en' ? "Academic Excellence" : "学术卓越" },
+          { id: "career", label: language === 'en' ? "Career Development" : "职业发展" },
+          { id: "travel", label: language === 'en' ? "Travel & Adventure" : "旅行与冒险" }
+        ]
+      }
+    };
   } catch (error) {
     console.error('Error fetching form content:', error);
     return null;
@@ -18,10 +76,23 @@ export const getFrontendFormContent = async (language = 'en') => {
 };
 
 // 提交规划表单
-export const submitPlanningForm = async (formData: any) => {
+export const submitPlanningForm = async (formData: PlanningFormData) => {
   try {
-    const response = await apiClient.post('/forms/planning', formData);
-    return { success: true, data: extractData(response) };
+    // 模拟API请求成功
+    console.log('提交表单数据:', formData);
+    
+    // 模拟网络延迟
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // 返回模拟的成功响应
+    return { 
+      success: true, 
+      data: { 
+        id: Math.floor(Math.random() * 1000),
+        message: 'Form submitted successfully',
+        submittedAt: new Date().toISOString()
+      } 
+    };
   } catch (error) {
     console.error('Error submitting planning form:', error);
     return { success: false, error };
@@ -35,6 +106,9 @@ const mockSubscriptions: NewsletterSubscription[] = [];
 export const submitNewsletterSubscription = async (email: string, language = 'en') => {
   try {
     console.log('Submitting newsletter subscription:', { email, language });
+    
+    // 模拟网络延迟
+    await new Promise(resolve => setTimeout(resolve, 600));
     
     const subscriptionData: NewsletterSubscriptionInput = {
       email,

@@ -1,41 +1,37 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { getFrontendFormContent } from "@/services/frontend/formService";
+import { FormOption, FormContent } from "@/types/formTypes";
 
-export type FormOption = {
-  id: string;
-  label: string;
-  provinceId?: string; // 可选的省份ID，用于城市与省份的关联
-};
+// 重新导出类型，以保持兼容性
+export type { FormOption, FormContent };
 
-export type FormContent = {
-  hero: {
-    title: string;
-    subtitle: string;
-    backgroundImage: string;
-  };
-  formSection: {
-    title: string;
-    responseTimeText: string;
-    phoneContact: string;
-  };
-  options: {
-    roles: FormOption[];
-    gradeLevels: FormOption[];
-    provinces: FormOption[];
-    cities: FormOption[];
-    programTypes: FormOption[];
-    destinations: FormOption[];
-    interests: FormOption[];
+/**
+ * API 响应的接口定义
+ */
+interface ApiFormContentResponse {
+  title?: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  formTitle?: string;
+  responseTimeText?: string;
+  phoneContact?: string;
+  options?: {
+    roles?: Array<{ id: string; label: string; provinceId?: string }>;
+    gradeLevels?: Array<{ id: string; label: string; provinceId?: string }>;
+    provinces?: Array<{ id: string; label: string; provinceId?: string }>;
+    cities?: Array<{ id: string; label: string; provinceId?: string }>;
+    programTypes?: Array<{ id: string; label: string; provinceId?: string }>;
+    destinations?: Array<{ id: string; label: string; provinceId?: string }>;
+    interests?: Array<{ id: string; label: string; provinceId?: string }>;
   };
   contactSection?: {
-    title: string;
-    description: string;
-    buttonText: string;
-    buttonUrl: string;
+    title?: string;
+    description?: string;
+    buttonText?: string;
+    buttonUrl?: string;
   };
-};
+}
 
 const defaultFormContent: FormContent = {
   hero: {
@@ -66,7 +62,7 @@ export const useFrontendFormContent = () => {
   const [error, setError] = useState<Error | null>(null);
 
   // Helper function to map API response to our FormContent type
-  const mapApiResponseToFormContent = useCallback((apiResponse: Record<string, any>): FormContent => {
+  const mapApiResponseToFormContent = useCallback((apiResponse: ApiFormContentResponse): FormContent => {
     // 先获取默认数据，然后用API响应中的数据覆盖
     const defaultData = getDefaultFormContent(currentLanguage);
     // 使用默认数据作为基础，然后用API响应中的数据覆盖
@@ -79,7 +75,7 @@ export const useFrontendFormContent = () => {
       },
       formSection: {
         title: apiResponse.title || defaultData.formSection.title,
-        responseTimeText: apiResponse.responseTime || defaultData.formSection.responseTimeText,
+        responseTimeText: apiResponse.responseTimeText || defaultData.formSection.responseTimeText,
         phoneContact: apiResponse.phoneContact || defaultData.formSection.phoneContact,
       },
       options: {
@@ -149,7 +145,7 @@ export const useFrontendFormContent = () => {
       formSection: {
         title: lang === 'en' ? "Need help with assistance, or just have a question for us?" : "需要帮助或有任何问题？",
         responseTimeText: lang === 'en' ? "Fill out our form and we'll respond within 2 business days." : "填写我们的表单，我们将在2个工作日内回复。",
-        phoneContact: lang === 'en' ? "Or Call Us @ 400-400-400" : "或致电 400-400-400",
+        phoneContact: lang === 'en' ? "Or Call Us @ 400-115-3558 (Email: Hello@edgoing.com)" : "或致电 400-115-3558（邮件：Hello@edgoing.com）",
       },
       options: {
         roles: [
@@ -368,6 +364,8 @@ export const useFrontendFormContent = () => {
           { id: "japan", label: lang === 'en' ? "Japan" : "日本" },
           { id: "uk", label: lang === 'en' ? "UK" : "英国" },
           { id: "usa", label: lang === 'en' ? "USA" : "美国" },
+          { id: "singapore", label: lang === 'en' ? "Singapore" : "新加坡" },
+          { id: "malaysia", label: lang === 'en' ? "Malaysia" : "马来西亚" },
           { id: "other", label: lang === 'en' ? "Other" : "其他" }
         ],
         interests: [
