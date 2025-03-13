@@ -1,9 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useFrontendFeaturedPrograms } from '@/hooks';
+import { Program } from '@/types/programTypes';
 
-// 程序数据类型接口
+/**
+ * 程序数据类型接口
+ * 
+ * @interface ProgramData
+ * @property {string} id - 程序唯一标识符
+ * @property {string} title_en - 英文标题
+ * @property {string} title_zh - 中文标题
+ * @property {string} description_en - 英文描述
+ * @property {string} description_zh - 中文描述
+ * @property {string} image - 程序图片URL
+ * @property {string} location_en - 英文位置信息
+ * @property {string} location_zh - 中文位置信息
+ * @property {string} duration - 持续时间
+ * @property {string} [duration_en] - 英文持续时间（可选）
+ * @property {string} [duration_zh] - 中文持续时间（可选）
+ * @property {string} country - 国家
+ * @property {Array<{id: string, name_en: string, name_zh: string}>} tags - 程序标签数组
+ */
 interface ProgramData {
   id: string;
   title_en: string;
@@ -24,40 +43,51 @@ interface ProgramData {
   }>;
 }
 
+/**
+ * 特色课程组件属性接口
+ * 
+ * @interface FeaturedProgramsProps
+ * @property {'en'|'zh'} currentLanguage - 当前语言设置，用于切换显示的语言
+ */
 interface FeaturedProgramsProps {
   currentLanguage: 'en' | 'zh';
 }
 
+/**
+ * 首页特色课程展示组件
+ * 
+ * 该组件在首页上展示三个特色课程，包含课程图片、标题、位置、持续时间和简短描述。
+ * 组件会从指定的JSON文件中加载固定的三个课程数据。支持多语言显示，会根据当前语言
+ * 设置自动切换显示的文本内容。每个课程卡片都可以点击跳转到相应的课程详情页面。
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * import { FeaturedPrograms } from '@/components/frontend/home/FeaturedPrograms';
+ * import { useLanguage } from '@/context/LanguageContext';
+ * 
+ * // 使用示例
+ * function HomePage() {
+ *   const { currentLanguage } = useLanguage();
+ *   
+ *   return (
+ *     <div className="home-page">
+ *       <HeroSection />
+ *       <FeaturedPrograms currentLanguage={currentLanguage} />
+ *       <AboutSection />
+ *     </div>
+ *   );
+ * }
+ * ```
+ * 
+ * @param {FeaturedProgramsProps} props - 组件属性
+ * @returns {JSX.Element} 渲染的特色课程展示区域
+ */
 const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [programsData, setProgramsData] = useState<ProgramData[]>([]);
+  // 使用自定义 hook 获取特色课程数据
+  const { programs, intro, isLoading, error } = useFrontendFeaturedPrograms(currentLanguage);
   
-  // 固定使用Program1, Program2, Program3数据
-  useEffect(() => {
-    const fetchPrograms = async () => {
-      try {
-        // 获取三个特定程序的数据
-        const program1Response = await fetch('/content/programs/program1.json');
-        const program2Response = await fetch('/content/programs/program2.json');
-        const program3Response = await fetch('/content/programs/program3.json');
-        
-        // 解析JSON数据
-        const program1 = await program1Response.json();
-        const program2 = await program2Response.json();
-        const program3 = await program3Response.json();
-        
-        // 设置程序数据
-        setProgramsData([program1, program2, program3]);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching program data:', error);
-        setIsLoading(false);
-      }
-    };
-    
-    fetchPrograms();
-  }, []);
-  
+  // 如果正在加载，显示加载指示器
   if (isLoading) {
     return (
       <div className="py-16 bg-white">
@@ -68,8 +98,23 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
     );
   }
   
+  // 如果加载出错，显示错误信息
+  if (error) {
+    return (
+      <div className="py-16 bg-white">
+        <div className="container mx-auto px-4 text-center text-red-500">
+          {currentLanguage === 'en' ? 'Failed to load programs' : '加载课程失败'}
+        </div>
+      </div>
+    );
+  }
+  
+  // 使用从 hook 获取的数据
+  console.log('FeaturedPrograms data:', programs);
+  const programsData = programs || [];
+  
   // 介绍文本数据
-  const introData = {
+  const introData = intro || {
     subtitle: currentLanguage === 'en' 
       ? "Every EdGoing program is a carefully crafted adventure, designed to go beyond sightseeing—challenging assumptions, building empathy, and empowering students to see the world, and themselves, in new ways."
       : "每一个 EdGoing 项目都是精心打造的探险之旅，旨在超越简单的观光——挑战固有观念、培养共情能力，并赋予学生以全新的方式看待世界和自我。",
@@ -83,7 +128,7 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
   return renderContent(programsData, introData);
 
   // 渲染内容的辅助函数
-  function renderContent(programsData: ProgramData[], introData: {
+  function renderContent(programsData: Program[], introData: {
     subtitle: string;
     title: string;
     linkText: string;
@@ -95,27 +140,22 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
     return (
       <div className="py-16 bg-white">
         <div className="container mx-auto px-8 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div>
-              <p className="text-sm mb-2">{introData.subtitle}</p>
-              <div>
-                <Button variant="link" className="text-blue-600 p-0 h-auto" asChild>
-                  <Link to={introData.linkUrl}>
-                    {introData.linkText} →
-                  </Link>
-                </Button>
-              </div>
-            </div>
-            <div>
-              <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
-                {introData.title}
-              </h2>
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+              {introData.title}
+            </h2>
+            <div className="flex justify-center">
+              <Button variant="link" className="text-blue-600 p-0 h-auto" asChild>
+                <Link to={introData.linkUrl}>
+                  {introData.linkText} →
+                </Link>
+              </Button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {displayPrograms.map((program) => (
-              <div key={program.id} className="border border-gray-200 rounded-lg overflow-hidden flex flex-col">
+              <Link to={`/programs/${program.id}`} key={program.id} className="border border-gray-200 rounded-lg overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
                 <div className="h-48 overflow-hidden">
                   <img 
                     src={program.image} 
@@ -127,6 +167,9 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
                   <h3 className="text-lg font-semibold mb-2">
                     {currentLanguage === 'en' ? program.title_en : program.title_zh}
                   </h3>
+                  <p className="text-sm text-gray-600 line-clamp-3">
+                    {currentLanguage === 'en' ? program.description_en : program.description_zh}
+                  </p>
                 </div>
                 <div className="p-4 pt-0 mt-auto bg-gray-50 text-sm text-gray-500 flex items-center justify-between">
                   <span>{currentLanguage === 'en' ? program.location_en : program.location_zh}</span>
@@ -136,7 +179,7 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
                       : (program.duration_zh || program.duration)}
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
