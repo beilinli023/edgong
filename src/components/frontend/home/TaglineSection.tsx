@@ -66,18 +66,18 @@ const TaglineSection: React.FC = () => {
       >
         <h2 className="text-5xl font-bold mb-4">
           <span 
-            className={`transition-all duration-500 inline-block ${activeWord === 0 ? 'transform scale-125 text-shadow' : ''}`}
+            className={`transition-all duration-500 inline-block mr-6 ${activeWord === 0 ? 'transform scale-125 shadow-text' : ''}`}
             style={{ color: "#3B82F6" }}
           >
             Explore.
           </span>{' '}
           <span 
-            className={`text-green-500 transition-all duration-500 inline-block ${activeWord === 1 ? 'transform scale-125 text-shadow' : ''}`}
+            className={`text-green-500 transition-all duration-500 inline-block mx-6 ${activeWord === 1 ? 'transform scale-125 shadow-text' : ''}`}
           >
             Learn.
           </span>{' '}
           <span 
-            className={`text-orange-500 transition-all duration-500 inline-block ${activeWord === 2 ? 'transform scale-125 text-shadow' : ''}`}
+            className={`text-orange-500 transition-all duration-500 inline-block ml-6 ${activeWord === 2 ? 'transform scale-125 shadow-text' : ''}`}
           >
             Grow.
           </span>
@@ -102,26 +102,6 @@ const TaglineSection: React.FC = () => {
           </p>
         )}
       </div>
-      
-      {/* 添加动画重播按钮 */}
-      {hasAnimated && (
-        <button 
-          onClick={() => {
-            setIsVisible(false);
-            setActiveWord(0);
-            setTimeout(() => setIsVisible(true), 10);
-          }}
-          className="absolute right-4 bottom-2 bg-blue-500 text-white rounded-full p-2 text-xs shadow-md hover:bg-blue-600 transition-colors"
-        >
-          {currentLanguage === 'en' ? 'Replay Animation' : '重放动画'}
-        </button>
-      )}
-      
-      <style jsx>{`
-        .text-shadow {
-          text-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-        }
-      `}</style>
     </div>
   );
 };

@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
+import { getLocalSocialLinks } from "@/services/frontend/localSocialLinksService";
 
 export interface SocialMedia {
   id: number;
@@ -14,14 +14,18 @@ export interface SocialMedia {
 
 // Mock service functions
 const getSocialMedia = async (): Promise<SocialMedia[]> => {
-  // Mock data that includes all 5 social media platforms from the image
-  return [
-    { id: 1, name: "Facebook", icon: "facebook", url: "https://facebook.com", platform: "facebook", order: 1 },
-    { id: 2, name: "LinkedIn", icon: "linkedin", url: "https://linkedin.com", platform: "linkedin", order: 2 },
-    { id: 3, name: "Instagram", icon: "instagram", url: "https://instagram.com", platform: "instagram", order: 3 },
-    { id: 4, name: "YouTube", icon: "youtube", url: "https://youtube.com", platform: "youtube", order: 4 },
-    { id: 5, name: "WeChat", icon: "wechat", url: "#", platform: "wechat", order: 5 }
-  ];
+  try {
+    const response = await fetch('/api/social-links');
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.warn('API request failed, falling back to local data:', error);
+    // 当 API 失败时，使用本地数据源
+    return getLocalSocialLinks();
+  }
 };
 
 const saveSocialMediaToServer = async (media: SocialMedia[]): Promise<SocialMedia[]> => {

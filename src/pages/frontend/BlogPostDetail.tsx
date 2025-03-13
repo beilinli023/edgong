@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FrontendLayout from "@/components/frontend/FrontendLayout";
 import { BlogPostLoading } from "@/components/frontend/blog/detail/BlogPostLoading";
@@ -12,6 +12,10 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useBlogPostDetail } from "@/hooks/useBlogPostDetail";
 import { normalizeTags } from "@/utils/blogUtils";
 import ErrorMessage from "@/components/frontend/blog/ErrorMessage";
+import { BlogPost } from "@/types/blogTypes";
+
+// 导入博客头图配置
+import blogConfig from "../../../public/content/blog/index.json";
 
 const BlogPostDetail: React.FC = () => {
   // Get the ID from the URL parameter
@@ -29,6 +33,7 @@ const BlogPostDetail: React.FC = () => {
     backLabel,
     tagsLabel,
     featuredImageUrl,
+    carouselImages,
     getLocalizedText
   } = useBlogPostDetail(id, currentLanguage);
 
@@ -59,7 +64,7 @@ const BlogPostDetail: React.FC = () => {
   if (error && !post) {
     return (
       <BlogPostError 
-        error={error || (currentLanguage === 'zh' ? '未找到博客文章' : 'Blog post not found')}
+        error={error.toString() || (currentLanguage === 'zh' ? '未找到博客文章' : 'Blog post not found')}
         currentLanguage={currentLanguage}
         onRetry={() => window.location.reload()}
         backLabel={backLabel}
@@ -68,7 +73,7 @@ const BlogPostDetail: React.FC = () => {
   }
 
   // Ensure tags are always normalized
-  const normalizedTags = normalizeTags(post);
+  const normalizedTags = post ? normalizeTags(post as BlogPost) : [];
 
   return (
     <FrontendLayout>
@@ -76,7 +81,7 @@ const BlogPostDetail: React.FC = () => {
       <BlogPostHero 
         title={localizedTitle || ''}
         excerpt={localizedExcerpt || ''}
-        featuredImage={featuredImageUrl || '/placeholder.svg'}
+        featuredImage={blogConfig.hero.background_image}
       />
 
       {/* Navigation - back to blog list */}
@@ -95,7 +100,9 @@ const BlogPostDetail: React.FC = () => {
           {/* Post header with author and date info */}
           <BlogPostHeaderNew 
             title={localizedTitle || ''}
-            author={post?.author || ''}
+            author={currentLanguage === 'en' 
+              ? (post as BlogPost)?.author_en || (post as BlogPost)?.author || '' 
+              : (post as BlogPost)?.author_zh || (post as BlogPost)?.author || ''}
             publishedDate={post?.published_at || ''}
             primaryCategory={post?.primary_category}
             currentLanguage={currentLanguage}
@@ -110,6 +117,7 @@ const BlogPostDetail: React.FC = () => {
             featuredImage={featuredImageUrl}
             imageAlt={localizedTitle}
             showFeaturedImage={true}
+            carouselImages={carouselImages}
           />
 
           {/* 标签已移至文章标题下方，与日期并列显示 */}

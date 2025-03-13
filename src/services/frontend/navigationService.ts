@@ -1,4 +1,3 @@
-
 import apiClient, { extractData } from '../api/apiClient';
 
 // 导航数据结构接口定义
@@ -18,7 +17,7 @@ interface MenuItem {
 export const getNavigationMenu = async (language = 'en'): Promise<MenuItem[]> => {
   try {
     // 由于可能遇到网络或API问题，这里设置超时
-    const response = await apiClient.get('/navigation').catch(error => {
+    const response = await apiClient.get('/api/navigation').catch(error => {
       console.error('Navigation API request failed:', error);
       return null;
     });

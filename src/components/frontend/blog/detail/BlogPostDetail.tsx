@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useBlogPostDetail } from '@/hooks/useBlogPostDetail';
 import BlogPostHeaderNew from './BlogPostHeaderNew';
 import BlogPostContent from './BlogPostContent';
 import { Skeleton } from '@/components/ui/skeleton';
+import { BlogPost, ImageData } from '@/types/blogTypes';
 
 interface BlogPostDetailProps {
   slug?: string;
@@ -12,59 +13,7 @@ interface BlogPostDetailProps {
 const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
   const params = useParams<{ slug: string }>();
   const postSlug = slug || params.slug;
-  
-  // 添加调试信息显示在页面上
-  const debug = true; // 设置为true显示调试信息，之后可以改为false
-  
   const currentLanguage = 'zh'; // 硬编码为中文，或从context获取
-  
-  // 添加清除缓存的功能
-  useEffect(() => {
-    // 尝试清除Service Worker缓存
-    const clearCache = async () => {
-      if ('caches' in window) {
-        try {
-          const cacheNames = await window.caches.keys();
-          await Promise.all(
-            cacheNames.map(cacheName => {
-              console.log('尝试清除缓存:', cacheName);
-              return window.caches.delete(cacheName);
-            })
-          );
-          console.log('所有缓存已清除');
-        } catch (err) {
-          console.error('清除缓存失败:', err);
-        }
-      }
-    };
-    
-    clearCache();
-    
-    // 强制刷新
-    const forceRefresh = async () => {
-      try {
-        // 使用时间戳参数请求最新的博客文章
-        const timestamp = new Date().getTime();
-        const response = await fetch(`/content/blog/${postSlug}.json?_t=${timestamp}`);
-        if (response.ok) {
-          console.log('强制刷新博客文章成功');
-          const data = await response.json();
-          console.log('最新博客数据:', data);
-        }
-      } catch (err) {
-        console.error('强制刷新失败:', err);
-      }
-    };
-    
-    forceRefresh();
-  }, [postSlug]);
-  
-  console.log('🔄 BlogPostDetail加载文章:', {
-    providedSlug: slug,
-    routeSlug: params.slug,
-    finalSlug: postSlug,
-    timestamp: new Date().toISOString()
-  });
   
   const {
     post,
@@ -80,32 +29,6 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
   // 简单的本地化文本函数
   const getLocalizedText = (en: string, zh: string) => currentLanguage === 'zh' ? zh : en;
 
-  // 添加清除缓存和强制刷新功能
-  const clearCacheAndRefresh = async () => {
-    if ('caches' in window) {
-      try {
-        const cacheNames = await window.caches.keys();
-        await Promise.all(
-          cacheNames.map(cacheName => {
-            console.log('手动清除缓存:', cacheName);
-            return window.caches.delete(cacheName);
-          })
-        );
-        console.log('所有缓存已手动清除');
-        // 强制刷新整个页面
-        setTimeout(() => {
-          document.location.reload();
-        }, 100);
-      } catch (err) {
-        console.error('手动清除缓存失败:', err);
-        document.location.reload();
-      }
-    } else {
-      // 如果不支持caches API，就直接刷新
-      document.location.reload();
-    }
-  };
-
   if (isLoading) {
     return <BlogPostDetailSkeleton />;
   }
@@ -118,27 +41,72 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
     </div>;
   }
 
+  // 从post对象中获取视频URL（优先从video_url字段，或从内容中尝试提取）
+  const getVideoUrlFromPost = (postData: any): string | null => {
+    if (!postData) return null;
+    
+    if ('video_url' in postData && typeof postData.video_url === 'string') {
+      return postData.video_url;
+    }
+    
+    const extractVideoUrl = (content: string | undefined): string | null => {
+      if (!content) return null;
+      
+      const youtubeMatch = content.match(/https:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+      if (youtubeMatch) return youtubeMatch[0];
+      
+      const bilibiliMatch = content.match(/https:\/\/(www\.)?bilibili\.com\/video\/(BV[a-zA-Z0-9]+|av\d+)/);
+      if (bilibiliMatch) return bilibiliMatch[0];
+      
+      return null;
+    };
+    
+    const contentEn = 'content_en' in postData ? postData.content_en : undefined;
+    const contentZh = 'content_zh' in postData ? postData.content_zh : undefined;
+    
+    return extractVideoUrl(contentEn) || extractVideoUrl(contentZh) || null;
+  };
+  
+  const videoUrl = getVideoUrlFromPost(post);
+
+  // 处理特色图片
+  const getFeaturedImage = (postData: any): string | undefined => {
+    if (!postData || !('featured_image' in postData)) return undefined;
+    
+    const featuredImage = postData.featured_image;
+    
+    if (typeof featuredImage === 'string') {
+      return featuredImage;
+    } else if (
+      typeof featuredImage === 'object' && 
+      featuredImage !== null
+    ) {
+      if ('url' in featuredImage && typeof featuredImage.url === 'string') {
+        return featuredImage.url;
+      }
+    }
+    
+    return undefined;
+  };
+
+  const featuredImageUrl = getFeaturedImage(post);
+
+  // 获取本地视频URL
+  const getLocalVideoUrl = (postData: any): string | null => {
+    if (!postData) return null;
+    
+    if ('local_video_url' in postData && typeof postData.local_video_url === 'string') {
+      const videoUrl = postData.local_video_url;
+      return videoUrl.startsWith('/') ? videoUrl : `/${videoUrl}`;
+    }
+    
+    return null;
+  };
+
+  const localVideoUrl = getLocalVideoUrl(post);
+
   return (
     <div className="container mx-auto px-4 py-8">
-      {debug && (
-        <div className="bg-yellow-100 p-3 mb-4 text-sm rounded-md">
-          <p><strong>调试信息:</strong></p>
-          <ul className="list-disc pl-5">
-            <li>文章ID: {post.id}</li>
-            <li>文章Slug: {post.slug}</li>
-            <li>date字段: {post.date}</li>
-            <li>published_at字段: {post.published_at}</li>
-            <li>最终使用日期: {post.date || post.published_at}</li>
-          </ul>
-          <button 
-            onClick={clearCacheAndRefresh}
-            className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs"
-          >
-            强制清除缓存并刷新
-          </button>
-        </div>
-      )}
-      
       <BlogPostHeaderNew
         title={localizedTitle}
         author={post.author}
@@ -150,7 +118,12 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
         getLocalizedText={getLocalizedText}
       />
       
-      <BlogPostContent content={localizedContent} />
+      <BlogPostContent 
+        content={localizedContent}
+        featuredImage={featuredImageUrl}
+        videoUrl={videoUrl}
+        localVideoUrl={localVideoUrl}
+      />
     </div>
   );
 };
@@ -177,4 +150,4 @@ const BlogPostDetailSkeleton = () => (
   </div>
 );
 
-export default BlogPostDetail; 
+export default BlogPostDetail;

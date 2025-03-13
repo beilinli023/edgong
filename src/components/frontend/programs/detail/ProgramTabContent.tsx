@@ -12,6 +12,14 @@ interface ProgramTabContentProps {
 const formatContentText = (content: string) => {
   if (!content) return '';
   
+  // 检查内容是否包含HTML标签
+  const containsHtml = /<[a-z][\s\S]*>/i.test(content);
+  
+  // 如果包含HTML标签，则直接返回内容
+  if (containsHtml) {
+    return content;
+  }
+  
   // 查找标题和内容的模式：标题：内容
   return content.split('\n\n').map(paragraph => {
     const parts = paragraph.split('：');

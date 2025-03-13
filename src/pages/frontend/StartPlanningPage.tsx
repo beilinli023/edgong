@@ -1,4 +1,3 @@
-
 import React from "react";
 import FrontendLayout from "@/components/frontend/FrontendLayout";
 import { useFrontendFormContent } from "@/hooks/useFrontendFormContent";
@@ -24,8 +23,8 @@ const StartPlanningPage: React.FC = () => {
       ? "Fill out our form and we'll respond within 2 business days."
       : "填写我们的表单，我们将在2个工作日内回复。",
     phoneContact: currentLanguage === 'en'
-      ? "Or Call Us @ 400-115-3558"
-      : "或致电 400-115-3558",
+      ? "Or Call Us @ 400-115-3558 (Email: Hello@edgoing.com)"
+      : "或致电 400-115-3558（邮件：Hello@edgoing.com）",
     errorTitle: currentLanguage === 'en' ? "Unable to load form" : "无法加载表单",
     errorMessage: currentLanguage === 'en' 
       ? "Sorry, we couldn't load the form. Please try again later or contact us directly." 

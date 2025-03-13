@@ -1,20 +1,60 @@
 
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { submitPlanningForm } from "@/services/frontend/formService";
-import { FormContent } from "@/hooks/useFrontendFormContent";
+import { FormContent, usePlanningFormSubmit, PlanningFormData, FormOption } from "@/hooks/useForms";
 import PersonalInfoSection from "./sections/PersonalInfoSection";
 import EducationInfoSection from "./sections/EducationInfoSection";
 import ProgramInterestsSection from "./sections/ProgramInterestsSection";
 import FormFooterSection from "./sections/FormFooterSection";
 
+/**
+ * 规划表单组件的属性接口
+ * 
+ * @interface PlanningFormProps
+ * @property {FormContent} content - 表单内容配置，包含标题、描述、选项等
+ * @property {string} currentLanguage - 当前语言设置，用于切换表单显示的语言（'en'或'zh'）
+ */
 interface PlanningFormProps {
   content: FormContent;
   currentLanguage: string;
 }
 
+/**
+ * 教育规划表单组件
+ * 
+ * 该组件是一个多步骤的教育规划表单，用于收集用户的个人信息、教育背景和感兴趣的项目类型。
+ * 表单包含多个部分，包括个人信息、教育信息、项目兴趣和隐私政策同意等。
+ * 表单支持多语言，可以根据当前语言设置自动切换显示的文本。
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * import { PlanningForm } from '@/components/frontend/forms/PlanningForm';
+ * import { useFrontendFormContent } from '@/hooks/useFrontendFormContent';
+ * import { useLanguage } from '@/context/LanguageContext';
+ * 
+ * // 使用示例
+ * function PlanningPage() {
+ *   const { formContent } = useFrontendFormContent();
+ *   const { currentLanguage } = useLanguage();
+ *   
+ *   return (
+ *     <div className="container mx-auto py-8">
+ *       <h1 className="text-2xl font-bold mb-6">教育规划表单</h1>
+ *       <PlanningForm 
+ *         content={formContent} 
+ *         currentLanguage={currentLanguage} 
+ *       />
+ *     </div>
+ *   );
+ * }
+ * ```
+ * 
+ * @param {PlanningFormProps} props - 组件属性
+ * @returns {JSX.Element} 渲染的教育规划表单
+ */
 const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // 使用 React Query 的 usePlanningFormSubmit hook 管理提交状态，不再需要本地状态
   
   // 表单状态
   const [formData, setFormData] = useState({
@@ -27,9 +67,9 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
     gradeLevel: "",
     province: "",
     city: "",
-    programTypes: [] as string[],
-    destinations: [] as string[],
-    interests: [] as string[],
+    programTypes: [] as string[],  // 存储选中项目的 id
+    destinations: [] as string[],  // 存储选中目的地的 id
+    interests: [] as string[],     // 存储选中兴趣的 id
     questions: "",
     agreeToReceiveInfo: false,
     agreeToPrivacyPolicy: false
@@ -82,8 +122,10 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
       const currentValues = [...(prev[field as keyof typeof prev] as string[])];
       
       if (checked) {
+        // 当选中时，添加选项的 id
         return { ...prev, [field]: [...currentValues, value] };
       } else {
+        // 当取消选中时，移除选项的 id
         return { ...prev, [field]: currentValues.filter(item => item !== value) };
       }
     });
@@ -98,6 +140,9 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
   const handlePrivacyPolicyChange = (checked: boolean) => {
     setFormData(prev => ({ ...prev, agreeToPrivacyPolicy: checked }));
   };
+
+  // 使用 React Query 的 usePlanningFormSubmit hook 处理表单提交
+  const { mutate, isPending: isSubmitting } = usePlanningFormSubmit(currentLanguage);
 
   // 提交表单
   const handleSubmit = async (e: React.FormEvent) => {
@@ -119,48 +164,29 @@ const PlanningForm: React.FC<PlanningFormProps> = ({ content, currentLanguage })
       return;
     }
     
-    try {
-      setIsSubmitting(true);
-      
-      // 实际API请求
-      await submitPlanningForm(formData);
-      
-      // 成功提交
-      toast.success(
-        currentLanguage === 'en' 
-          ? "Form submitted successfully! We'll contact you within 2 business days." 
-          : "表单提交成功！我们将在2个工作日内与您联系。"
-      );
-      
-      // 重置表单
-      setFormData({
-        role: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        schoolName: "",
-        gradeLevel: "",
-        province: "",
-        city: "",
-        programTypes: [],
-        destinations: [],
-        interests: [],
-        questions: "",
-        agreeToReceiveInfo: false,
-        agreeToPrivacyPolicy: false
-      });
-      
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error(
-        currentLanguage === 'en' 
-          ? "An error occurred while submitting the form. Please try again." 
-          : "提交表单时出错。请重试。"
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    // 使用 mutate 提交表单
+    mutate(formData, {
+      onSuccess: () => {
+        // 成功提交后重置表单
+        setFormData({
+          role: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          schoolName: "",
+          gradeLevel: "",
+          province: "",
+          city: "",
+          programTypes: [],
+          destinations: [],
+          interests: [],
+          questions: "",
+          agreeToReceiveInfo: false,
+          agreeToPrivacyPolicy: false
+        });
+      }
+    });
   };
 
   return (

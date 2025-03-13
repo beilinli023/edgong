@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Star, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { useFrontendStudentStories } from '@/hooks/useFrontendStudentStories';
@@ -35,34 +34,37 @@ const StudentStories: React.FC<StudentStoriesProps> = ({ currentLanguage }) => {
   if (!stories || stories.length === 0) {
     const fallbackStories = [
       {
-        id: 1,
-        name: "Sarah Chen",
-        image: "/placeholder.svg",
-        background: currentLanguage === 'en' ? "UCLA Cognitive Science Major" : "加州大学洛杉矶分校认知科学专业",
+        id: "1",
+        name: "Steven Stanley",
+        image: "/Edgoing/Home_Page/Testimonial1StevenStanley.jpg",
+        background: currentLanguage === 'en' ? "High School Student, 17 years old" : "高中生，17 岁",
+        program: currentLanguage === 'en' ? "Cultural Exchange in Kyoto" : "京都的文化交流",
         rating: 5,
         testimony: currentLanguage === 'en' 
-          ? "I had an enjoyable time exploring the streets of Kyoto and immersing myself in its rich culture, especially experiencing the powerful beats of Japanese drums and participating in vibrant summer festivals."
-          : "我在京都的街头漫步，沉浸在其丰富的文化中，度过了非常愉快的时光，尤其是体验了日本太鼓的强劲节奏，并参加了充满活力的夏日祭典。"
+          ? "Kyoto was so cool! I loved checking out the streets and the culture, especially the taiko drumming and summer festivals – seriously awesome! The tea ceremony, calligraphy, and staying with a local family really showed me Japanese values."
+          : "京都超酷的！我超喜欢逛那里的街道，感受那里的文化，尤其是太鼓表演和夏日祭——真的太赞了！茶道、书法，还有住在当地人家里，让我真正体会到了日本的文化价值观。"
       },
       {
-        id: 2,
-        name: "David Wang",
-        image: "/placeholder.svg",
-        background: currentLanguage === 'en' ? "Princeton University" : "普林斯顿大学",
-        rating: 4,
-        testimony: currentLanguage === 'en'
-          ? "The academic research program helped me clarify my career goals and gave me hands-on experience in my field of interest."
-          : "学术研究项目帮助我明确了职业目标，并让我在感兴趣的领域获得了实践经验。"
-      },
-      {
-        id: 3,
-        name: "Sophie Lin",
-        image: "/placeholder.svg",
-        background: currentLanguage === 'en' ? "Phillips Exeter Academy" : "菲利普斯埃克塞特学院",
+        id: "2",
+        name: "Kheng Lee",
+        image: "/Edgoing/Home_Page/Testimonial2KhengLeng.jpg",
+        background: currentLanguage === 'en' ? "Teacher" : "教师",
+        program: currentLanguage === 'en' ? "STEM Program in Singapore" : "新加坡的STEM项目",
         rating: 5,
         testimony: currentLanguage === 'en'
-          ? "I never thought I could gain so much confidence in just two weeks. The cultural immersion program was incredible."
-          : "我从未想过可以在短短两周内获得如此多的自信。文化沉浸项目令人难以置信。"
+          ? "My students couldn't stop sharing their exciting experiences after the trip to Singapore. I, too, thoroughly enjoyed the excursion to Gardens by the Bay, where we marveled at a stunning variety of flora and fauna in the beautiful indoor gardens, creating unforgettable memories."
+          : "这是我的学生们在新加坡之旅后无法停止分享他们的激动经历。我也非常享受这次滨海湾花园的游览，我们在美丽的室内花园中惊叹于各种令人惊叹的动植物，创造了难忘的回忆。"
+      },
+      {
+        id: "3",
+        name: "Li Wei",
+        image: "/Edgoing/Home_Page/Testimonial3Liwei.jpg",
+        background: currentLanguage === 'en' ? "High School Student, 17 years old" : "高中生，17岁",
+        program: currentLanguage === 'en' ? "Wealth Management Program by Edgoing at SMU" : "Edgoing与新加坡管理大学（SMU）合作的财富管理项目",
+        rating: 5,
+        testimony: currentLanguage === 'en'
+          ? "I'm Li Wei, 17, from Shanghai. The Wealth Management Program by Edgoing at Singapore Management University (SMU) ignited my passion for finance. Lecturers made complex topics accessible—their interactive lectures on stock markets and personal budgeting were eye-opening! Assignments, like analyzing mock portfolios, and group presentations on risk management taught me teamwork and critical thinking. Presenting our case study to SMU lecturers, who gave personalized feedback, was nerve-wracking but rewarding. Earning the Certificate of Completion boosted my university applications—now I'm determined to pursue finance degrees. For pre-university students: Edgoing and SMU's blend of mentorship and real-world challenges is the perfect academic launchpad!"
+          : "我是李维，17岁，来自上海。Edgoing与新加坡管理大学（SMU）合作的财富管理项目点燃了我对金融的热情。讲师们将复杂的主题讲解得通俗易懂——他们关于股票市场和个人预算的互动课程让我大开眼界！作业，比如分析模拟投资组合，以及关于风险管理的小组展示，教会了我团队合作和批判性思维。向SMU讲师展示我们的案例研究时，虽然紧张，但他们的个性化反馈让我受益匪浅。获得结业证书为我的大学申请增添了亮点——现在我决心攻读金融学位。对于大学预科生来说，Edgoing和SMU的导师指导与现实挑战相结合，是完美的学术起点！"
       }
     ];
 

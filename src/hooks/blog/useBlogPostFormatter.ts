@@ -1,4 +1,3 @@
-
 import { BlogPost, BlogTag } from "@/types/blogTypes";
 
 /**
@@ -18,19 +17,20 @@ export const useBlogPostFormatter = (post: BlogPost | null, currentLanguage: str
       backLabel: getLocalizedText('Back to Blogs', '返回博客列表'),
       tagsLabel: getLocalizedText('Tags:', '标签:'),
       featuredImageUrl: '/placeholder.svg',
+      carouselImages: [] as string[],
       getLocalizedText,
       formattedTags: [] as BlogTag[]
     };
   }
 
   // Process tags to ensure they're all BlogTag objects
-  const formattedTags: BlogTag[] = (post.tags || []).map((tag: any) => {
+  const formattedTags: BlogTag[] = (post.tags || []).map((tag: BlogTag | string) => {
     // If tag is already a BlogTag object
     if (typeof tag === 'object' && tag !== null) {
       return {
         id: tag.id || `tag-${Math.random().toString(36).substr(2, 9)}`,
-        name_en: tag.name_en || (currentLanguage === 'en' ? tag.name || '' : ''),
-        name_zh: tag.name_zh || (currentLanguage === 'zh' ? tag.name || '' : ''),
+        name_en: tag.name_en || (currentLanguage === 'en' ? '' : ''),
+        name_zh: tag.name_zh || (currentLanguage === 'zh' ? '' : ''),
         slug: tag.slug || tag.id?.toString().toLowerCase() || '',
         color: tag.color || '#3B82F6'
       };
@@ -57,6 +57,11 @@ export const useBlogPostFormatter = (post: BlogPost | null, currentLanguage: str
     ? post.featured_image 
     : post.featured_image?.url || '/placeholder.svg';
 
+  // 
+  const carouselImages = Array.isArray(post.carousel_images) 
+    ? post.carousel_images 
+    : [];
+
   return {
     localizedTitle,
     localizedContent,
@@ -64,6 +69,7 @@ export const useBlogPostFormatter = (post: BlogPost | null, currentLanguage: str
     backLabel,
     tagsLabel,
     featuredImageUrl,
+    carouselImages,
     getLocalizedText,
     formattedTags
   };

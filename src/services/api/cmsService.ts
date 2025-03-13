@@ -61,11 +61,11 @@ export const socialMediaService = createCrudService<SocialMedia>('social-media')
 // 联系信息服务
 export const contactInfoService = {
   get: async (): Promise<ApiResponse<ContactInfo>> => {
-    return apiClient.get('/contact-info');
+    return apiClient.get('/api/contact-info');
   },
   
   update: async (data: Partial<ContactInfo>): Promise<ApiResponse<ContactInfo>> => {
-    return apiClient.put('/contact-info', data);
+    return apiClient.put('/api/contact-info', data);
   }
 };
 

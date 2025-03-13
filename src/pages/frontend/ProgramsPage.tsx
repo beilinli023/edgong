@@ -52,7 +52,9 @@ const ProgramsPage: React.FC = () => {
       const matchesGradeLevel = filters.gradeLevel.length === 0 ||
         filters.gradeLevel.some(level => {
           const programGradeLevel = currentLanguage === 'en' ? program.grade_level_en : program.grade_level_zh;
-          return programGradeLevel === level;
+          // 处理标签显示格式转换
+          const formattedProgramLevel = programGradeLevel?.replace(/,/g, currentLanguage === 'en' ? ', ' : '、');
+          return formattedProgramLevel === level;
         });
       
       return matchesCategory && matchesCountry && matchesGradeLevel;

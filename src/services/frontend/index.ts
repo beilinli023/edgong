@@ -19,6 +19,7 @@ import {
   submitNewsletterSubscription
 } from './formService';
 import { 
+  getBlogContent,
   getBlogPosts, 
   getBlogPostBySlug, 
   getBlogCategories, 
@@ -28,7 +29,9 @@ import {
 } from './blogService';
 import { 
   getStudyAbroadContent, 
-  getUniversityById 
+  getUniversityById,
+  getAllUniversities,
+  getUniversityIndex
 } from './studyAbroadService';
 import { getAboutPageContent } from './aboutService';
 
@@ -55,6 +58,7 @@ export default {
   submitNewsletterSubscription,
   
   // 博客
+  getBlogContent,
   getBlogPosts,
   getBlogPostBySlug,
   getBlogCategories,
@@ -65,6 +69,8 @@ export default {
   // 留学
   getStudyAbroadContent,
   getUniversityById,
+  getAllUniversities,
+  getUniversityIndex,
   
   // 关于我们
   getAboutPageContent

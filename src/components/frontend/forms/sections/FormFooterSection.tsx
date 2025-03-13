@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -128,7 +127,7 @@ const FormFooterSection: React.FC<FormFooterSectionProps> = ({
                     {currentLanguage === 'en' ? 'Close' : '关闭'}
                   </Button>
                 </DialogClose>
-                <Link to="/privacy-policy">
+                <Link to="/privacy-policy" target="_blank" rel="noopener noreferrer">
                   <Button variant="default">
                     {readMoreText}
                   </Button>

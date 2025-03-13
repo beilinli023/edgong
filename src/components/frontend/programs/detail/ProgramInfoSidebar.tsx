@@ -96,8 +96,7 @@ const ProgramInfoSidebar: React.FC<ProgramInfoSidebarProps> = ({ program }) => {
 
   return (
     <Card className="p-6">
-      <h3 className="text-xl font-bold mb-4">{t.programInfo}</h3>
-      
+      {/* 移除项目信息标题 */}
       <div className="space-y-4">
         <InfoItem label={t.programType} value={programType} />
         <InfoItem label={t.duration} value={duration} />

@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Program } from '@/types/programTypes';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import './ProgramTabs.css'; // 导入CSS样式文件
 
 // 选项卡配置
 const TAB_CONFIG = [
@@ -64,6 +65,20 @@ const ProgramContentTabs: React.FC<ProgramContentTabsProps> = ({ program }) => {
     
     // 处理Unicode转义序列
     text = decodeUnicodeEscapes(text);
+    
+    // 检查内容是否包含HTML标签
+    const containsHtml = /<[a-z][\s\S]*>/i.test(text);
+    
+    // 如果包含HTML标签，直接返回dangerouslySetInnerHTML
+    if (containsHtml) {
+      return [
+        <div 
+          key="html-content" 
+          dangerouslySetInnerHTML={{ __html: text }}
+          className="html-content"
+        />
+      ];
+    }
     
     // 分割文本为段落
     const paragraphs = text.split('\n\n').filter(p => p.trim());
@@ -181,13 +196,13 @@ const ProgramContentTabs: React.FC<ProgramContentTabsProps> = ({ program }) => {
                   
                   // 检查是否包含冒号（中文或英文）
                   if (trimmedLine.includes('：') || trimmedLine.includes(':')) {
-                    const [subtitle, ...content] = trimmedLine.split(/[：:]/);
+                    const [subtitle, ...itemContent] = trimmedLine.split(/[：:]/);
                     return (
                       <li key={lineIdx} className="flex">
                         <span className="text-gray-800 mr-2">•</span>
                         <div>
                           <span className="text-gray-800">{subtitle.trim()}：</span>
-                          <span className="text-gray-700">{content.join(':').trim()}</span>
+                          <span className="text-gray-700">{itemContent.join(':').trim()}</span>
                         </div>
                       </li>
                     );

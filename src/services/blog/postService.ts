@@ -1,177 +1,44 @@
-import blogApi from './api';
-import { validateResponse } from './utils';
-import { BlogPost, BlogPostFormData } from '@/types/blogTypes';
-import { loadBlogPostsFromFiles, loadBlogPostFromFile } from './fileService';
-
-// 判断是否使用模拟数据
-const isMockDataEnabled = () => {
-  return import.meta.env.VITE_USE_MOCK_DATA === 'true';
-};
-
-// 判断是否使用文件系统数据而不是API
-const isFileSystemEnabled = () => {
-  return import.meta.env.VITE_USE_FILE_SYSTEM === 'true' ||
-         import.meta.env.MODE === 'development' && !import.meta.env.VITE_API_URL;
-};
-
 /**
- * 获取所有博客文章
+ * u535au5ba2u6587u7ae0u670du52a1 - u7b80u5316u7248
+ * u6ce8u610fuff1au8fd9u4e2au6587u4ef6u53eau5305u542bu540eu53f0u7ba1u7406u535au5ba2u65f6u9700u8981u7684u6700u5c0fu529fu80fd
  */
-export const getAllBlogPosts = async (locale: string = 'en') => {
-  // 如果配置使用文件系统，从文件加载
-  if (isFileSystemEnabled()) {
-    console.log('从文件系统加载博客文章...');
-    return loadBlogPostsFromFiles();
-  }
-  
-  try {
-    console.log('Fetching blog posts...');
-    const response = await blogApi.get(`/blog/posts?locale=${locale}`);
-    
-    const validatedData = validateResponse<BlogPost[]>(
-      response, 
-      '获取博客文章失败'
-    );
-    
-    console.log('Blog posts response:', validatedData);
-    return Array.isArray(validatedData) ? validatedData : [];
-  } catch (error) {
-    console.error('获取博客文章失败:', error);
-    // 如果API调用失败，尝试从文件系统加载
-    return loadBlogPostsFromFiles();
-  }
-};
+import { BlogPost, BlogPostFormData } from '@/types/blogTypes';
+import localBlogService from './localBlogService';
 
 /**
- * 获取单个博客文章 - 支持通过slug或id获取
+ * u83b7u53d6u535au5ba2u6587u7ae0u8be6u60c5
  */
 export const getBlogPostById = async (idOrSlug: string, locale: string = 'en'): Promise<BlogPost | null> => {
-  // 如果配置使用文件系统，从文件加载
-  if (isFileSystemEnabled()) {
-    console.log(`从文件系统加载博客文章: ${idOrSlug}`);
-    return loadBlogPostFromFile(idOrSlug);
-  }
-  
-  try {
-    // 判断是通过ID还是slug查询
-    const isSlug = idOrSlug.includes('-') || isNaN(Number(idOrSlug));
-    const endpoint = isSlug 
-      ? `/blog/posts/slug/${idOrSlug}?locale=${locale}` 
-      : `/blog/posts/${idOrSlug}?locale=${locale}`;
-      
-    console.log(`Fetching blog post with ${isSlug ? 'slug' : 'id'}: ${idOrSlug} for language: ${locale}`);
-    
-    try {
-      const response = await blogApi.get(endpoint);
-      
-      const data = validateResponse<BlogPost>(
-        response, 
-        `获取博客文章(ID/Slug: ${idOrSlug})失败`
-      );
-      
-      if (data) {
-        return {
-          id: data.id,
-          title_en: data.title_en || (locale === 'en' && data.title ? data.title : ''),
-          title_zh: data.title_zh || (locale === 'zh' && data.title ? data.title : ''),
-          slug: data.slug || idOrSlug,
-          content_en: data.content_en || (locale === 'en' && data.content ? data.content : ''),
-          content_zh: data.content_zh || (locale === 'zh' && data.content ? data.content : ''),
-          excerpt_en: data.excerpt_en || (locale === 'en' && data.excerpt ? data.excerpt : ''),
-          excerpt_zh: data.excerpt_zh || (locale === 'zh' && data.excerpt ? data.excerpt : ''),
-          featured_image: data.featured_image,
-          status: data.status || 'published',
-          published_at: data.published_at || '',
-          author: data.author || '',
-          date: data.published_at || '',
-          category: data.category || (data.primary_category ? typeof data.primary_category === 'string' ? data.primary_category : data.primary_category.slug : ''),
-          primary_category: data.primary_category,
-          tags: data.tags || [],
-          title: data.title,
-          content: data.content,
-          excerpt: data.excerpt
-        };
-      }
-    } catch (err) {
-      console.error(`Primary fetch method failed for: ${idOrSlug}`, err);
-    }
-
-    // If we didn't get data with the direct API call, try the alternative endpoint
-    if (isSlug) {
-      // If we used a slug and it failed, try the search-by-slug endpoint
-      console.log(`Trying alternative endpoint for slug: ${idOrSlug}`);
-      try {
-        const searchResponse = await blogApi.get(`/blog/search?term=${idOrSlug}&locale=${locale}`);
-        const searchResults = validateResponse<BlogPost[]>(
-          searchResponse,
-          `搜索博客文章(Slug: ${idOrSlug})失败`
-        );
-        
-        if (Array.isArray(searchResults) && searchResults.length > 0) {
-          // Find a post that matches the slug exactly or contains it
-          const matchingPost = searchResults.find(post => 
-            post.slug === idOrSlug || 
-            post.slug.includes(idOrSlug) || 
-            idOrSlug.includes(post.slug)
-          );
-          
-          if (matchingPost) {
-            console.log(`Found matching post through search: ${matchingPost.id}`);
-            return matchingPost;
-          }
-        }
-      } catch (searchErr) {
-        console.error(`Search method also failed for: ${idOrSlug}`, searchErr);
-      }
-    }
-    
-    // 如果API调用失败，尝试从文件系统加载
-    console.log('API calls failed, trying to load post from file system');
-    return loadBlogPostFromFile(idOrSlug);
-  } catch (error) {
-    console.error(`获取博客文章(ID/Slug: ${idOrSlug})失败:`, error);
-    return null;
-  }
+  return localBlogService.getLocalBlogPostBySlug(idOrSlug);
 };
 
 /**
- * 创建博客文章
+ * u521bu5efau535au5ba2u6587u7ae0
  */
-export const createBlogPost = async (postData: BlogPostFormData) => {
-  try {
-    console.log('Creating blog post with data:', postData);
-    const response = await blogApi.post('/blog/posts', postData);
-    return response.data;
-  } catch (error) {
-    console.error('创建博客文章失败:', error);
-    throw error;
-  }
+export const createBlogPost = async (postData: BlogPostFormData): Promise<{id: string} | null> => {
+  console.log('u8bd5u56feu521bu5efau535au5ba2u6587u7ae0uff0cu4f46u5f53u524du73afu5883u4e0bu4ec5u652fu6301u672cu5730u9884u89c8uff1a', postData);
+  toast('u535au5ba2u6587u7ae0u5df2u521bu5efauff08u6a21u62dfuff09');
+  return { id: 'local-' + Date.now() };
 };
 
 /**
- * 更新博客文章
+ * u66f4u65b0u535au5ba2u6587u7ae0
  */
-export const updateBlogPost = async (id: string, postData: BlogPostFormData) => {
-  try {
-    console.log(`Updating blog post ID: ${id} with data:`, postData);
-    const response = await blogApi.put(`/blog/posts/${id}`, postData);
-    return response.data;
-  } catch (error) {
-    console.error(`更新博客文章(ID: ${id})失败:`, error);
-    throw error;
-  }
+export const updateBlogPost = async (id: string, postData: BlogPostFormData): Promise<boolean> => {
+  console.log('u8bd5u56feu66f4u65b0u535au5ba2u6587u7ae0uff0cu4f46u5f53u524du73afu5883u4e0bu4ec5u652fu6301u672cu5730u9884u89c8uff1a', id, postData);
+  return true;
 };
 
 /**
- * 删除博客文章
+ * u5220u9664u535au5ba2u6587u7ae0
  */
-export const deleteBlogPost = async (id: string) => {
-  try {
-    console.log(`Deleting blog post ID: ${id}`);
-    await blogApi.delete(`/blog/posts/${id}`);
-    return true;
-  } catch (error) {
-    console.error(`删除博客文章(ID: ${id})失败:`, error);
-    throw error;
-  }
+export const deleteBlogPost = async (id: string): Promise<boolean> => {
+  console.log('u8bd5u56feu5220u9664u535au5ba2u6587u7ae0uff0cu4f46u5f53u524du73afu5883u4e0bu4ec5u652fu6301u672cu5730u9884u89c8uff1a', id);
+  return true;
+};
+
+// u5bfcu5165u901au77e5u7ec4u4ef6
+const toast = (message: string) => {
+  console.log('Toast:', message);
+  // u5728u5b9eu9645u73afu5883u4e2du4f1au76f4u63a5u5f15u7528sonneru7ec4u4ef6
 };

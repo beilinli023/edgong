@@ -1,58 +1,28 @@
-import axios from 'axios';
+/**
+ * u535au5ba2APIu670du52a1 - u7b80u5316u7248
+ * u6ce8u610fuff1au8fd9u4e2au6587u4ef6u53eau5305u542bu540eu53f0u7ba1u7406u535au5ba2u65f6u9700u8981u7684u6700u5c0fu529fu80fd
+ */
 
-// 创建专用于博客服务的API实例 - 使用真实API地址
-const blogApi = axios.create({
-  // 如果有后端API，使用实际URL，否则使用相对路径
-  baseURL: import.meta.env.VITE_API_URL || '/api',
-  timeout: 15000,
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
+// u521bu5efau4e00u4e2au7b80u5316u7684APIu5bf9u8c61
+// u6240u6709u8bf7u6c42u90fdu4f1au8fd4u56deu9884u8bbeu7684u6570u636euff0cu56e0u4e3au5b9eu9645u7684APIu5df2u7ecfu88abu672cu5730u6570u636eu4ee3u66ff
 
-// 请求拦截器
-blogApi.interceptors.request.use(
-  (config) => {
-    // 添加认证令牌
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    
-    // 添加调试信息
-    console.log(`[Blog API] Requesting: ${config.method?.toUpperCase()} ${config.url}`);
-    
-    return config;
+const blogApi = {
+  get: async (url: string) => {
+    console.log('u6a21u62dfu535au5ba2APIu8bf7u6c42 GET:', url);
+    return { data: [] };
   },
-  (error) => {
-    console.error('[Blog API] Request error:', error);
-    return Promise.reject(error);
-  }
-);
-
-// 响应拦截器
-blogApi.interceptors.response.use(
-  (response) => {
-    console.log(`[Blog API] Response from ${response.config.url}: Status ${response.status}`);
-    return response;
+  post: async (url: string, data: any) => {
+    console.log('u6a21u62dfu535au5ba2APIu8bf7u6c42 POST:', url, data);
+    return { data: { id: 'local-' + Date.now() } };
   },
-  (error) => {
-    // 增强错误处理
-    const statusCode = error.response?.status;
-    const requestUrl = error.config?.url;
-    
-    console.error(`[Blog API] Response error: ${statusCode} from ${requestUrl}`, error);
-    
-    // 可以在这里处理特定错误，例如认证过期
-    if (statusCode === 401) {
-      // 处理认证失败
-      console.warn('[Blog API] Authentication failed, redirecting to login');
-      // localStorage.removeItem('token');
-      // window.location.href = '/login';
-    }
-    
-    return Promise.reject(error);
+  put: async (url: string, data: any) => {
+    console.log('u6a21u62dfu535au5ba2APIu8bf7u6c42 PUT:', url, data);
+    return { data: { success: true } };
+  },
+  delete: async (url: string) => {
+    console.log('u6a21u62dfu535au5ba2APIu8bf7u6c42 DELETE:', url);
+    return { data: { success: true } };
   }
-);
+};
 
 export default blogApi;

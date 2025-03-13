@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { getHeroSlides } from '@/services/frontend/homeContentService';
 
@@ -12,8 +11,21 @@ interface HeroSlide {
   order: number;
 }
 
+// 默认轮播图数据
+const defaultSlides: HeroSlide[] = [
+  {
+    id: 1,
+    imageUrl: '/images/hero-education.jpg',
+    title: 'Learn Beyond Walls',
+    subtitle: 'Ignite Curiosity, Inspire Growth, Immerse Yourself',
+    buttonText: 'Explore Programs',
+    buttonUrl: '/programs',
+    order: 0
+  }
+];
+
 export const useFrontendHeroSlider = (language: 'en' | 'zh' = 'en') => {
-  const [slides, setSlides] = useState<HeroSlide[]>([]);
+  const [slides, setSlides] = useState<HeroSlide[]>(defaultSlides);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -35,16 +47,15 @@ export const useFrontendHeroSlider = (language: 'en' | 'zh' = 'en') => {
           
           setSlides(sortedSlides);
         } else {
-          console.error('Hero slides data is not valid:', slidesData);
-          // 设置为空数组，让组件显示默认轮播图
-          setSlides([]);
+          console.warn('Hero slides data is not valid, using default slides:', slidesData);
+          setSlides(defaultSlides);
         }
         setError(null);
       } catch (err) {
         console.error('Error in useFrontendHeroSlider:', err);
         setError(err instanceof Error ? err : new Error('Failed to fetch slides'));
-        // 设置为空数组，让组件显示默认轮播图
-        setSlides([]);
+        // 使用默认轮播图作为后备
+        setSlides(defaultSlides);
       } finally {
         setIsLoading(false);
       }

@@ -9,10 +9,44 @@ import { Link } from 'react-router-dom';
 const IMAGE_STYLES = "w-full h-48 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-105";
 const BADGE_STYLES = "rounded-full px-2 py-1 text-xs bg-primary/10 text-primary border-none mb-1 mr-1";
 
+/**
+ * ProgramCardProps 接口定义
+ * @interface ProgramCardProps
+ * @property {Program} program - 课程信息对象，包含所有课程相关数据
+ */
 interface ProgramCardProps {
   program: Program;
 }
 
+/**
+ * 课程卡片组件
+ * 
+ * 该组件用于在课程列表页面展示单个课程的信息卡片。卡片包含课程图片、标题、位置、标签等信息，
+ * 并支持点击跳转到详情页面。组件支持多语言显示，会根据当前语言环境自动切换显示内容。
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * import { ProgramCard } from '@/components/frontend/programs/ProgramCard';
+ * 
+ * // 使用示例
+ * const program = {
+ *   id: 1,
+ *   title_en: 'English Language Course',
+ *   title_zh: '英语课程',
+ *   location_en: 'Beijing',
+ *   location_zh: '北京',
+ *   duration: '3 months',
+ *   tags: ['language', 'beginner'],
+ *   image: '/images/english-course.jpg'
+ * };
+ * 
+ * <ProgramCard program={program} />
+ * ```
+ * 
+ * @param {ProgramCardProps} props - 组件属性
+ * @returns {JSX.Element} 渲染的课程卡片
+ */
 const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   const { currentLanguage } = useLanguage();
   

@@ -8,10 +8,38 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+/**
+ * PartnerUniversitiesSectionProps 接口定义
+ * @interface PartnerUniversitiesSectionProps
+ * @property {PartnerUniversity[]} universities - 合作大学数组，包含所有要显示的大学信息
+ */
 interface PartnerUniversitiesSectionProps {
   universities: PartnerUniversity[];
 }
 
+/**
+ * 合作大学展示区块组件
+ * 
+ * 该组件用于展示教育机构的合作大学信息，支持分页浏览，并提供中英文双语支持。
+ * 组件会根据当前语言环境自动切换显示内容，并在右侧显示"更多大学准备中"的提示块。
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * import { PartnerUniversitiesSection } from '@/components/frontend/study-abroad/PartnerUniversitiesSection';
+ * 
+ * // 使用示例
+ * const universities = [
+ *   { id: 1, name: '哈佛大学', name_en: 'Harvard University', logo: '/images/harvard.png', country: '美国' },
+ *   { id: 2, name: '牛津大学', name_en: 'Oxford University', logo: '/images/oxford.png', country: '英国' },
+ * ];
+ * 
+ * <PartnerUniversitiesSection universities={universities} />
+ * ```
+ * 
+ * @param {PartnerUniversitiesSectionProps} props - 组件属性
+ * @returns {JSX.Element} 渲染的合作大学展示区块
+ */
 const PartnerUniversitiesSection: React.FC<PartnerUniversitiesSectionProps> = ({ universities }) => {
   const { currentLanguage } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);

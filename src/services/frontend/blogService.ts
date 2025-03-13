@@ -1,182 +1,217 @@
-
 import apiClient from '../api/apiClient';
 import { BlogPost, BlogCategory, BlogTag, BlogVideo, BlogHero, BlogContent } from '@/types/blogTypes';
 import { extractData } from '../api/responseHelpers';
+import localBlogService from '../blog/localBlogService';
 
-// 获取博客内容
-export const getBlogContent = async (language = 'en'): Promise<BlogContent> => {
+// 控制是否使用静态数据（隔离API）
+const USE_STATIC_DATA = true;
+
+/**
+ * 通用数据获取函数 - 处理静态数据和API回退逻辑
+ * @param apiCall API调用函数
+ * @param localDataCall 本地数据调用函数
+ * @param resourceName 资源名称（用于日志）
+ */
+const getDataWithFallback = async <T>(
+  apiCall: () => Promise<T>,
+  localDataCall: () => Promise<T>,
+  resourceName: string
+): Promise<T> => {
+  // 如果启用了静态数据模式，直接返回本地数据
+  if (USE_STATIC_DATA) {
+    console.log(`Using static data for ${resourceName}`);
+    return localDataCall();
+  }
+
   try {
-    const response = await apiClient.get('/blog/content', { params: { language } });
-    return extractData<BlogContent>(response);
+    return await apiCall();
   } catch (error) {
-    console.error('Error fetching blog content:', error);
-    throw error;
+    console.error(`Error fetching ${resourceName}:`, error);
+    console.info(`Falling back to local ${resourceName} data`);
+    return localDataCall();
   }
 };
 
-// 获取博客文章列表
-export const getBlogPosts = async (language = 'en', page = 1, limit = 6, category?: string, tag?: string) => {
-  try {
-    const params = { page, limit, category, tag, language };
-    const response = await apiClient.get('/blog/posts', { params });
-    const responseData = extractData<any>(response);
+/**
+ * 获取博客内容
+ */
+export const getBlogContent = async (language = 'en'): Promise<BlogContent> => {
+  const getLocalBlogContentData = async () => {
+    // 修正：不传递 language 参数给 getLocalBlogPosts，而是使用默认参数
+    const posts = await localBlogService.getLocalBlogPosts();
+    const settings = await localBlogService.getLocalBlogPageSettings(language);
+    const videos = await localBlogService.getLocalBlogVideos(language);
     
     return {
-      posts: responseData.posts.map((post: any) => ({
-        id: post.id,
-        title: language === 'en' ? post.title_en : post.title_zh,
-        slug: post.slug,
-        excerpt: language === 'en' ? post.excerpt_en : post.excerpt_zh,
-        featured_image: post.featured_image,
-        published_at: post.published_at,
-        author: post.author,
-        tags: post.tags || []
-      })),
-      pagination: responseData.pagination
+      posts: posts.posts || [],
+      hero: settings.hero || {
+        title_en: 'View Blog',
+        title_zh: '浏览博客',
+        background_image: '/images/blog/blog-hero.jpg'
+      },
+      videos: videos || []
     };
-  } catch (error) {
-    console.error('Error fetching blog posts:', error);
-    return { posts: [], pagination: { total: 0, pages: 0, current: 1 } };
-  }
+  };
+
+  return getDataWithFallback(
+    async () => {
+      const response = await apiClient.get('/blog/content', { params: { language } });
+      return extractData<BlogContent>(response);
+    },
+    getLocalBlogContentData,
+    'blog content'
+  );
 };
 
-// 获取特定博客文章（支持通过slug或id）
+/**
+ * 获取博客文章列表
+ */
+export const getBlogPosts = async (
+  language = 'en', 
+  page = 1, 
+  limit = 6, 
+  category?: string, 
+  tag?: string
+): Promise<{ posts: BlogPost[]; totalPosts: number; totalPages: number; currentPage: number; }> => {
+  const getBlogPostsFromApi = async () => {
+    const params = { language, page, limit };
+    if (category) Object.assign(params, { category });
+    if (tag) Object.assign(params, { tag });
+    
+    const response = await apiClient.get('/blog/posts', { params });
+    const data = extractData<any>(response);
+    
+    return {
+      posts: data.data || [],
+      totalPosts: data.meta?.total || 0,
+      totalPages: data.meta?.totalPages || 0,
+      currentPage: page
+    };
+  };
+  
+  const getLocalBlogPostsData = async () => {
+    // 修正：正确传递参数给 getLocalBlogPosts 函数
+    // 注意：localBlogService.getLocalBlogPosts 不接受 language 参数
+    // 参数顺序是 (page, limit, categoryId, tagId)
+    console.log(`获取本地博客文章: page=${page}, limit=${limit}, category=${category}, tag=${tag}`);
+    const result = await localBlogService.getLocalBlogPosts(page, limit, category, tag);
+    
+    // 转换数据格式以匹配 API 响应的结构
+    return {
+      posts: result.posts,
+      totalPosts: result.total,
+      totalPages: Math.ceil(result.total / limit),
+      currentPage: page
+    };
+  };
+  
+  return getDataWithFallback(
+    getBlogPostsFromApi,
+    getLocalBlogPostsData,
+    'blog posts'
+  );
+};
+
+/**
+ * 获取特定博客文章（支持通过slug或id）
+ */
 export const getBlogPostBySlug = async (slugOrId: string, language = 'en'): Promise<BlogPost | null> => {
-  try {
+  const apiCall = async () => {
     console.log(`Fetching blog post with identifier: ${slugOrId}, language: ${language}`);
     
     // Determine if the identifier is likely a slug or an ID
     // If it contains a hyphen, it's probably a slug
     const isSlug = slugOrId.includes('-') || isNaN(Number(slugOrId));
     const endpoint = isSlug 
-      ? `/blog/posts/slug/${slugOrId}` 
-      : `/blog/posts/${slugOrId}`;
+      ? `/blog/posts/${slugOrId}` 
+      : `/blog/posts/id/${slugOrId}`;
     
     const response = await apiClient.get(endpoint, { params: { language } });
-    const postData = extractData<any>(response);
+    const post = extractData<BlogPost>(response);
     
-    if (!postData) {
-      console.error(`No data found for blog post with ${isSlug ? 'slug' : 'id'} ${slugOrId}`);
-      return null;
-    }
-    
-    console.log(`Blog post data received:`, postData);
-    
-    // Transform the API data to match the BlogPost type
-    return {
-      id: postData.id,
-      slug: postData.slug || slugOrId,
-      title_en: postData.title_en || (language === 'en' && postData.title ? postData.title : ''),
-      title_zh: postData.title_zh || (language === 'zh' && postData.title ? postData.title : ''),
-      content_en: postData.content_en || (language === 'en' && postData.content ? postData.content : ''),
-      content_zh: postData.content_zh || (language === 'zh' && postData.content ? postData.content : ''),
-      excerpt_en: postData.excerpt_en || (language === 'en' && postData.excerpt ? postData.excerpt : ''),
-      excerpt_zh: postData.excerpt_zh || (language === 'zh' && postData.excerpt ? postData.excerpt : ''),
-      featured_image: postData.featured_image,
-      published_at: postData.published_at || '',
-      author: postData.author || '',
-      status: postData.status || 'published',
-      date: postData.published_at || '',
-      category: postData.category || (postData.primary_category ? postData.primary_category.slug : ''),
-      primary_category: postData.primary_category,
-      tags: postData.tags || [],
-      // Include the original fields for compatibility
-      title: postData.title,
-      content: postData.content,
-      excerpt: postData.excerpt
-    };
-  } catch (error) {
-    console.error(`Error fetching blog post with identifier ${slugOrId}:`, error);
-    return null;
-  }
+    // 转换属性
+    return post ? {
+      ...post,
+      title: language === 'en' ? post.title_en : post.title_zh,
+      content: language === 'en' ? post.content_en : post.content_zh
+    } : null;
+  };
+
+  return getDataWithFallback(
+    apiCall,
+    () => localBlogService.getLocalBlogPostBySlug(slugOrId, language),
+    `blog post ${slugOrId}`
+  );
 };
 
-// 获取博客分类
-export const getBlogCategories = async (language = 'en') => {
-  try {
-    const response = await apiClient.get('/blog/categories', { params: { language } });
-    const categories = extractData<any[]>(response);
-    
-    return categories.map((category: any) => ({
-      id: category.id,
-      name: language === 'en' ? category.name_en : category.name_zh,
-      slug: category.slug,
-      description: language === 'en' ? category.description_en : category.description_zh
-    }));
-  } catch (error) {
-    console.error('Error fetching blog categories:', error);
-    return [];
-  }
+/**
+ * 获取博客分类
+ */
+export const getBlogCategories = async (language = 'en'): Promise<BlogCategory[]> => {
+  // 已移除 - 不再支持博客分类功能
+  console.log('博客分类功能已禁用');
+  return [];
 };
 
-// 获取博客标签
-export const getBlogTags = async (language = 'en') => {
-  try {
-    const response = await apiClient.get('/blog/tags', { params: { language } });
-    const tags = extractData<any[]>(response);
-    
-    return tags.map((tag: any) => ({
-      id: tag.id,
-      name: language === 'en' ? tag.name_en : tag.name_zh,
-      slug: tag.slug,
-      color: tag.color
-    }));
-  } catch (error) {
-    console.error('Error fetching blog tags:', error);
-    return [];
-  }
+/**
+ * 获取博客标签
+ */
+export const getBlogTags = async (language = 'en'): Promise<BlogTag[]> => {
+  // 已移除 - 不再支持博客标签功能
+  console.log('博客标签功能已禁用');
+  return [];
 };
 
-// 获取博客精选视频
-export const getBlogFeaturedVideos = async (language = 'en', limit = 3) => {
-  try {
-    const response = await apiClient.get('/blog/featured-videos', { params: { language, limit } });
-    const videos = extractData<any[]>(response);
-    
-    return videos.map((video: any) => ({
-      id: video.id,
-      title: language === 'en' ? video.title_en : video.title_zh,
-      youtube_url: video.youtube_url,
-      thumbnail: video.thumbnail,
-      category: video.category
-    }));
-  } catch (error) {
-    console.error('Error fetching featured videos:', error);
-    return [];
-  }
+/**
+ * 获取博客精选视频
+ */
+export const getBlogFeaturedVideos = async (language = 'en', limit = 3): Promise<BlogVideo[]> => {
+  return getDataWithFallback(
+    () => apiClient.get('/blog/featured-videos', { params: { language, limit } }).then(extractData),
+    () => localBlogService.getLocalBlogVideos(language),
+    'featured videos'
+  );
 };
 
-// 获取博客页面设置
-export const getBlogPageSettings = async (language = 'en') => {
-  try {
+/**
+ * 获取博客页面设置
+ */
+export const getBlogPageSettings = async (language = 'en'): Promise<{ hero: BlogHero; featured_categories: BlogCategory[]; social_links: any[]; }> => {
+  const getBlogPageSettingsFromApi = async () => {
     const response = await apiClient.get('/blog/page-settings', { params: { language } });
-    const settings = extractData<any>(response);
+    const data = extractData<any>(response);
     
+    // 处理响应数据，确保结构正确
     return {
-      hero: {
-        title: language === 'en' ? settings.hero.title_en : settings.hero.title_zh,
-        subtitle: language === 'en' ? settings.hero.subtitle_en : settings.hero.subtitle_zh,
-        background_image: settings.hero.background_image
+      hero: data.hero || {
+        title_en: data.title_en || 'Blog',
+        title_zh: data.title_zh || '博客',
+        subtitle_en: data.subtitle_en || '',
+        subtitle_zh: data.subtitle_zh || '',
+        background_image: data.background_image || ''
       },
-      seo: {
-        title: language === 'en' ? settings.seo.title_en : settings.seo.title_zh,
-        description: language === 'en' ? settings.seo.description_en : settings.seo.description_zh
-      }
+      featured_categories: [], // 已移除分类功能，返回空数组
+      social_links: data.social_links || []
     };
-  } catch (error) {
-    console.error('Error fetching blog page settings:', error);
+  };
+  
+  const getLocalBlogPageSettingsData = async () => {
+    // localBlogPageSettings 不需要 language 参数
+    const settings = await localBlogService.getLocalBlogPageSettings();
+    
+    // 转换为兼容 API 响应的格式
     return {
-      hero: {
-        title: '',
-        subtitle: '',
-        background_image: ''
-      },
-      seo: {
-        title: '',
-        description: ''
-      }
+      hero: settings.hero || {},
+      featured_categories: [], // 已移除分类功能，返回空数组
+      social_links: [] // 由于 BlogContent 中没有 social_links，所以返回空数组
     };
-  }
+  };
+  
+  return getDataWithFallback(
+    getBlogPageSettingsFromApi,
+    getLocalBlogPageSettingsData,
+    'blog page settings'
+  );
 };
 
 export default {

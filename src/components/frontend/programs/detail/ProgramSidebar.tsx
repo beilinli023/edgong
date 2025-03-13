@@ -47,6 +47,7 @@ const ProgramSidebar: React.FC<ProgramSidebarProps> = ({ program }) => {
   
   // 获取当前语言的内容
   const location = currentLanguage === 'en' ? program.location_en : program.location_zh;
+  const duration = currentLanguage === 'en' ? program.duration_en : program.duration_zh || program.duration; // 兼容旧数据
   
   // 格式化年级列表
   const gradeLevels = program.grade_levels && program.grade_levels.length > 0 
@@ -59,7 +60,7 @@ const ProgramSidebar: React.FC<ProgramSidebarProps> = ({ program }) => {
       
       <div className="space-y-2">
         <InfoItem label={t.location} value={location || t.notAvailable} />
-        <InfoItem label={t.duration} value={program.duration || t.notAvailable} />
+        <InfoItem label={t.duration} value={duration || t.notAvailable} />
         <InfoItem label={t.gradeLevels} value={gradeLevels} />
         
         {program.price && (

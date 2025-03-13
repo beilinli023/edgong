@@ -35,8 +35,17 @@ import StudyAbroadPage from "./pages/frontend/StudyAbroadPage";
 import UniversityDetailPage from "./pages/frontend/UniversityDetailPage";
 import PrivacyPolicyPage from "./pages/frontend/PrivacyPolicyPage";
 
-// Create a client
-const queryClient = new QueryClient();
+// Create a client with optimized configuration
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // 窗口聚焦时不重新获取数据
+      retry: 1, // 失败时最多重试1次
+      staleTime: 5 * 60 * 1000, // 数据5分钟内视为新鲜
+      gcTime: 10 * 60 * 1000, // 缓存保留10分钟（旧版为cacheTime）
+    },
+  },
+});
 
 function App() {
   return (

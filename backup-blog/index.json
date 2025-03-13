@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "title_en": "Our Blog",
+    "title_zh": "我们的博客",
+    "subtitle_en": "Welcome to our blog! This is where we share our experiences, insights and stories.",
+    "subtitle_zh": "欢迎来到我们的博客！这里是学习与育梦的交汇之地！在这里，我们分享经验与有趣的故事。",
+    "background_image": "/Edgoing/Blog_Page/Heading1.jpg"
+  },
+  "featured_categories": [
+    {"id": 1, "name_en": "Education", "name_zh": "教育", "slug": "education"},
+    {"id": 2, "name_en": "Study Abroad", "name_zh": "留学", "slug": "study-abroad"},
+    {"id": 4, "name_en": "Technology", "name_zh": "技术", "slug": "technology"}
+  ],
+  "social_links": [
+    {"platform": "facebook", "url": "https://facebook.com"},
+    {"platform": "twitter", "url": "https://twitter.com"},
+    {"platform": "instagram", "url": "https://instagram.com"}
+  ]
+}

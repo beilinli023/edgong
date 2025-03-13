@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Users, GraduationCap, Home, Clock, Compass, LucideIcon } from 'lucide-react';
@@ -45,15 +44,15 @@ const SupportFeatures = () => {
   ];
 
   return (
-    <div className="bg-olive-500 p-5 rounded-lg shadow-md text-white max-w-[380px] mx-auto space-y-4 h-[360px] flex flex-col justify-between">
+    <div className="bg-olive-500 p-10 rounded-xl shadow-lg text-white max-w-[520px] mx-auto space-y-10 h-[700px] flex flex-col justify-between">
       {features.map((feature, index) => (
-        <div key={index} className="flex items-start h-[56px]">
-          <div className="bg-olive-600 p-1.5 rounded-full mr-3 flex items-center justify-center flex-shrink-0 h-8 w-8">
-            {React.createElement(feature.icon, { size: 18, className: "text-white" })}
+        <div key={index} className="flex items-start min-h-[100px]">
+          <div className="bg-olive-600 p-2.5 rounded-full mr-5 flex items-center justify-center flex-shrink-0 h-12 w-12 mt-1">
+            {React.createElement(feature.icon, { size: 24, className: "text-white" })}
           </div>
           <div className="flex-1 overflow-hidden flex flex-col">
-            <h4 className="font-semibold text-sm mb-1 line-clamp-1 h-[20px]">{feature.title}</h4>
-            <p className="text-xs text-olive-100 line-clamp-2 leading-relaxed h-[32px]">{feature.description}</p>
+            <h4 className="font-semibold text-lg mb-3">{feature.title}</h4>
+            <p className="text-base text-olive-100 leading-relaxed">{feature.description}</p>
           </div>
         </div>
       ))}

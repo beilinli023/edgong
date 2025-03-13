@@ -1,4 +1,3 @@
-
 import apiClient from './api/apiClient';
 import { ProgramFilterParams, ProgramsResponse } from '@/types/programTypes';
 import { mockPrograms } from './mockData/programs/mockPrograms';
@@ -6,7 +5,7 @@ import { extractData } from './api/responseHelpers';
 
 export const getPrograms = async (filters: ProgramFilterParams): Promise<ProgramsResponse> => {
   try {
-    const response = await apiClient.get('/programs', { params: filters });
+    const response = await apiClient.get('/api/programs', { params: filters });
     const programsData = extractData<ProgramsResponse>(response);
     
     // Return properly cast response

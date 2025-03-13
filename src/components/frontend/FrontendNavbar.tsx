@@ -18,29 +18,29 @@ const FrontendNavbar: React.FC = () => {
     { name: currentLanguage === 'zh' ? '探索项目' : 'Explore Programs', path: '/programs' },
     { name: currentLanguage === 'zh' ? '留学' : 'Study Abroad', path: '/study-abroad' },
     { name: currentLanguage === 'zh' ? '关于EdGoing' : 'Meet EdGoing', path: '/about' },
-    { name: currentLanguage === 'zh' ? 'FAQ' : 'FAQ', path: '/learn-more' },
     { name: currentLanguage === 'zh' ? '开始项目' : 'Let\'s Plan', path: '/start-planning' },
   ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto py-2">
-        <div className="w-full max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <Logo className="h-12 w-auto" />
+        <div className="w-full max-w-[1240px] mx-auto px-4 md:px-6 flex items-center justify-between">
+          <Link to="/" className="flex items-center flex-shrink-0">
+            <Logo className="h-12 w-auto" logoType="navbar" />
           </Link>
 
-          <nav className="hidden md:flex items-center justify-center space-x-1">
+          <div className="hidden md:flex items-center justify-between space-x-4 ml-4">
             {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className="px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors whitespace-nowrap text-center min-w-[120px] h-[40px] flex items-center justify-center"
+                className="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center text-center px-2 whitespace-nowrap"
+                style={{ minWidth: "155px", height: "40px" }}
               >
                 {item.name}
               </Link>
             ))}
-          </nav>
+          </div>
 
           <div className="flex items-center">
             <button
@@ -48,7 +48,7 @@ const FrontendNavbar: React.FC = () => {
               className="flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600 mr-4 w-[88px]"
             >
               <Globe className="h-5 w-5 flex-shrink-0" />
-              <span className="ml-2 w-12 text-center">{currentLanguage === 'zh' ? 'EN' : '中文'}</span>
+              <span className="ml-2 w-12 text-center">{currentLanguage === 'zh' ? 'EN' : 'CN'}</span>
             </button>
 
             <button
@@ -61,7 +61,7 @@ const FrontendNavbar: React.FC = () => {
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 space-y-2">
+          <nav className="md:hidden mt-4 space-y-2 px-4">
             {menuItems.map((item) => (
               <Link
                 key={item.path}

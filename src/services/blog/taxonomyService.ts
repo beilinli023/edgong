@@ -1,44 +1,20 @@
-
-import blogApi from './api';
-import { validateResponse } from './utils';
+/**
+ * u535au5ba2u5206u7c7bu548cu6807u7b7eu670du52a1 - u7b80u5316u7248
+ * u6ce8u610fuff1au8fd9u4e2au6587u4ef6u53eau5305u542bu540eu53f0u7ba1u7406u535au5ba2u65f6u9700u8981u7684u6700u5c0fu529fu80fd
+ */
+import { BlogCategory, BlogTag } from '@/types/blogTypes';
 import { getMockCategories, getMockTags } from './mockData';
 
 /**
- * 获取所有博客分类
+ * u83b7u53d6u535au5ba2u5206u7c7b
  */
-export const getBlogCategories = async (locale: string = 'en') => {
-  try {
-    console.log('Fetching blog categories for language:', locale);
-    const response = await blogApi.get(`/blog/categories?locale=${locale}`);
-    
-    const validatedData = validateResponse<any[]>(
-      response, 
-      '获取博客分类失败'
-    );
-    
-    return Array.isArray(validatedData) ? validatedData : getMockCategories();
-  } catch (error) {
-    console.error('获取博客分类失败:', error);
-    return getMockCategories();
-  }
+export const getBlogCategories = async (): Promise<BlogCategory[]> => {
+  return getMockCategories();
 };
 
 /**
- * 获取所有博客标签
+ * u83b7u53d6u535au5ba2u6807u7b7e
  */
-export const getBlogTags = async (locale: string = 'en') => {
-  try {
-    console.log('Fetching blog tags for language:', locale);
-    const response = await blogApi.get(`/blog/tags?locale=${locale}`);
-    
-    const validatedData = validateResponse<any[]>(
-      response, 
-      '获取博客标签失败'
-    );
-    
-    return Array.isArray(validatedData) ? validatedData : getMockTags();
-  } catch (error) {
-    console.error('获取博客标签失败:', error);
-    return getMockTags();
-  }
+export const getBlogTags = async (): Promise<BlogTag[]> => {
+  return getMockTags();
 };

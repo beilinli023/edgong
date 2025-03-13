@@ -171,13 +171,11 @@ const AboutPage: React.FC = () => {
               {isLoading ? (
                 <Skeleton className="w-full h-72 rounded-lg" />
               ) : (
-                safeContent?.mission?.image && (
-                  <img 
-                    src={safeContent.mission.image} 
-                    alt={getLocalizedText("Our Mission", "我们的使命")} 
-                    className="w-full h-auto rounded-lg shadow-lg"
-                  />
-                )
+                <img 
+                  src="/Edgoing/mission.png" 
+                  alt={getLocalizedText("Our Mission", "我们的使命")} 
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
               )}
             </div>
           </div>

@@ -164,7 +164,7 @@ const FeaturedPrograms: React.FC<FeaturedProgramsProps> = ({ currentLanguage }) 
                   />
                 </div>
                 <div className="p-4 flex-grow">
-                  <h3 className="text-lg font-semibold mb-2">
+                  <h3 className="text-lg font-semibold mb-2 line-clamp-2 h-14">
                     {currentLanguage === 'en' ? program.title_en : program.title_zh}
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-3">

@@ -3,7 +3,31 @@ import { getUniversityById, getAllUniversities, getUniversityIndex } from './uni
 import { StudyAbroadPageContent, PartnerUniversity, StudyAbroadBenefit } from '@/types/studyAbroadTypes';
 
 /**
- * 获取留学页面内容，包括标题、描述和大学数据
+ * 留学服务模块
+ * 
+ * 该模块提供留学相关的数据服务，包括获取合作大学信息、留学优势等内容。
+ * 支持多语言，可根据语言参数返回对应语言的内容。
+ * 
+ * @module studyAbroadService
+ */
+
+/**
+ * 获取留学页面内容，包括标题、描述、合作大学和留学优势等数据
+ * 
+ * 该函数整合了留学页面所需的所有数据，包括从universityService获取的大学信息
+ * 以及预定义的留学优势数据。函数会处理可能的数据缺失情况，确保返回有效数据。
+ * 
+ * @param {('en'|'zh')} language - 语言选项，支持英文(en)或中文(zh)
+ * @returns {Promise<StudyAbroadPageContent>} 包含所有留学页面内容的对象
+ * @throws {Error} 当数据获取失败时抛出错误
+ * @example
+ * ```typescript
+ * // 获取中文版留学页面内容
+ * const contentZh = await getStudyAbroadContent('zh');
+ * 
+ * // 获取英文版留学页面内容
+ * const contentEn = await getStudyAbroadContent('en');
+ * ```
  */
 export const getStudyAbroadContent = async (language: 'en' | 'zh'): Promise<StudyAbroadPageContent> => {
   try {

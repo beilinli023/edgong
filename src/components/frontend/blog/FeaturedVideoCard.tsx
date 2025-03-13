@@ -1,77 +1,85 @@
-
-import React from "react";
-import { BlogVideo } from "@/types/blogTypes";
-import { getImageUrl } from "@/utils/blogUtils";
+import React, { useState, useRef } from 'react';
+import { Card } from '@/components/ui/card';
+import { BlogVideo } from '@/types/blogTypes';
+import BlobVideoPlayer from './BlobVideoPlayer';
 
 interface FeaturedVideoCardProps {
   video: BlogVideo;
   getLocalizedText: (en: string, zh: string) => string;
 }
 
-const FeaturedVideoCard: React.FC<FeaturedVideoCardProps> = ({
-  video,
-  getLocalizedText
-}) => {
-  // 确保获取正确的缩略图URL
-  const thumbnailUrl = getImageUrl(video.thumbnail);
-  const title = getLocalizedText(video.title_en, video.title_zh);
-  
-  // 从YouTube URL中提取视频ID
-  const getVideoId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-  };
-  
-  const videoId = getVideoId(video.youtube_url);
-  
-  // 视频点击处理函数
-  const handleVideoClick = () => {
-    if (videoId) {
-      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+const FeaturedVideoCard: React.FC<FeaturedVideoCardProps> = ({ video, getLocalizedText }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // 在新标签页中打开视频
+    if (video.file_url) {
+      window.open(video.file_url, '_blank');
+    } else if (video.youtube_url) {
+      window.open(video.youtube_url, '_blank');
     }
   };
-  
+
+  // 判断缩略图是否是视频
+  const isVideoThumbnail = video.thumbnail?.toString().endsWith('.mp4');
+
   return (
-    <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white h-full flex flex-col">
-      <div 
-        className="relative cursor-pointer w-full"
-        onClick={handleVideoClick}
-        style={{ paddingBottom: "56.25%" }} // 16:9 宽高比 (9/16 = 0.5625 = 56.25%)
-      >
-        <img 
-          src={thumbnailUrl || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} 
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
-          <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24" 
-              fill="white" 
-              className="w-6 h-6"
-              style={{ marginLeft: "2px" }}
-            >
-              <path d="M8 5v14l11-7z" />
+    <Card className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-white">
+      <div className="relative aspect-video">
+        {/* 视频缩略图 */}
+        <div className="absolute inset-0 bg-black">
+          {isVideoThumbnail ? (
+            // 如果缩略图是视频
+            <div className="w-full h-full">
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                preload="metadata"
+              >
+                <source src={`${video.thumbnail}#t=0.1`} type="video/mp4" />
+                {getLocalizedText('Your browser does not support the video tag.', '您的浏览器不支持视频标签。')}
+              </video>
+            </div>
+          ) : (
+            // 如果缩略图是图片
+            <img 
+              src={typeof video.thumbnail === 'string' ? video.thumbnail : video.thumbnail.url} 
+              alt={getLocalizedText(video.title_en, video.title_zh)}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+
+        {/* 播放按钮 */}
+        <div 
+          className="absolute inset-0 flex items-center justify-center cursor-pointer"
+          onClick={handlePlayClick}
+        >
+          <div className="w-16 h-16 rounded-full bg-white/80 flex items-center justify-center transition-transform duration-300 hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
             </svg>
           </div>
         </div>
       </div>
-      
-      <div className="p-4 flex-grow">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-        
+
+      <div className="p-4">
+        <h3 className="text-lg font-semibold mb-2 line-clamp-2">
+          {getLocalizedText(video.title_en, video.title_zh)}
+        </h3>
         {video.category && (
-          <span className="mt-2 inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">
-            {getLocalizedText(
-              video.category.name_en, 
-              video.category.name_zh
-            )}
-          </span>
+          <div className="flex items-center text-sm text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            {getLocalizedText(video.category.name_en, video.category.name_zh)}
+          </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

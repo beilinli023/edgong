@@ -90,8 +90,8 @@ const GraduationFeature = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
           }`}
         >
-          <h2 className="text-3xl font-bold mb-2 text-black drop-shadow-md">{title}</h2>
-          <p className="text-black max-w-3xl mx-auto drop-shadow-md">{subtitle}</p>
+          <h2 className="text-3xl font-bold mb-2 text-white drop-shadow-md">{title}</h2>
+          <p className="text-white max-w-3xl mx-auto drop-shadow-md">{subtitle}</p>
         </div>
         
         {/* 主内容区域 - 特性网格 */}
@@ -134,7 +134,7 @@ const GraduationFeature = () => {
           }}
           className="absolute bottom-4 right-4 bg-[#73835A] text-white rounded-full p-2 text-xs shadow-md hover:bg-[#5f6c4a] transition-colors"
         >
-          {currentLanguage === 'en' ? 'Replay Animation' : '重放动画'}
+          {/* 移除了按钮文本 */}
         </button>
       )}
     </div>

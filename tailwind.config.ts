@@ -1,5 +1,5 @@
-
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -19,6 +19,9 @@ export default {
       }
     },
     extend: {
+      textShadow: {
+        'text': '0 0 8px rgba(0, 0, 0, 0.2)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -93,5 +96,15 @@ export default {
       }
     }
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    animate,
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.shadow-text': {
+          'text-shadow': '0 0 8px rgba(0, 0, 0, 0.2)',
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 } satisfies Config;

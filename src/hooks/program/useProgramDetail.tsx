@@ -73,8 +73,9 @@ export function useProgramDetail() {
       setLoading(true);
       setError(null);
       
-      // 添加调试信息
+      // 添加更多详细的调试信息
       console.log(`useProgramDetail - 开始获取项目，ID: ${id}`);
+      console.log(`useProgramDetail - 当前页面URL: ${window.location.href}`);
       
       try {
         if (!id) {
@@ -83,13 +84,25 @@ export function useProgramDetail() {
         
         // 使用服务获取指定ID的项目
         const program = await fetchProgramById(id);
+        
+        // 检查是否成功获取到项目
+        if (!program) {
+          console.error(`useProgramDetail - 未找到ID为 ${id} 的项目`);
+          throw new Error(currentLanguage === 'en' ? `Program with ID ${id} not found` : `未找到ID为 ${id} 的项目`);
+        }
+        
         console.log(`useProgramDetail - 成功获取项目:`, program);
         setProgram(program);
       } catch (error: unknown) {
         console.error(`useProgramDetail - 获取项目出错 (ID: ${id}):`, error);
-        const errorMessage = error instanceof Error 
-          ? error.message 
-          : (currentLanguage === 'en' ? 'Failed to load program' : '加载项目失败');
+        // 显示详细错误信息
+        let errorMessage = '';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+          console.error('Error details:', error.stack);
+        } else {
+          errorMessage = currentLanguage === 'en' ? 'Failed to load program' : '加载项目失败';
+        }
         setError(errorMessage);
       } finally {
         setLoading(false);

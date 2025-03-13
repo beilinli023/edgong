@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,27 +12,13 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ currentLanguage }) => {
   const { slides, isLoading } = useFrontendHeroSlider(currentLanguage);
   const [autoPlayInterval, setAutoPlayInterval] = useState<NodeJS.Timeout | null>(null);
 
-  // 默认轮播图数据
-  const fallbackSlides = [
-    {
-      id: 1,
-      imageUrl: '/placeholder.svg',
-      title: currentLanguage === 'zh' ? '全球教育体验' : 'Global Education Experience',
-      subtitle: currentLanguage === 'zh' 
-        ? '探索我们的精选教育项目，开启您的国际学习之旅' 
-        : 'Explore our featured educational programs and begin your international learning journey',
-      buttonText: currentLanguage === 'zh' ? '浏览项目' : 'Browse Programs',
-      buttonUrl: '/programs'
-    }
-  ];
+  // 默认轮播图数据已移至 useFrontendHeroSlider hook 中
+  const displaySlides = slides;
 
-  // 确保使用有效的轮播图数据
-  const displaySlides = slides.length > 0 ? slides : fallbackSlides;
-
-  // 当slides变化时，重置当前幻灯片索引
+  // 当slides或language变化时，重置当前幻灯片索引
   useEffect(() => {
     setCurrentSlide(0);
-  }, [displaySlides]);
+  }, [displaySlides, currentLanguage]);
 
   // 自动轮播效果
   useEffect(() => {
@@ -46,7 +31,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ currentLanguage }) => {
     setAutoPlayInterval(interval);
     
     return () => {
-      clearInterval(interval); // 直接清除当前创建的interval
+      clearInterval(interval);
     };
   }, [displaySlides]); // 仅当displaySlides变化时重新设置
 
@@ -98,11 +83,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ currentLanguage }) => {
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">{slide.title}</h1>
           <p className="text-xl md:text-2xl mb-8 text-white">{slide.subtitle}</p>
-          <div>
-            <Button asChild size="lg" className="bg-white text-blue-700 hover:bg-blue-50 rounded-full px-6">
-              <a href={slide.buttonUrl}>{slide.buttonText}</a>
-            </Button>
-          </div>
+          {/* 按钮已移除 */}
         </div>
       </div>
       

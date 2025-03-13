@@ -36,10 +36,17 @@ export interface BlogPost {
   excerpt_en: string;
   excerpt_zh: string;
   featured_image: string | ImageData;
+  carousel_images?: string[];
   status: 'draft' | 'published';
   published_at: string;
   author: string;
+  author_en?: string;
+  author_zh?: string;
   date: string; 
+  grade_en?: string;
+  grade_zh?: string;
+  project_type_en?: string;
+  project_type_zh?: string;
   category: string | number | BlogCategory;
   primary_category?: BlogCategory;
   tags: (BlogTag | string)[];
@@ -60,6 +67,7 @@ export interface BlogVideo {
   youtube_url: string;
   thumbnail: string | ImageData;
   category?: BlogCategory;
+  file_url?: string; // 本地视频文件路径
 }
 
 export interface BlogHero {
@@ -99,7 +107,7 @@ export interface BlogPostFormData {
   seo_title_zh?: string;
   seo_description_en?: string;
   seo_description_zh?: string;
-  [key: string]: any; // Allow dynamic access to properties
+  [key: string]: string | string[] | null | undefined; // 使用更具体的类型来替代any
 }
 
 export interface BlogPostData {

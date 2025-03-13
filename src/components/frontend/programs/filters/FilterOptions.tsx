@@ -33,8 +33,13 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({ filterType, onChange, pro
           const value = currentLanguage === 'en' ? program.country_en || program.destination_en : program.country_zh || program.destination_zh;
           if (value) uniqueValues.add(value);
         } else if (filterType === 'grade_level') {
+          // 年级水平作为组合标签，不拆分
           const value = currentLanguage === 'en' ? program.grade_level_en : program.grade_level_zh;
-          if (value) uniqueValues.add(value);
+          if (value) {
+            // 将逗号替换为中文顿号，使其更美观
+            const formattedValue = value.replace(/,/g, currentLanguage === 'en' ? ', ' : '、');
+            uniqueValues.add(formattedValue);
+          }
         }
       });
       

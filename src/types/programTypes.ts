@@ -1,21 +1,18 @@
-
-export interface ProgramTag {
-  name_en: string;
-  name_zh: string;
-  id?: string; // Make id optional to handle different data sources
-}
-
 export interface Program {
-  id: number | string;  // Allow both number and string IDs
+  id: string;  // 统一使用 string 类型
   title_en: string;
   title_zh: string;
   program_id: string;
   image: string;
   location_en: string;
   location_zh: string;
-  duration: string;
+  duration: string;  // 保留原字段以保持向后兼容
+  duration_en?: string; // 增加英文时长字段
+  duration_zh?: string; // 增加中文时长字段
   country: string;
-  tags: ProgramTag[];
+  country_en?: string;    // 国家（英文）
+  country_zh?: string;    // 国家（中文）
+  // 适用年级数组（内部使用）
   grade_levels: string[]; // Changed from optional to required
   
   // 新增字段 - 用于CMS和Supabase同步
@@ -25,7 +22,10 @@ export interface Program {
   destination_zh?: string;  // 目的地（中文）
   grade_level_en?: string;  // 年级水平（英文）
   grade_level_zh?: string;  // 年级水平（中文）
-  duration_weeks?: number;   // 时长（周数）
+  
+  // 项目概述
+  overview_en?: string;     // 项目概述（英文）
+  overview_zh?: string;     // 项目概述（中文）
   
   description_en?: string;
   description_zh?: string;
@@ -35,12 +35,9 @@ export interface Program {
   itinerary_zh?: string;
   features_en?: string;
   features_zh?: string;
-  information_en?: string;
-  information_zh?: string;
-  price?: string;
+  other_info_en?: string;   // 额外信息（英文）
+  other_info_zh?: string;   // 额外信息（中文）
   gallery_images?: string[]; // 添加轮播图片数组
-  school_info_en?: string; // 学校介绍（英文）
-  school_info_zh?: string; // 学校介绍（中文）
   
   // 程序状态字段
   status?: string;          // 程序状态（如 'published', 'draft' 等）
@@ -48,13 +45,15 @@ export interface Program {
 }
 
 export interface ProgramFilterParams {
-  category?: string[];
-  region?: string[];
-  country?: string[];
-  gradeLevel?: string[];
+  category?: string;
+  region?: string;
+  country?: string;
+  gradeLevel?: string;
   page?: number;
   limit?: number;
   search?: string;
+  ids?: string[];
+  featured?: boolean;
 }
 
 export interface ProgramsResponse {
@@ -62,44 +61,6 @@ export interface ProgramsResponse {
   total: number;
   page: number;
   totalPages: number;
-}
-
-export interface FiltersResponse {
-  categories: { id: string; name_en: string; name_zh: string }[];
-  regions: { id: string; name_en: string; name_zh: string }[];
-  countries: { id: string; name_en: string; name_zh: string }[];
-  gradeLevels: { id: string; name_en: string; name_zh: string }[];
-}
-
-// Updated interface that exactly matches the Supabase database schema
-export interface ProgramData {
-  id: string;
-  program_id: string;
-  title_en: string;
-  title_zh: string;
-  thumbnail: string;
-  category_id: string;
-  summary_en: string;
-  summary_zh: string;
-  duration_en?: string;
-  duration_zh?: string;
-  description_en: string;
-  description_zh: string;
-  learning_outcomes_en: string;
-  learning_outcomes_zh: string;
-  requirements_en: string;
-  requirements_zh: string;
-  instructor_en: string;
-  instructor_zh: string;
-  price_original: number | null;
-  price_discounted?: number | null;
-  gallery: string[];
-  is_featured?: boolean;
-  is_popular?: boolean;
-  created_at?: string;
-  updated_at?: string;
-  program_tags?: ProgramTag[];
-  order_index?: number;
 }
 
 export interface ProgramFormData {
@@ -111,7 +72,6 @@ export interface ProgramFormData {
   location: string; // Corresponds to summary in database
   duration: string;
   gradeLevel: string;
-  tags: string[];
   description: string; // Chinese description
   descriptionEn: string; // English description
   highlights: string; // Chinese learning_outcomes

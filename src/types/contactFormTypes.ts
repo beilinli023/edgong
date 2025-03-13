@@ -1,18 +1,17 @@
 
-export interface FormOption {
-  id: string;
-  text_en: string;
-  text_zh: string;
-  enabled: boolean;
-  order: number;
-}
+import { AdminFormOption } from './formTypes';
 
-export interface FormIntroText {
-  en: string;
-  zh: string;
-}
+/**
+ * @deprecated 请使用 @/types/formTypes 中的 AdminFormOption
+ */
+export type FormOption = AdminFormOption;
 
-export interface FormResponseTime {
-  en: string;
-  zh: string;
-}
+/**
+ * @deprecated 请使用 @/types/formTypes 中的 FormIntroText
+ */
+export type FormIntroText = import('./formTypes').FormIntroText;
+
+/**
+ * @deprecated 请使用 @/types/formTypes 中的 FormResponseTime
+ */
+export type FormResponseTime = import('./formTypes').FormResponseTime;

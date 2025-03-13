@@ -1,4 +1,3 @@
-
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -139,18 +138,24 @@ export class ApiService {
       (error) => {
         const apiError = this.handleError(error);
         
-        // 显示错误提示
-        const errorMessage = this.getLocalizedErrorMessage(apiError);
-        toast.error(errorMessage);
+        // 检查是否是来自静态数据回退的请求
+        const isStaticFallbackRequest = error.config?.headers?.['X-Static-Fallback'] === 'true';
         
-        // 处理特定类型的错误
-        if (apiError.type === ApiErrorType.AUTHENTICATION) {
-          localStorage.removeItem('auth_token');
-          // 如果在管理后台页面，重定向到登录页
-          if (window.location.pathname.startsWith('/admin') || 
-              window.location.pathname.startsWith('/content') ||
-              window.location.pathname === '/login') {
-            window.location.href = '/login';
+        // 仅当不是静态数据回退请求时才显示错误
+        if (!isStaticFallbackRequest) {
+          // 显示错误提示
+          const errorMessage = this.getLocalizedErrorMessage(apiError);
+          toast.error(errorMessage);
+          
+          // 处理特定类型的错误
+          if (apiError.type === ApiErrorType.AUTHENTICATION) {
+            localStorage.removeItem('auth_token');
+            // 如果在管理后台页面，重定向到登录页
+            if (window.location.pathname.startsWith('/admin') || 
+                window.location.pathname.startsWith('/content') ||
+                window.location.pathname === '/login') {
+              window.location.href = '/login';
+            }
           }
         }
         

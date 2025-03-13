@@ -74,16 +74,16 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({ benefits }) => {
           {defaultBenefits.map((benefit, index) => (
             <div 
               key={index} 
-              className="bg-white p-5 rounded-lg shadow-md flex flex-col items-center text-center max-w-[380px] mx-auto h-[250px] justify-between"
+              className="bg-white p-5 rounded-lg shadow-md flex flex-col items-center text-center max-w-[380px] mx-auto h-[280px] justify-between"
             >
-              <div className="mt-4">
+              <div className="mt-2">
                 {getIconComponent(benefit.icon)}
               </div>
-              <div className="flex-1 flex flex-col justify-center py-3">
-                <h3 className="text-lg font-bold mb-2 line-clamp-2 h-[3.5rem]">
+              <div className="flex-1 flex flex-col justify-center py-4">
+                <h3 className="text-lg font-bold mb-3">
                   {currentLanguage === 'en' ? benefit.title_en : benefit.title_zh}
                 </h3>
-                <p className="text-gray-600 text-sm line-clamp-3 h-[4.5rem]">
+                <p className="text-gray-600 text-sm mb-2">
                   {currentLanguage === 'en' ? benefit.description_en : benefit.description_zh}
                 </p>
               </div>

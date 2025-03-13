@@ -1,109 +1,31 @@
+/**
+ * u535au5ba2u5a92u4f53u670du52a1 - u7b80u5316u7248
+ * u6ce8u610fuff1au8fd9u4e2au6587u4ef6u53eau5305u542bu540eu53f0u7ba1u7406u535au5ba2u65f6u9700u8981u7684u6700u5c0fu529fu80fd
+ */
+import { ImageListItem } from '@/types/mediaTypes';
 
-import blogApi from './api';
-import { validateResponse, handleApiError } from './utils';
-import { ImageData } from '@/types/blogTypes';
-import { getMockImages } from './mockData';
-
-// Add the MediaImageData type which was missing
-export type MediaImageData = {
-  id: number;
-  url: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-};
-
-// Add the converter function that was missing
-export const convertToBlogImageData = (mediaImage: MediaImageData): ImageData => {
-  return {
-    id: mediaImage.id,
-    url: mediaImage.url,
-    alt: mediaImage.alt || '',
-    width: mediaImage.width || 0,
-    height: mediaImage.height || 0
-  };
+/**
+ * u83b7u53d6u53efu7528u7684u56feu7247u5217u8868
+ */
+export const getAvailableImages = async (): Promise<ImageListItem[]> => {
+  return [
+    { id: '1', url: '/placeholder.svg', alt: 'Placeholder 1', name: 'placeholder1.svg' },
+    { id: '2', url: '/placeholder.svg', alt: 'Placeholder 2', name: 'placeholder2.svg' },
+    { id: '3', url: '/placeholder.svg', alt: 'Placeholder 3', name: 'placeholder3.svg' }
+  ];
 };
 
 /**
- * 获取所有可用图片
+ * u83b7u53d6u56feu7247u5217u8868
  */
-export const getImageList = async (): Promise<ImageData[]> => {
-  try {
-    console.log('Fetching image list...');
-    const response = await blogApi.get('/blog/images');
-    
-    const validatedData = validateResponse<ImageData[]>(
-      response, 
-      '获取图片列表失败'
-    );
-    
-    if (!validatedData || !Array.isArray(validatedData)) {
-      console.log('Using mock images due to invalid API response');
-      return getMockImages().map(url => ({
-        id: Math.floor(Math.random() * 10000),
-        url
-      }));
-    }
-    
-    return validatedData;
-  } catch (error) {
-    console.error('获取图片列表失败:', error);
-    return getMockImages().map(url => ({
-      id: Math.floor(Math.random() * 10000),
-      url
-    }));
-  }
+export const getImageList = async (): Promise<ImageListItem[]> => {
+  return getAvailableImages();
 };
 
 /**
- * 获取可用图片的URL列表
+ * u4e0au4f20u535au5ba2u56feu7247
  */
-export const getAvailableImages = async (): Promise<string[]> => {
-  try {
-    const images = await getImageList();
-    return images.map(img => typeof img === 'string' ? img : img.url);
-  } catch (error) {
-    console.error('获取可用图片URL列表失败:', error);
-    return getMockImages();
-  }
-};
-
-/**
- * 上传博客图片
- */
-export const uploadBlogImage = async (file: File): Promise<ImageData | null> => {
-  try {
-    console.log('Uploading blog image:', file.name);
-    
-    const formData = new FormData();
-    formData.append('image', file);
-    
-    const response = await blogApi.post('/blog/images/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-    
-    return validateResponse<ImageData>(
-      response, 
-      '上传图片失败'
-    );
-  } catch (error) {
-    console.error('上传图片失败:', error);
-    
-    // 返回模拟的成功响应，在实际集成API前使用
-    // 注意：这是模拟功能，实际应用中应该抛出错误
-    return {
-      id: Math.floor(Math.random() * 10000),
-      url: URL.createObjectURL(file)
-    };
-  }
-};
-
-// Helper function to convert string arrays to ImageData arrays
-export const convertStringsToImageData = (imageUrls: string[]): ImageData[] => {
-  return imageUrls.map(url => ({
-    id: Math.floor(Math.random() * 10000),
-    url
-  }));
+export const uploadBlogImage = async (file: File): Promise<{url: string} | null> => {
+  console.log('u6a21u62dfu4e0au4f20u535au5ba2u56feu7247uff1a', file.name);
+  return { url: '/placeholder.svg' };
 };

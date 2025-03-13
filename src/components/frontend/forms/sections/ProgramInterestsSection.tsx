@@ -1,6 +1,7 @@
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 import CheckboxGroup from "../CheckboxGroup";
+import { FormOption } from "@/hooks/useForms";
 
 interface ProgramInterestsSectionProps {
   formData: {
@@ -12,9 +13,9 @@ interface ProgramInterestsSectionProps {
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleCheckboxChange: (field: string, value: string, checked: boolean) => void;
   options: {
-    programTypes: { id: string; label: string }[];
-    destinations: { id: string; label: string }[];
-    interests: { id: string; label: string }[];
+    programTypes: FormOption[];
+    destinations: FormOption[];
+    interests: FormOption[];
   };
   text: {
     programTypes: string;
@@ -34,16 +35,6 @@ const ProgramInterestsSection: React.FC<ProgramInterestsSectionProps> = ({
 }) => {
   return (
     <>
-      {/* 感兴趣的活动 */}
-      <CheckboxGroup
-        label="希望了解（多选）"
-        options={options.programTypes}
-        selectedValues={formData.programTypes}
-        onChange={handleCheckboxChange}
-        fieldName="programTypes"
-        columns={2}
-      />
-
       {/* 首选目的地 */}
       <CheckboxGroup
         label={text.destinations}
