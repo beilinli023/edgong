@@ -1,14 +1,30 @@
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Program } from '@/types/programTypes';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // 选项卡配置
 const TAB_CONFIG = [
-  { id: 'overview', label_en: 'Overview', label_zh: '概述' },
-  { id: 'itinerary', label_en: 'Itinerary', label_zh: '行程' },
-  { id: 'requirements', label_en: 'Additional Information', label_zh: '附加信息' },
-  { id: 'gallery', label_en: 'Gallery', label_zh: '图片库' }
+  {
+    id: 'highlights',
+    label_en: 'Highlights',
+    label_zh: '项目亮点'
+  },
+  {
+    id: 'features',
+    label_en: 'Features',
+    label_zh: '项目特色'
+  },
+  {
+    id: 'itinerary',
+    label_en: 'Itinerary',
+    label_zh: '行程安排'
+  },
+  {
+    id: 'other',
+    label_en: 'Other Information',
+    label_zh: '额外信息'
+  }
 ];
 
 interface ProgramContentTabsProps {
@@ -18,220 +34,213 @@ interface ProgramContentTabsProps {
 const ProgramContentTabs: React.FC<ProgramContentTabsProps> = ({ program }) => {
   const { currentLanguage } = useLanguage();
   
-  // 从程序中获取当前语言的内容
-  const getContent = (enContent?: string, zhContent?: string): string => {
-    return currentLanguage === 'en' ? (enContent || '') : (zhContent || '');
+  // 根据当前语言获取对应内容
+  const getLocalizedContent = (key: string): string => {
+    const contentKey = `${key}_${currentLanguage === 'en' ? 'en' : 'zh'}` as keyof Program;
+    const content = program[contentKey];
+    return typeof content === 'string' ? content : '';
   };
   
-  const description = getContent(program.description_en, program.description_zh);
-  const highlights = getContent(program.highlights_en, program.highlights_zh);
-  const itinerary = getContent(program.itinerary_en, program.itinerary_zh);
-  const features = getContent(program.features_en, program.features_zh);
-  const schoolInfo = getContent(program.school_info_en, program.school_info_zh);
-  
-  // 定义文本配置对象 - 避免硬编码
-  const texts = {
-    programOverview: currentLanguage === 'en' ? 'Program Overview' : '项目概述',
-    programHighlights: currentLanguage === 'en' ? 'Program Highlights' : '项目亮点',
-    programFeatures: currentLanguage === 'en' ? 'Program Features' : '项目特色',
-    descriptionNotFound: currentLanguage === 'en' ? 'Description not found' : '描述内容未找到',
-    detailedItinerary: currentLanguage === 'en' ? 'Detailed itinerary will be provided upon registration.' : '详细行程将在注册后提供。',
-    programRequirements: currentLanguage === 'en' ? 'Program requirements and prerequisites information will be provided upon inquiry.' : '项目要求和先决条件信息将在查询后提供。',
-    noGalleryImages: currentLanguage === 'en' ? 'No gallery images available for this program.' : '该项目暂无图片。'
-  };
-
-  // 清理亮点内容，移除"项目特色"部分
-  const cleanHighlights = (content: string): string => {
-    if (!content) return '';
-    
-    // 检查内容是否包含"项目特色"
-    const featuresMarker = currentLanguage === 'en' ? 'Program Features:' : '项目特色：';
-    
-    if (content.includes(featuresMarker)) {
-      // 分割内容，获取"项目特色"之前的部分
-      const parts = content.split(featuresMarker);
-      return parts[0].trim();
-    }
-    
-    return content;
-  };
-
-  // 格式化带圆点的列表项
-  const formatBulletPoints = (content: string) => {
-    if (!content) return [];
-    
-    // 根据换行符分割内容为行
-    let lines = content.split('\n').filter(line => line.trim() !== '');
-    
-    // 如果是按双换行符分隔的段落，则改为单行处理
-    if (lines.length === 1 && content.includes('\n\n')) {
-      lines = content.split('\n\n').filter(line => line.trim() !== '');
-    }
-    
-    return lines.map(line => {
-      // 处理冒号分隔的内容 (标题: 描述)
-      const parts = line.split(/[:：]/);
-      if (parts.length > 1) {
-        const title = parts[0].trim();
-        const description = parts.slice(1).join('：').trim();
-        
-        return {
-          title,
-          description,
-          hasTitle: true
-        };
-      }
-      
-      // 处理普通行
-      return {
-        title: '',
-        description: line,
-        hasTitle: false
-      };
+  // 处理Unicode转义序列
+  const decodeUnicodeEscapes = (text: string): string => {
+    // 处理形如 u2022 的Unicode转义序列（没有前导反斜杠）
+    return text.replace(/u([0-9a-fA-F]{4})/g, (match, p1) => {
+      return String.fromCharCode(parseInt(p1, 16));
     });
   };
-
-  // 渲染项目详情
-  const renderProgramDetail = () => {
-    // 清理亮点内容，移除其中的项目特色部分
-    const cleanedHighlights = cleanHighlights(highlights);
+  
+  // 处理内容的格式化
+  const formatContent = (text: string): JSX.Element[] => {
+    if (!text || text.trim() === '') {
+      return [
+        <p key="empty" className="text-gray-500 italic">
+          {currentLanguage === 'en' 
+            ? 'No information available.' 
+            : '暂无相关信息。'
+          }
+        </p>
+      ];
+    }
     
-    return (
-      <div className="space-y-8">
-        {/* 项目概述部分 */}
-        <div>
-          <div className="text-2xl font-bold mb-4">{texts.programOverview}</div>
-          
-          <div className="space-y-4">
-            {description.split('\n\n').map((paragraph, index) => (
-              <p key={index} className="mb-4">{paragraph}</p>
-            ))}
-          </div>
-        </div>
+    // 处理Unicode转义序列
+    text = decodeUnicodeEscapes(text);
+    
+    // 分割文本为段落
+    const paragraphs = text.split('\n\n').filter(p => p.trim());
+    
+    return paragraphs.map((paragraph, idx) => {
+      // 检查是否为标题（以 ## 开头）
+      if (paragraph.startsWith('##')) {
+        const level = paragraph.match(/^#+/)[0].length;
+        const heading = paragraph.replace(/^#+\s*/, '').trim();
+        const headingClass = level === 2 ? "text-xl mt-8 mb-4 text-gray-800" :
+                           level === 3 ? "text-lg mt-6 mb-3 text-gray-800" :
+                           "text-base mt-4 mb-2 text-gray-800";
         
-        {/* 项目亮点部分 */}
-        <div>
-          <div className="text-2xl font-bold mb-4">{texts.programHighlights}</div>
-          
-          <div className="space-y-2">
-            {formatBulletPoints(cleanedHighlights).map((item, index) => (
-              <div key={index} className="flex mb-4">
-                <span className="mr-2">•</span>
-                <div>
-                  {item.hasTitle ? (
-                    <>
-                      <span className="font-bold">{item.title}：</span>
-                      {item.description}
-                    </>
-                  ) : (
-                    item.description
-                  )}
-                </div>
-              </div>
-            ))}
+        return (
+          <h3 key={`heading-${idx}`} className={headingClass}>
+            {heading}
+          </h3>
+        );
+      }
+      
+      // 检查是否为带标题的段落（包含冒号的行）
+      if (paragraph.includes(':')) {
+        const [title, ...content] = paragraph.split(':');
+        return (
+          <div key={`section-${idx}`} className="mb-4">
+            <h4 className="text-gray-800 mb-2">{title.trim()}</h4>
+            <p className="text-gray-700 leading-relaxed">
+              {content.join(':').trim()}
+            </p>
           </div>
-        </div>
+        );
+      }
+      
+      // 检查是否为列表项（以 - 或 * 或 • 开头）
+      if (paragraph.match(/^[-*•]\s/m)) {
+        const items = paragraph.split('\n')
+          .filter(line => line.trim())
+          .map(line => line.replace(/^[-*•]\s/, '').trim());
         
-        {/* 项目特色部分 */}
-        <div>
-          <div className="text-2xl font-bold mb-4">{texts.programFeatures}</div>
-          
-          <div className="space-y-2">
-            {formatBulletPoints(features).map((item, index) => (
-              <div key={index} className="flex mb-4">
-                <span className="mr-2">•</span>
-                <div>
-                  {item.hasTitle ? (
-                    <>
-                      <span className="font-bold">{item.title}：</span>
-                      {item.description}
-                    </>
-                  ) : (
-                    item.description
-                  )}
-                </div>
-              </div>
-            ))}
+        return (
+          <div key={`list-${idx}`} className="mb-6">
+            <ul className="space-y-3">
+              {items.map((item, itemIdx) => {
+                // 检查列表项是否包含子标题（冒号分隔）
+                if (item.includes(':')) {
+                  const [subtitle, ...itemContent] = item.split(':');
+                  return (
+                    <li key={itemIdx} className="flex">
+                      <span className="text-gray-800 mr-2">•</span>
+                      <div>
+                        <span className="text-gray-800">{subtitle.trim()}：</span>
+                        <span className="text-gray-700">{itemContent.join(':').trim()}</span>
+                      </div>
+                    </li>
+                  );
+                }
+                
+                // 普通列表项
+                return (
+                  <li key={itemIdx} className="flex">
+                    <span className="text-gray-800 mr-2">•</span>
+                    <span className="text-gray-700">{item}</span>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
+        );
+      }
+      
+      // 特殊处理行程安排部分 - 每个时间点单独一行
+      if (paragraph.match(/\d{2}:\d{2}/) && paragraph.includes(':')) {
+        // 将时间和活动分成单独的行
+        const lines = paragraph.split('\n').filter(line => line.trim());
+        
+        return (
+          <div key={`itinerary-${idx}`} className="mb-6">
+            {lines.map((line, lineIdx) => {
+              // 检查是否为时间点行
+              if (line.match(/\d{2}:\d{2}/) && line.includes(':')) {
+                const [time, ...activity] = line.split(':');
+                return (
+                  <div key={`time-${lineIdx}`} className="flex mb-3">
+                    <span className="text-gray-800 mr-2">•</span>
+                    <div>
+                      <span className="text-gray-800">{time.trim()}: </span>
+                      <span className="text-gray-700">{activity.join(':').trim()}</span>
+                    </div>
+                  </div>
+                );
+              }
+              
+              // 其他行
+              return (
+                <p key={`line-${lineIdx}`} className="mb-2 text-gray-700">
+                  {line}
+                </p>
+              );
+            })}
+          </div>
+        );
+      }
+      
+      // 检查是否为列表项（以句号或冒号结尾）
+      return (
+        <div key={`para-${idx}`}>
+          {/* 检查是否可能是列表内容（包含多个短句子，每个句子以中文句号、英文句号或冒号结尾） */}
+          {paragraph.includes('。') || paragraph.includes('：') || paragraph.includes(':') || paragraph.includes('.') ? (
+            <ul className="space-y-3">
+              {paragraph.split(/[。.]/)
+                .filter(line => line.trim())
+                .map((line, lineIdx) => {
+                  const trimmedLine = line.trim();
+                  if (!trimmedLine) return null;
+                  
+                  // 检查是否包含冒号（中文或英文）
+                  if (trimmedLine.includes('：') || trimmedLine.includes(':')) {
+                    const [subtitle, ...content] = trimmedLine.split(/[：:]/);
+                    return (
+                      <li key={lineIdx} className="flex">
+                        <span className="text-gray-800 mr-2">•</span>
+                        <div>
+                          <span className="text-gray-800">{subtitle.trim()}：</span>
+                          <span className="text-gray-700">{content.join(':').trim()}</span>
+                        </div>
+                      </li>
+                    );
+                  }
+                  
+                  // 普通列表项
+                  return trimmedLine ? (
+                    <li key={lineIdx} className="flex">
+                      <span className="text-gray-800 mr-2">•</span>
+                      <span className="text-gray-700">{trimmedLine}</span>
+                    </li>
+                  ) : null;
+                }).filter(Boolean)}
+            </ul>
+          ) : (
+            <p className="mb-4 text-gray-700 leading-relaxed">
+              {paragraph}
+            </p>
+          )}
         </div>
-      </div>
-    );
+      );
+    });
+  };
+  
+  // 获取各个标签的内容
+  const tabContents = {
+    highlights: formatContent(getLocalizedContent('highlights')),
+    features: formatContent(getLocalizedContent('features')),
+    itinerary: formatContent(getLocalizedContent('itinerary')),
+    other: formatContent(getLocalizedContent('other_info'))
   };
 
   return (
-    <Tabs defaultValue="overview" className="w-full">
-      <TabsList className="w-full justify-start border-b mb-6">
+    <Tabs defaultValue="highlights" className="w-full">
+      <TabsList className="w-full justify-start border-b mb-6 bg-transparent">
         {TAB_CONFIG.map(tab => (
-          <TabsTrigger key={tab.id} value={tab.id}>
+          <TabsTrigger 
+            key={tab.id} 
+            value={tab.id}
+            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:border-blue-700"
+          >
             {currentLanguage === 'en' ? tab.label_en : tab.label_zh}
           </TabsTrigger>
         ))}
       </TabsList>
       
-      <TabsContent value="overview" className="mt-0">
-        {renderProgramDetail()}
-      </TabsContent>
-      
-      <TabsContent value="itinerary" className="mt-0">
-        <div className="space-y-4">
-          {itinerary ? (
-            <div className="space-y-4">
-              {itinerary.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-4">{paragraph}</p>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-600">{texts.detailedItinerary}</p>
-          )}
-        </div>
-      </TabsContent>
-      
-      <TabsContent value="requirements" className="mt-0">
-        <div className="space-y-4">
-          {features ? (
-            <div>
-              <div className="space-y-4">
-                {/* 内容已在overview标签页的renderProgramDetail方法中显示 */}
-                <p className="text-gray-600 italic">
-                  {currentLanguage === 'en' 
-                    ? 'See the Overview tab for program features and details.' 
-                    : '请查看"概述"标签页获取项目特色和详情。'}
-                </p>
-              </div>
-              
-              {schoolInfo && (
-                <div className="mt-8 space-y-4">
-                  {schoolInfo.split('\n\n').map((paragraph, index) => (
-                    <p key={index} className="mb-4">{paragraph}</p>
-                  ))}
-                </div>
-              )}
-            </div>
-          ) : (
-            <p className="text-gray-600">{texts.programRequirements}</p>
-          )}
-        </div>
-      </TabsContent>
-      
-      <TabsContent value="gallery" className="mt-0">
-        <div className="space-y-4">
-          {program.gallery_images && program.gallery_images.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {program.gallery_images.map((image, index) => (
-                <div key={index} className="rounded-lg overflow-hidden h-48">
-                  <img 
-                    src={image} 
-                    alt={`Program image ${index + 1}`} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-600">{texts.noGalleryImages}</p>
-          )}
-        </div>
-      </TabsContent>
+      {TAB_CONFIG.map(tab => (
+        <TabsContent key={tab.id} value={tab.id} className="mt-0">
+          <div className="prose prose-lg max-w-none">
+            {tabContents[tab.id as keyof typeof tabContents]}
+          </div>
+        </TabsContent>
+      ))}
     </Tabs>
   );
 };
