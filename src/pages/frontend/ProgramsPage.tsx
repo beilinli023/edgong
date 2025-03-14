@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import FrontendLayout from "@/components/frontend/FrontendLayout";
 import ProgramsHero from "@/components/frontend/programs/ProgramsHero";
 import { Button } from "@/components/ui/button";
@@ -10,18 +10,167 @@ import { useProgramList } from "@/hooks/program/useProgramList";
 import { Program } from "@/types/programTypes";
 import { decodeUnicodeString } from '@/utils/unicodeHelper';
 import { formatProgramType } from '@/utils/formatters';
+import ProgramFilters from '@/components/frontend/programs/ProgramFilters';
 
 const ProgramsPage: React.FC = () => {
   const { currentLanguage } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);
   const { programs: allPrograms, loading, error } = useProgramList();
   
+  // 筛选状态
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [selectedGradeLevels, setSelectedGradeLevels] = useState<string[]>([]);
+  
+  // 处理筛选变化
+  const handleTypeChange = (type: string) => {
+    setSelectedTypes(prev => 
+      prev.includes(type) 
+        ? prev.filter(t => t !== type)
+        : [...prev, type]
+    );
+    setCurrentPage(1); // 重置页码
+  };
+  
+  const handleCountryChange = (country: string) => {
+    setSelectedCountries(prev => 
+      prev.includes(country)
+        ? prev.filter(c => c !== country)
+        : [...prev, country]
+    );
+    setCurrentPage(1);
+  };
+  
+  const handleGradeLevelChange = (level: string) => {
+    setSelectedGradeLevels(prev =>
+      prev.includes(level)
+        ? prev.filter(l => l !== level)
+        : [...prev, level]
+    );
+    setCurrentPage(1);
+  };
+  
+  const handleClearAll = () => {
+    setSelectedTypes([]);
+    setSelectedCountries([]);
+    setSelectedGradeLevels([]);
+    setCurrentPage(1);
+  };
+  
+  // 筛选程序
+  const filteredPrograms = useMemo(() => {
+    if (!allPrograms) return [];
+    
+    return allPrograms.filter(program => {
+      // 项目类型筛选逻辑
+      const typeMatch = selectedTypes.length === 0 || 
+        selectedTypes.some(type => {
+          // 获取当前语言的项目类型数组
+          const programTypes = currentLanguage === 'en' 
+            ? program.program_type_en || [] 
+            : program.program_type_zh || [];
+          
+          // 根据筛选值匹配对应类型
+          switch(type) {
+            case 'language-intensive':
+              return programTypes.some(pt => 
+                pt.toLowerCase().includes('language intensive') || 
+                pt.toLowerCase().includes('语言强化')
+              );
+            case 'language-lifestyle':
+              return programTypes.some(pt => 
+                pt.toLowerCase().includes('language & lifestyle') || 
+                pt.toLowerCase().includes('语言与生活')
+              );
+            case 'stem-science':
+              return programTypes.some(pt => 
+                pt.toLowerCase().includes('stem') || 
+                pt.toLowerCase().includes('science') ||
+                pt.toLowerCase().includes('科学')
+              );
+            case 'heritage-arts':
+              return programTypes.some(pt => 
+                pt.toLowerCase().includes('heritage') || 
+                pt.toLowerCase().includes('arts') ||
+                pt.toLowerCase().includes('民俗') ||
+                pt.toLowerCase().includes('艺术')
+              );
+            case 'academic-enrichment':
+              return programTypes.some(pt => 
+                pt.toLowerCase().includes('academic') || 
+                pt.toLowerCase().includes('学术')
+              );
+            default:
+              return false;
+          }
+        });
+        
+      // 国家和地区筛选逻辑改为使用 country 字段
+      const countryMatch = selectedCountries.length === 0 ||
+        selectedCountries.some(country => {
+          // 获取当前语言的国家数组，确保处理字符串或数组格式
+          const countryValues = currentLanguage === 'en'
+            ? (Array.isArray(program.country_en) ? program.country_en : [program.country_en]).filter(Boolean)
+            : (Array.isArray(program.country_zh) ? program.country_zh : [program.country_zh]).filter(Boolean);
+          
+          // 将国家值转换为小写以进行不区分大小写的比较
+          const countryLower = countryValues.map(c => (c || '').toLowerCase());
+          
+          switch(country) {
+            case 'singapore':
+              return countryLower.some(c => c.includes('singapore') || c.includes('新加坡'));
+            case 'malaysia':
+              return countryLower.some(c => c.includes('malaysia') || c.includes('马来西亚'));
+            case 'uk':
+              return countryLower.some(c => c.includes('kingdom') || c.includes('uk') || c.includes('英国'));
+            case 'us':
+              return countryLower.some(c => c.includes('united states') || c.includes('america') || c.includes('美国'));
+            case 'japan':
+              return countryLower.some(c => c.includes('japan') || c.includes('日本'));
+            default:
+              return false;
+          }
+        });
+        
+      // 年级水平筛选逻辑改进
+      const gradeLevelMatch = selectedGradeLevels.length === 0 ||
+        selectedGradeLevels.some(level => {
+          const gradeLevels = currentLanguage === 'en'
+            ? (Array.isArray(program.grade_level_en) ? program.grade_level_en : [program.grade_level_en]).filter(Boolean)
+            : (Array.isArray(program.grade_level_zh) ? program.grade_level_zh : [program.grade_level_zh]).filter(Boolean);
+          
+          switch(level) {
+            case 'primary':
+              return gradeLevels.some(gl => 
+                gl.toLowerCase().includes('primary') || 
+                gl.toLowerCase().includes('elementary') || 
+                gl.toLowerCase().includes('小学')
+              );
+            case 'middle':
+              return gradeLevels.some(gl => 
+                gl.toLowerCase().includes('middle') || 
+                gl.toLowerCase().includes('初中')
+              );
+            case 'high':
+              return gradeLevels.some(gl => 
+                gl.toLowerCase().includes('high') || 
+                gl.toLowerCase().includes('高中')
+              );
+            default:
+              return false;
+          }
+        });
+        
+      return typeMatch && countryMatch && gradeLevelMatch;
+    });
+  }, [allPrograms, selectedTypes, selectedCountries, selectedGradeLevels, currentLanguage]);
+  
   // 分页逻辑
-  const itemsPerPage = 6; // 每页显示 6 个项目
-  const totalPages = Math.ceil((allPrograms?.length || 0) / itemsPerPage);
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil((filteredPrograms?.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentPrograms = allPrograms?.slice(startIndex, endIndex) || [];
+  const currentPrograms = filteredPrograms?.slice(startIndex, endIndex) || [];
   
   // 如果正在加载，显示加载状态
   if (loading) {
@@ -55,281 +204,124 @@ const ProgramsPage: React.FC = () => {
     );
   }
 
-  // 如果没有数据，显示空状态
-  if (!allPrograms?.length) {
-    return (
-      <FrontendLayout>
-        <ProgramsHero />
-        <div className="container mx-auto py-8 px-4">
-          <div className="flex justify-center items-center h-64">
-            <p className="text-lg text-gray-500">
-              {currentLanguage === 'en' ? 'No programs available' : '暂无可用项目'}
-            </p>
-          </div>
-        </div>
-      </FrontendLayout>
-    );
-  }
-
   return (
     <FrontendLayout>
       <ProgramsHero />
       
       <div className="container mx-auto py-8 px-4">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Filter sidebar */}
+          {/* 筛选侧边栏 */}
           <div className="w-full md:w-64 shrink-0">
-            <div className="mb-6">
-              <h3 className="text-lg font-medium mb-4">
-                {currentLanguage === 'en' ? 'Filter Results' : '筛选结果'}
-              </h3>
-              
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-base font-medium">
-                    {currentLanguage === 'en' ? 'Applied Filters' : '已应用的筛选'}
-                  </h4>
-                  <Button variant="link" className="text-blue-600 p-0 h-auto text-sm">
-                    {currentLanguage === 'en' ? 'Clear All' : '清除全部'}
-                  </Button>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-sm text-gray-500">
-                    {currentLanguage === 'en' ? 'No filters applied' : '未应用筛选'}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                {/* Program Type Filter */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="text-base font-medium">
-                      {currentLanguage === 'en' ? 'Program Type' : '项目类型'}
-                    </h4>
-                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="m18 15-6-6-6 6" />
-                      </svg>
-                    </Button>
-                  </div>
-                  <div className="space-y-2">
-                    {[
-                      ['Academic Enrichment', '学术强化'],
-                      ['Heritage & Arts Exploration', '文化艺术探索'],
-                      ['Performing Arts', '表演艺术'],
-                      ['Language & Lifestyle', '语言与生活方式'],
-                      ['Language Intensive', '语言强化'],
-                      ['History & Civic', '历史与公民'],
-                      ['STEM & Science', 'STEM与科学'],
-                      ['Religion & Belief', '宗教与信仰'],
-                      ['Community Service', '社区服务'],
-                      ['Sports', '体育'],
-                      ['Academic Courses', '学术课程']
-                    ].map(([en, zh]) => (
-                      <label key={en} className="flex items-center gap-2">
-                        <input type="checkbox" className="rounded" />
-                        <span>{currentLanguage === 'en' ? en : zh}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Destination Filter */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="text-base font-medium">
-                      {currentLanguage === 'en' ? 'Destination' : '目的地'}
-                    </h4>
-                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="m18 15-6-6-6 6" />
-                      </svg>
-                    </Button>
-                  </div>
-                  <div className="space-y-2">
-                    {[
-                      ['Australia', '澳大利亚'],
-                      ['France', '法国'],
-                      ['Japan', '日本'],
-                      ['United Kingdom', '英国'],
-                      ['United States', '美国']
-                    ].map(([en, zh]) => (
-                      <label key={en} className="flex items-center gap-2">
-                        <input type="checkbox" className="rounded" />
-                        <span>{currentLanguage === 'en' ? en : zh}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Grade Level Filter */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="text-base font-medium">
-                      {currentLanguage === 'en' ? 'Grade Level' : '年级水平'}
-                    </h4>
-                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="m18 15-6-6-6 6" />
-                      </svg>
-                    </Button>
-                  </div>
-                  <div className="space-y-2">
-                    {[
-                      ['Elementary', '小学'],
-                      ['Middle School', '初中'],
-                      ['High School', '高中'],
-                      ['University', '大学'],
-                      ['Adult', '成人']
-                    ].map(([en, zh]) => (
-                      <label key={en} className="flex items-center gap-2">
-                        <input type="checkbox" className="rounded" />
-                        <span>{currentLanguage === 'en' ? en : zh}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ProgramFilters
+              selectedTypes={selectedTypes}
+              selectedCountries={selectedCountries}
+              selectedGradeLevels={selectedGradeLevels}
+              onTypeChange={handleTypeChange}
+              onCountryChange={handleCountryChange}
+              onGradeLevelChange={handleGradeLevelChange}
+              onClearAll={handleClearAll}
+            />
           </div>
           
-          {/* Programs list */}
+          {/* 程序列表 */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {currentPrograms.map((program: Program) => (
-                <Link key={program.id} to={`/programs/${program.id}`} data-testid={`program-card-${program.id}`}>
-                  <Card className="overflow-hidden h-full flex flex-col">
-                    <div className="h-48 overflow-hidden">
-                      <img 
-                        src={program.image || '/images/programs/default.jpg'} 
-                        alt={currentLanguage === 'en' ? program.title_en : program.title_zh} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-3 flex-1 flex flex-col">
-                      <h3 className="text-base font-medium mb-2">
-                        {currentLanguage === 'en' ? program.title_en : program.title_zh}
-                      </h3>
-                      
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600 mt-1 mb-2">
-                        {/* 项目类型 */}
-                        <div className="flex items-center">
-                          <span className="font-medium text-gray-700 mr-1">
-                            {currentLanguage === 'en' ? 'Type:' : '类型:'}
-                          </span>
-                          <span className="text-gray-600">
-                            {formatProgramType(currentLanguage === 'en' ? program.program_type_en : program.program_type_zh)}
-                          </span>
+            {filteredPrograms.length === 0 ? (
+              <div className="flex justify-center items-center h-64">
+                <p className="text-lg text-gray-500">
+                  {currentLanguage === 'en' ? 'No matching programs found' : '未找到匹配的项目'}
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {currentPrograms.map((program: Program) => (
+                    <Link key={program.id} to={`/programs/${program.id}`} data-testid={`program-card-${program.id}`}>
+                      <Card className="overflow-hidden h-full flex flex-col">
+                        <div className="h-48 overflow-hidden">
+                          <img 
+                            src={program.image || '/images/programs/default.jpg'} 
+                            alt={currentLanguage === 'en' ? program.title_en : program.title_zh} 
+                            className="w-full h-full object-cover"
+                          />
                         </div>
-                        
-                        {/* 时长 */}
-                        <div className="flex items-center">
-                          <span className="font-medium text-gray-700 mr-1">
-                            {currentLanguage === 'en' ? 'Duration:' : '时长:'}
-                          </span>
-                          <span className="text-gray-600">
+                        <div className="p-3 flex-1 flex flex-col">
+                          <h3 className="text-base font-medium mb-2">
+                            {currentLanguage === 'en' ? program.title_en : program.title_zh}
+                          </h3>
+                          
+                          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600 mt-1 mb-2">
+                            {/* 项目类型 */}
+                            <div className="flex items-center">
+                              <span className="font-medium text-gray-700 mr-1">
+                                {currentLanguage === 'en' ? 'Type:' : '类型:'}
+                              </span>
+                              <span>
+                                {currentLanguage === 'en' 
+                                  ? program.program_type_en?.[0] 
+                                  : program.program_type_zh?.[0]}
+                              </span>
+                            </div>
+                            
+                            {/* 国家 */}
+                            <div className="flex items-center">
+                              <span className="font-medium text-gray-700 mr-1">
+                                {currentLanguage === 'en' ? 'Country:' : '国家:'}
+                              </span>
+                              <span>
+                                {currentLanguage === 'en' 
+                                  ? (Array.isArray(program.country_en) ? program.country_en[0] : program.country_en)
+                                  : (Array.isArray(program.country_zh) ? program.country_zh[0] : program.country_zh)
+                                }
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <p className="text-sm text-gray-600 line-clamp-2">
                             {currentLanguage === 'en' 
-                              ? (program.duration_en || program.duration || 'Not specified')
-                              : (program.duration_zh || program.duration || '未指定')
-                            }
-                          </span>
+                              ? program.overview_en 
+                              : program.overview_zh}
+                          </p>
                         </div>
-                        
-                        {/* 目的地 */}
-                        <div className="flex items-center">
-                          <span className="font-medium text-gray-700 mr-1">
-                            {currentLanguage === 'en' ? 'Destination:' : '目的地:'}
-                          </span>
-                          <span className="text-gray-600">
-                            {currentLanguage === 'en' 
-                              ? (program.destination_en || program.location_en || 'Not specified')
-                              : (program.destination_zh || program.location_zh || '未指定')
-                            }
-                          </span>
-                        </div>
-                      </div>
-                      
-                      <div className="border-t mt-auto pt-3">
-                        <div className="text-xs text-gray-600">
-                          {currentLanguage === 'en' 
-                            ? `Suitable for: ${program.grade_level_en || 'All levels'}`
-                            : `适合年级: ${decodeUnicodeString(program.grade_level_zh) || '所有年级'}`
-                          }
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-            
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center items-center mt-8 gap-2">
-                <div className="text-sm text-gray-600 mr-4">
-                  {currentLanguage === 'en' ? 
-                    `Showing ${startIndex + 1} to ${Math.min(endIndex, allPrograms.length)} of ${allPrograms.length} results` : 
-                    `显示第 ${startIndex + 1} 至 ${Math.min(endIndex, allPrograms.length)} 项，共 ${allPrograms.length} 项结果`
-                  }
+                      </Card>
+                    </Link>
+                  ))}
                 </div>
                 
-                <button
-                  disabled={currentPage === 1}
-                  className="p-2 rounded-md border disabled:opacity-50"
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                  <button
-                    key={page}
-                    className={`w-8 h-8 flex items-center justify-center rounded-md ${currentPage === page ? 'bg-blue-600 text-white' : 'border'}`}
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </button>
-                ))}
-                
-                <button
-                  disabled={currentPage === totalPages}
-                  className="p-2 rounded-md border disabled:opacity-50"
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
+                {/* 分页控制 */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center gap-2 mt-8">
+                    <Button
+                      variant="outline"
+                      size="default"
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                      className="flex items-center gap-2 px-4 py-2 rounded-md"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      {currentLanguage === 'en' ? 'Previous' : '上一页'}
+                    </Button>
+                    
+                    <div className="flex items-center">
+                      <div 
+                        className="flex items-center justify-center w-10 h-10 rounded-md bg-blue-600 text-white font-medium"
+                      >
+                        {currentPage}
+                      </div>
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      size="default"
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                      className="flex items-center gap-2 px-4 py-2 rounded-md"
+                    >
+                      {currentLanguage === 'en' ? 'Next' : '下一页'}
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
