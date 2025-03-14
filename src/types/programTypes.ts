@@ -10,18 +10,18 @@ export interface Program {
   duration_en?: string; // 增加英文时长字段
   duration_zh?: string; // 增加中文时长字段
   country: string;
-  country_en?: string;    // 国家（英文）
-  country_zh?: string;    // 国家（中文）
+  country_en?: string[];    // 国家（英文）- 改为数组类型
+  country_zh?: string[];    // 国家（中文）- 改为数组类型
   // 适用年级数组（内部使用）
   grade_levels: string[]; // Changed from optional to required
   
   // 新增字段 - 用于CMS和Supabase同步
-  program_type_en?: string; // 项目类型（英文）
-  program_type_zh?: string; // 项目类型（中文）
+  program_type_en?: string[]; // 项目类型（英文）
+  program_type_zh?: string[]; // 项目类型（中文）
   destination_en?: string;  // 目的地（英文）
   destination_zh?: string;  // 目的地（中文）
-  grade_level_en?: string;  // 年级水平（英文）
-  grade_level_zh?: string;  // 年级水平（中文）
+  grade_level_en?: string[];  // 年级水平（英文）- 改为数组类型
+  grade_level_zh?: string[];  // 年级水平（中文）- 改为数组类型
   
   // 项目概述
   overview_en?: string;     // 项目概述（英文）

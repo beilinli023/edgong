@@ -69,8 +69,8 @@ const BlogPage: React.FC = () => {
               </h1>
               <p className="text-base max-w-2xl mx-auto opacity-90">
                 {getLocalizedText(
-                  "Welcome to our blog. This is where we share inspirational stories and insights from our educational journey around the world.",
-                  "欢迎来到我们的博客，这里是学习与冒险的交汇之地！在这里，我们分享来自参与者的故事、实用建议和深刻见解，记录他们踏上改变人生的教育之旅的点滴。"
+                  "Welcome to our blog This is where we share inspirational stories and insights from our educational journey around the world",
+                  "欢迎来到我们的博客，这里是学习与冒险的交汇之地！在这里，我们分享来自参与者的故事、实用建议和深刻见解，记录他们踏上改变人生的教育之旅的点滴"
                 )}
               </p>
             </div>

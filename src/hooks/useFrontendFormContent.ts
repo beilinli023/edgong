@@ -138,13 +138,13 @@ export const useFrontendFormContent = () => {
       hero: {
         title: lang === 'en' ? "Start Your Planning" : "开始计划",
         subtitle: lang === 'en' 
-          ? "Ready to begin your educational journey? Let us help you create the perfect study abroad experience." 
-          : "准备开始您的教育之旅？让我们帮助您创造完美的海外学习体验。",
+          ? "Ready to begin your educational journey? Let us help you create the perfect study abroad experience" 
+          : "准备开始您的教育之旅？让我们帮助您创造完美的海外学习体验",
         backgroundImage: "/lovable-uploads/47bf9bbe-157b-4ebd-8119-331c7101bce3.png",
       },
       formSection: {
         title: lang === 'en' ? "Need help with assistance, or just have a question for us?" : "需要帮助或有任何问题？",
-        responseTimeText: lang === 'en' ? "Fill out our form and we'll respond within 2 business days." : "填写我们的表单，我们将在2个工作日内回复。",
+        responseTimeText: lang === 'en' ? "Fill out our form and we'll respond within 2 business days" : "填写我们的表单，我们将在2个工作日内回复",
         phoneContact: lang === 'en' ? "Or Call Us @ 400-115-3558 (Email: Hello@edgoing.com)" : "或致电 400-115-3558（邮件：Hello@edgoing.com）",
       },
       options: {
@@ -369,16 +369,17 @@ export const useFrontendFormContent = () => {
           { id: "other", label: lang === 'en' ? "Other" : "其他" }
         ],
         interests: [
-          { id: "history", label: lang === 'en' ? "History & Civics" : "历史与公民" },
-          { id: "stem", label: lang === 'en' ? "STEM/Science" : "STEM/科学" },
-          { id: "culture", label: lang === 'en' ? "Cultural Exploration" : "文化探索" },
-          { id: "religion", label: lang === 'en' ? "Religion & Faith" : "宗教与信仰" },
-          { id: "arts", label: lang === 'en' ? "Performing Arts" : "表演艺术" },
+          { id: "academic", label: lang === 'en' ? "Academic Enrichment" : "学术拓展" },
+          { id: "heritage", label: lang === 'en' ? "Heritage & Arts Exploration" : "传统与艺术探索" },
+          { id: "performing", label: lang === 'en' ? "Performing Arts" : "表演艺术" },
+          { id: "lifestyle", label: lang === 'en' ? "Language & Lifestyle" : "语言与生活" },
           { id: "language", label: lang === 'en' ? "Language Intensive" : "语言强化" },
-          { id: "community", label: lang === 'en' ? "Community Engagement" : "社区参与" },
+          { id: "history", label: lang === 'en' ? "History & Civic" : "历史与公民" },
+          { id: "stem", label: lang === 'en' ? "STEM & Science" : "STEM与科学创新" },
+          { id: "religion", label: lang === 'en' ? "Religion & Belief" : "宗教与信仰" },
+          { id: "community", label: lang === 'en' ? "Community Service" : "社区服务" },
           { id: "sports", label: lang === 'en' ? "Sports" : "体育" },
-          { id: "specialty", label: lang === 'en' ? "Specialty" : "专业" },
-          { id: "other", label: lang === 'en' ? "Other" : "其他" }
+          { id: "courses", label: lang === 'en' ? "Academic Courses" : "专业发展" }
         ]
       }
     };

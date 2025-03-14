@@ -1,4 +1,3 @@
-
 import React from 'react';
 import FrontendLayout from '@/components/frontend/FrontendLayout';
 import { useLanguage } from '@/context/LanguageContext';
@@ -16,8 +15,8 @@ const StudyAbroadPage = () => {
     : '留学：拓展你的视野';
     
   const description = currentLanguage === 'en'
-    ? 'Embark on a life-changing study abroad journey to explore new cultures, gain a global perspective, and enhance your education. Whether you seek academic excellence, language immersion, or unforgettable experiences, studying abroad opens doors to endless opportunities.'
-    : '踏上改变人生的留学之旅，探索新文化，获得全球视野，并提升你的教育水平。无论你追求学术卓越、语言深浸还是难忘的经历，留学都将为你打开无限机遇的大门。';
+    ? 'Embark on a life-changing study abroad journey to explore new cultures, gain a global perspective, and enhance your education. Whether you seek academic excellence, language immersion, or unforgettable experiences, studying abroad opens doors to endless opportunities'
+    : '踏上改变人生的留学之旅，探索新文化，获得全球视野，并提升你的教育水平。无论你追求学术卓越、语言深浸还是难忘的经历，留学都将为你打开无限机遇的大门';
   
   if (isLoading) {
     return (
@@ -70,8 +69,16 @@ const StudyAbroadPage = () => {
 
   return (
     <FrontendLayout>
-      <div className="relative pt-32 pb-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
-        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+      <div 
+        className="relative pt-20 pb-32 text-white bg-blue-900"
+        style={{
+          backgroundImage: `url('/Edgoing/StudyAbroad.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center mt-24">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">{title}</h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 text-center">{description}</p>
         </div>

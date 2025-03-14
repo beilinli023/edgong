@@ -7,15 +7,23 @@
   "location_en": "Singapore",
   "location_zh": "新加坡",
   "duration_en": "2 weeks",
-  "duration_zh": "2周",
-  "country_en": "Singapore",
-  "country_zh": "新加坡",
-  "overview_en": "The \"Sea, Land, and Sky\" English Camp in Singapore is a 7-day immersive program designed for students aged 10 to 15. Combining official IELTS preparation courses with unique cultural experiences, this camp offers a perfect blend of learning and adventure. Students will explore Singapore's iconic landmarks, engage in hands-on activities, and enjoy luxurious experiences while improving their English skills. With small class sizes and expert guidance, this program ensures a safe, enriching, and unforgettable journey for young learners.",
-  "overview_zh": "新加坡\"海陆空\"英语营是一个为期7天的沉浸式项目，专为10至15岁的学生设计。该项目将官方雅思备考课程与独特的文化体验相结合，为学生提供学习与冒险的完美结合。学生们将探索新加坡的标志性景点，参与实践活动，并在提升英语能力的同时享受奢华体验。通过小班教学和专家指导，该项目确保为年轻学习者提供一个安全、充实且难忘的旅程。",
-  "program_type_en": "Language Intensive, Cultural Exploration",
-  "program_type_zh": "语言强化, 文化探索",
+  "duration_zh": "2 周",
+  "country_en": [
+    "Singapore"
+  ],
+  "country_zh": [
+    "新加坡"
+  ],
+  "program_type_en": [
+    "Language Intensive"
+  ],
+  "program_type_zh": [
+    "语言强化"
+  ],
   "destination_en": "Singapore",
   "destination_zh": "新加坡",
+  "overview_en": "The \"Sea, Land, and Sky\" English Camp in Singapore is a 7-day immersive program designed for students aged 10 to 15. Combining official IELTS preparation courses with unique cultural experiences, this camp offers a perfect blend of learning and adventure. Students will explore Singapore's iconic landmarks, engage in hands-on activities, and enjoy luxurious experiences while improving their English skills. With small class sizes and expert guidance, this program ensures a safe, enriching, and unforgettable journey for young learners.",
+  "overview_zh": "新加坡\"海陆空\"英语营是一个为期7天的沉浸式项目，专为10至15岁的学生设计。该项目将官方雅思备考课程与独特的文化体验相结合，为学生提供学习与冒险的完美结合。学生们将探索新加坡的标志性景点，参与实践活动，并在提升英语能力的同时享受奢华体验。通过小班教学和专家指导，该项目确保为年轻学习者提供一个安全、充实且难忘的旅程。",
   "highlights_en": "[Program Highlights]\n\n- IELTS Preparation: Official IELTS courses tailored for young learners, focusing on vocabulary, listening, and speaking skills\n\n- Unique Theme: Explore Singapore through the 'Sea, Land, Air' theme, including visits to Marina Barrage, Gardens by the Bay, and the Singapore Flyer\n\n- Cultural Immersion: Experience Singapore's multicultural heritage through visits to Chinatown, Little India, and Kampong Glam\n\n- Luxury Experience: Enjoy gourmet dining, stay in a centrally located hotel, and visit world-class attractions like Universal Studios\n\n- Small Class Sizes: Maximum of 15 students per class, ensuring personalized attention and a supportive learning environment",
   "highlights_zh": "[项目亮点]\n\n- 雅思备考：专为年轻学习者设计的官方雅思课程，重点提升词汇、听力和口语能力\n\n- 独特主题：通过\"海陆空\"主题探索新加坡，包括参观滨海堤坝、滨海湾花园和新加坡摩天观景轮\n\n- 文化沉浸：通过参观牛车水、小印度和甘榜格南，体验新加坡的多元文化遗产\n\n- 奢华体验：享受美食，入住市中心酒店，并参观环球影城等世界级景点\n\n- 小班教学：每班最多15名学生，确保个性化关注和支持性学习环境",
   "itinerary_en": "[Singapore 'Sea, Land, Air' English Camp Itinerary]\n\n<h3 class=\"text-lg font-bold mb-3\">7-Day Detailed Schedule</h3>\n<table>\n  <tr>\n    <th>Day</th>\n    <th>Time</th>\n    <th>Activity</th>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 1</td>\n    <td>Morning</td>\n    <td>Pack & Departure</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>In Flight</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Hainanese Chicken Rice Dinner & Ice-breaking Activities</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 2</td>\n    <td>Morning</td>\n    <td>English Class</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>NEWater, Marina Barrage, Duck Tour</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Group Work</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 3</td>\n    <td>Morning</td>\n    <td>English Class</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>Merlion, Kampong Glam, Chinatown, Little India</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Group Work</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 4</td>\n    <td>Morning</td>\n    <td>English Class</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>Marina Bay Sands SkyPark, Singapore Flyer</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Group Work</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 5</td>\n    <td>Morning</td>\n    <td>National University of Singapore Tour</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>Nanyang Technological University, Botanic Gardens</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Group Work</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 6</td>\n    <td>Morning</td>\n    <td>Universal Studios</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>Sentosa</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Group Work</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Day 7</td>\n    <td>Morning</td>\n    <td>Jewel Changi Airport (Rain Vortex)</td>\n  </tr>\n  <tr>\n    <td>Afternoon</td>\n    <td>In Flight</td>\n  </tr>\n  <tr>\n    <td>Evening</td>\n    <td>Arrival</td>\n  </tr>\n</table>",
@@ -31,8 +39,12 @@
   ],
   "status": "published",
   "published_at": "2025-03-09",
-  "grade_level_en": "Middle School; High School",
-  "grade_level_zh": "初中; 高中",
+  "grade_level_en": [
+    "Middle School"
+  ],
+  "grade_level_zh": [
+    "初中"
+  ],
   "other_info_en": "[Cultural Experience]\n\n- Expert Tours: Guided visits to iconic sites for deep cultural insights\n- Global Network: Form friendships with peers from diverse backgrounds\n\n[Safety and Environment]\n\n- Security: Ranked first in global safety (World Justice Project, 2020)\n- City Planning: Known as the 'Garden City' with excellent green spaces\n- Infrastructure: High environmental awareness and quality public facilities\n\n[Travel Convenience]\n\n- Flight: 5-hour direct flight from Beijing\n- Time Zone: No time difference with China\n- Transportation: Efficient public transport system",
   "other_info_zh": "[文化体验]\n\n- 专业导览：由专家带领探索标志性景点，深入了解历史文化\n- 国际交流：与来自不同背景的同龄人建立友谊\n\n[安全与环境]\n\n- 治安：2020年世界正义工程评估显示安全度全球第一\n- 城市规划：以\"花园城市\"著称，绿化优美\n- 基础设施：环保意识强，公共设施完善\n\n[出行便利]\n\n- 航程：北京直飞仅需5小时\n- 时差：与中国无时差\n- 交通：公共交通系统发达"
 }

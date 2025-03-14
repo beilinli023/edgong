@@ -82,7 +82,10 @@ const FrontendFooter: React.FC = () => {
                           </>
                         ) : (
                           <>
-                            18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai
+                            18F Tower B,<br/>
+                            838 South Huangpi Road<br/>
+                            Huangpu District<br/>
+                            Shanghai, 200025.
                           </>
                         )}
                       </span>
@@ -91,10 +94,10 @@ const FrontendFooter: React.FC = () => {
                 </ul>
               </div>
 
-              {/* 关于我们 */}
+              {/* 关注我们 */}
               <div className="flex flex-col items-center">
                 <h3 className="text-2xl font-bold uppercase mb-6 tracking-wide text-gray-800">
-                  {currentLanguage === 'zh' ? '关于我们' : 'ABOUT US'}
+                  {currentLanguage === 'zh' ? '关注我们' : 'FOLLOW US'}
                 </h3>
                 <div className="flex flex-col items-center">
                   <Logo logoType="footer" />

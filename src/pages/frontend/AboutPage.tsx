@@ -65,8 +65,12 @@ const AboutPage: React.FC = () => {
   return (
     <FrontendLayout>
       {/* Hero Section */}
-      <div className="relative pt-32 pb-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
-        <div className="container-fluid w-full max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex flex-col items-center justify-center">
+      <div className="relative pt-32 pb-24 text-white" style={{
+        backgroundImage: `url('/Edgoing/MeetEdgoing.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        <div className="container-fluid w-full max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex flex-col items-center justify-center relative z-10">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
             {getLocalizedText(safeContent?.hero?.title_en || '', safeContent?.hero?.title_zh || '')}
           </h1>

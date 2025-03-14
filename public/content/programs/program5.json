@@ -8,10 +8,18 @@
   "location_zh": "英国",
   "duration_en": "1 week",
   "duration_zh": "1 周",
-  "country_en": "United Kingdom",
-  "country_zh": "英国",
-  "program_type_en": "Performing Arts",
-  "program_type_zh": "表演艺术",
+  "country_en": [
+    "United Kingdom"
+  ],
+  "country_zh": [
+    "英国"
+  ],
+  "program_type_en": [
+    "Heritage & Arts Exploration"
+  ],
+  "program_type_zh": [
+    "民俗与艺术探索"
+  ],
   "destination_en": "Surrey, England",
   "destination_zh": "英格兰，萨里",
   "highlights_en": "• Top UK Destination: Experience the best of British education in a leading English-speaking country renowned for its world-class academic resources.\n\n• Elite School Experience: Stay and dine at Epsom College, a historic institution with a legacy of academic excellence and a nurturing environment.\n\n• Language Immersion: Small class sizes (under 20 students) with British Council-certified teachers, ensuring personalized attention and active participation.\n\n• Global Community: Interact with students from diverse backgrounds, fostering international friendships and cultural confidence.\n\n• Cultural Excursions: Explore London, Oxford, and Cambridge, with expert-guided tours of iconic sites like the British Museum and National Gallery.\n\n• Safety and Comfort: Secure campus with 24/7 supervision, ensuring a safe and supportive environment for all participants.",
@@ -27,8 +35,16 @@
   ],
   "status": "published",
   "published_at": "2025-03-09",
-  "grade_level_en": "Primary School,Middle School,High School",
-  "grade_level_zh": "小学,初中,高中",
+  "grade_level_en": [
+    "Primary School",
+    "Middle School",
+    "High School"
+  ],
+  "grade_level_zh": [
+    "小学",
+    "初中",
+    "高中"
+  ],
   "overview_en": "The Epsom College International Summer Camp offers students aged 12-17 a unique opportunity to experience elite British education in a prestigious boarding school environment. This program combines intensive English language learning with a wide range of academic subjects and extracurricular activities. Located on Epsom College's beautiful 84-acre campus just 15 miles from London, students benefit from world-class facilities while exploring British culture through organized excursions to London, Oxford, and other historic sites. With expert teaching from qualified staff, 24-hour supervision, and comprehensive boarding facilities, this summer camp provides the perfect balance of academic enrichment, cultural immersion, and recreational activities.",
   "overview_zh": "爱普森学院国际夏令营为12-17岁的学生提供了在一个享有盛誉的英国寄宿学校环境中体验精英英国教育的独特机会。该项目将密集的英语语言学习与广泛的学术科目和课外活动相结合。爱普森学院美丽的84英亩校园位于距离伦敦仅15英里的地方，学生可以使用世界一流的设施，同时通过组织前往伦敦、牛津和其他历史遗址的远足来探索英国文化。在合格教师的专业教学、24小时监督和全面的寄宿设施下，这个夏令营提供了学术丰富、文化沉浸和娱乐活动的完美平衡。",
   "other_info_en": "• Academic Environment:\n- Small class sizes\n- Personalized attention\n- Active participation in language classes\n\n• Cultural Program:\n- Expert-guided tours\n- British Museum visits\n- National Gallery exploration\n- Deep insights into British history and art\n\n• Student Care:\n- 24/7 supervision\n- Trained staff\n- Safe and supportive environment\n\n• International Experience:\n- Global networking opportunities\n- Cross-cultural friendships\n- Multicultural collaboration\n\n• Personal Development:\n- Independence building\n- Teamwork skills\n- Problem-solving abilities\n- Structured activities",

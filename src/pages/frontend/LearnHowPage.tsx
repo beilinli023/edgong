@@ -59,7 +59,7 @@ const LearnHowPage = () => {
           <div className="mt-12 text-center">
             <h1 className="text-3xl font-bold mb-6">了解更多有关我们的教育项目</h1>
             <p className="max-w-2xl mx-auto text-gray-600">
-              虽然我们无法加载所有内容，但您仍然可以联系我们了解有关我们项目的更多信息。
+              虽然我们无法加载所有内容，但您仍然可以联系我们了解有关我们项目的更多信息
             </p>
             <Button 
               className="mt-6 bg-blue-600 hover:bg-blue-700"
@@ -75,10 +75,18 @@ const LearnHowPage = () => {
   return (
     <FrontendLayout>
       {/* Hero Section */}
-      <div className="relative pt-32 pb-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
+      <div 
+        className="relative pt-32 pb-24 text-white"
+        style={{
+          backgroundImage: "url('/Edgoing/Page Picture/FAQ.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">{content?.hero?.title || "了解更多"}</h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 text-center">{content?.hero?.subtitle || "获取有关我们国际教育项目、活动和服务的常见问题解答。"}</p>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 text-center">{content?.hero?.subtitle || "获取有关我们国际教育项目、活动和服务的常见问题解答"}</p>
         </div>
       </div>
 

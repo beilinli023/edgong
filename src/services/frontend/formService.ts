@@ -61,11 +61,17 @@ export const getFrontendFormContent = async (language = 'en'): Promise<FormConte
           { id: "japan", label: language === 'en' ? "Japan" : "日本" }
         ],
         interests: [
-          { id: "language", label: language === 'en' ? "Language Learning" : "语言学习" },
-          { id: "culture", label: language === 'en' ? "Cultural Experience" : "文化体验" },
-          { id: "academic", label: language === 'en' ? "Academic Excellence" : "学术卓越" },
-          { id: "career", label: language === 'en' ? "Career Development" : "职业发展" },
-          { id: "travel", label: language === 'en' ? "Travel & Adventure" : "旅行与冒险" }
+          { id: "academic", label: language === 'en' ? "Academic Enrichment" : "学术拓展" },
+          { id: "heritage", label: language === 'en' ? "Heritage & Arts Exploration" : "传统与艺术探索" },
+          { id: "performing", label: language === 'en' ? "Performing Arts" : "表演艺术" },
+          { id: "lifestyle", label: language === 'en' ? "Language & Lifestyle" : "语言与生活" },
+          { id: "language", label: language === 'en' ? "Language Intensive" : "语言强化" },
+          { id: "history", label: language === 'en' ? "History & Civic" : "历史与公民" },
+          { id: "stem", label: language === 'en' ? "STEM & Science" : "STEM与科学创新" },
+          { id: "religion", label: language === 'en' ? "Religion & Belief" : "宗教与信仰" },
+          { id: "community", label: language === 'en' ? "Community Service" : "社区服务" },
+          { id: "sports", label: language === 'en' ? "Sports" : "体育" },
+          { id: "courses", label: language === 'en' ? "Academic Courses" : "专业发展" }
         ]
       }
     };
@@ -162,4 +168,3 @@ export default {
   submitPlanningForm,
   submitNewsletterSubscription
 };
-

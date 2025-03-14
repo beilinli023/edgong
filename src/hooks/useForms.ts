@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getFrontendFormContent, submitNewsletterSubscription } from '@/services/frontend/formService';
 import { toast } from 'sonner';
 import { FormOption, FormContent, PlanningFormData } from '@/types/formTypes';
+import { saveFormSubmissionLocally } from '@/services/frontend/formLocalStorageService';
 
 // 重新导出类型，以保持兼容性
 export type { FormOption, FormContent, PlanningFormData };
@@ -366,6 +367,12 @@ export function usePlanningFormSubmit(language = 'en') {
       // 直接在前端处理表单提交，不调用API
       console.log('表单数据已提交（前端模拟）:', formData);
       
+      // 将表单数据保存到本地存储
+      const saveResult = saveFormSubmissionLocally(formData);
+      if (!saveResult.success) {
+        console.error('保存表单到本地存储失败:', saveResult.error);
+      }
+      
       // 模拟网络延迟
       await new Promise(resolve => setTimeout(resolve, 800));
       
@@ -373,9 +380,9 @@ export function usePlanningFormSubmit(language = 'en') {
       return { 
         success: true, 
         data: { 
-          id: Math.floor(Math.random() * 1000),
+          id: saveResult.id || Math.floor(Math.random() * 1000),
           message: 'Form submitted successfully',
-          submittedAt: new Date().toISOString()
+          submittedAt: saveResult.timestamp || new Date().toISOString()
         } 
       };
     },

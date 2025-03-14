@@ -14,8 +14,7 @@ import { normalizeTags } from "@/utils/blogUtils";
 import ErrorMessage from "@/components/frontend/blog/ErrorMessage";
 import { BlogPost } from "@/types/blogTypes";
 
-// 导入博客头图配置
-import blogConfig from "../../../public/content/blog/index.json";
+// 移除无效的blogConfig导入
 
 const BlogPostDetail: React.FC = () => {
   // Get the ID from the URL parameter
@@ -81,7 +80,7 @@ const BlogPostDetail: React.FC = () => {
       <BlogPostHero 
         title={localizedTitle || ''}
         excerpt={localizedExcerpt || ''}
-        featuredImage={blogConfig.hero.background_image}
+        featuredImage={featuredImageUrl || '/Edgoing/Blog_Page/Heading1.jpg'}
       />
 
       {/* Navigation - back to blog list */}
@@ -103,8 +102,8 @@ const BlogPostDetail: React.FC = () => {
             author={currentLanguage === 'en' 
               ? (post as BlogPost)?.author_en || (post as BlogPost)?.author || '' 
               : (post as BlogPost)?.author_zh || (post as BlogPost)?.author || ''}
-            publishedDate={post?.published_at || ''}
-            primaryCategory={post?.primary_category}
+            publishedDate={(post as BlogPost)?.published_at || ''}
+            primaryCategory={(post as BlogPost)?.primary_category}
             currentLanguage={currentLanguage}
             tags={normalizedTags}
             tagsLabel={tagsLabel}

@@ -62,7 +62,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ currentLanguage }) => {
 
   if (isLoading) {
     return (
-      <div className="relative h-[500px] bg-gray-100 flex items-center justify-center">
+      <div className="relative h-[500px] flex items-center justify-center bg-gray-100">
         <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
       </div>
     );
@@ -73,10 +73,17 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ currentLanguage }) => {
   return (
     <div className="relative h-[500px] overflow-hidden">
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out"
-        style={{ backgroundImage: `url(${slide.imageUrl})` }}
+        className="absolute inset-0 bg-cover bg-no-repeat transition-transform duration-700 ease-in-out"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${slide.imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          height: '100%',
+          width: '100%'
+        }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div className="absolute inset-0"></div>
       </div>
       
       <div className="relative h-full container mx-auto px-4 flex items-center justify-center text-center">

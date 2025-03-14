@@ -90,7 +90,7 @@ export const getLocalBlogTags = async (): Promise<BlogTag[]> => {
 export const getLocalBlogPageSettings = async (): Promise<BlogContent> => {
   try {
     // 加载博客页面设置
-    const url = '/content/blog/index.json';
+    const url = `/content/blog/index.json`;
     console.log('获取博客页面设置:', url);
     
     const response = await fetch(url, {
@@ -185,7 +185,10 @@ async function loadAllPosts(): Promise<BlogPost[]> {
     console.log('尝试加载博客文章索引文件: /content/blog/index.json');
     
     // 加载索引文件
-    const indexResponse = await fetch('/content/blog/index.json', {
+    const url = `/content/blog/index.json`;
+    console.log('获取博客文章索引文件:', url);
+    
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -193,12 +196,12 @@ async function loadAllPosts(): Promise<BlogPost[]> {
       }
     });
     
-    if (!indexResponse.ok) {
-      console.error('加载博客索引失败:', indexResponse.status, indexResponse.statusText);
-      throw new Error(`HTTP error! Status: ${indexResponse.status}`);
+    if (!response.ok) {
+      console.error('加载博客索引失败:', response.status, response.statusText);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
     
-    const indexData = await indexResponse.json();
+    const indexData = await response.json();
     console.log('成功加载博客索引文件', indexData);
     
     // 确保索引文件包含posts数组

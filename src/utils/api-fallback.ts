@@ -49,7 +49,68 @@ const staticData: Record<string, ApiResponse<unknown>> = {
       ]
     }
   },
-
+  
+  // About页面内容API
+  '/about-page': {
+    success: true,
+    data: {
+      hero: {
+        title_en: "Meet EdGoing",
+        title_zh: "认识EdGoing",
+        subtitle_en: "A leading education organization committed to providing quality global education experiences",
+        subtitle_zh: "致力于提供高质量全球教育体验的领先教育机构"
+      },
+      mission: {
+        title_en: "Our Mission",
+        title_zh: "我们的使命",
+        content_en: "EdGoing is dedicated to bridging educational gaps and creating meaningful cross-cultural experiences for students worldwide. We believe in the transformative power of education and aim to make quality learning accessible to all.",
+        content_zh: "EdGoing致力于弥合教育差距，为全球学生创造有意义的跨文化体验。我们相信教育的变革力量，旨在使优质学习对所有人都可获得。"
+      },
+      values: [
+        {
+          id: "1",
+          icon: "Book",
+          title_en: "Academic Excellence",
+          title_zh: "学术卓越",
+          description_en: "Maintaining highest educational standards",
+          description_zh: "保持最高的教育标准"
+        },
+        {
+          id: "2",
+          icon: "Users",
+          title_en: "Community Focus",
+          title_zh: "社区关注",
+          description_en: "Building strong educational communities",
+          description_zh: "建立强大的教育社区"
+        },
+        {
+          id: "3",
+          icon: "Globe",
+          title_en: "Global Perspective",
+          title_zh: "全球视野",
+          description_en: "Fostering international understanding",
+          description_zh: "培养国际理解"
+        },
+        {
+          id: "4",
+          icon: "Heart",
+          title_en: "Student Wellbeing",
+          title_zh: "学生福祉",
+          description_en: "Ensuring well-being of our participants",
+          description_zh: "确保参与者的健康福祉"
+        },
+        {
+          id: "5",
+          icon: "Globe2",
+          title_en: "Global Citizenship",
+          title_zh: "全球公民意识",
+          description_en: "Nurturing responsible world citizens",
+          description_zh: "培养负责任的世界公民"
+        }
+      ]
+    }
+  },
+  
   // 页脚信息API
   '/api/footer': {
     success: true,
@@ -217,6 +278,113 @@ const staticData: Record<string, ApiResponse<unknown>> = {
       ]
     }
   },
+  
+  // 项目列表API
+  '/programs': {
+    success: true,
+    data: [
+      {
+        id: "1",
+        title_en: "English Language Summer School 2025 Adcote Matrix International",
+        title_zh: "2025年阿德科特国际英语暑期学校",
+        program_id: "MYLAN-2025-002",
+        image: "/Edgoing/Program_Page/Malaysia/Picture_3.jpg",
+        location_en: "Malaysia",
+        location_zh: "马来西亚",
+        duration: "3 weeks",
+        duration_en: "3 weeks",
+        duration_zh: "3 周",
+        country: "Malaysia",
+        program_type_en: ["Language Intensive", "Language & Lifestyle"],
+        program_type_zh: ["语言强化", "语言与生活"],
+        destination_en: "Malaysia",
+        destination_zh: "马来西亚",
+        grade_level_en: ["Middle School"],
+        grade_level_zh: ["初中"],
+        grade_levels: ["Middle School", "初中"],
+        overview_en: "Our 3-week English Language Summer School is designed for learners aged 10 to 14, offering a comprehensive and immersive experience to develop English language skills.",
+        overview_zh: "我们的3周英语夏令营专为10至14岁的学习者设计，提供全面且沉浸式的体验，帮助学生提升英语语言能力。"
+      },
+      {
+        id: "2",
+        title_en: "Singapore 'Sea, Land, Air' English Camp 2025",
+        title_zh: "2025年新加坡\"海陆空\"英语营",
+        program_id: "SGLAN-2025-001",
+        image: "/Edgoing/Program_Page/Singapore/English_Camp/Picture_1.png",
+        location_en: "Singapore",
+        location_zh: "新加坡",
+        duration: "2 weeks",
+        duration_en: "2 weeks",
+        duration_zh: "2周",
+        country: "Singapore",
+        program_type_en: ["Language & Lifestyle", "Language Intensive"],
+        program_type_zh: ["语言与生活", "语言强化"],
+        destination_en: "Singapore",
+        destination_zh: "新加坡",
+        grade_level_en: ["Middle School", "High School"],
+        grade_level_zh: ["初中", "高中"],
+        grade_levels: ["Middle School", "High School", "初中", "高中"],
+        overview_en: "The \"Sea, Land, and Sky\" English Camp in Singapore is a 7-day immersive program designed for students aged 10 to 15.",
+        overview_zh: "新加坡\"海陆空\"英语营是一个为期7天的沉浸式项目，专为10至15岁的学生设计。"
+      },
+      {
+        id: "3",
+        title_en: "Singapore STEM & AI Camp 2025",
+        title_zh: "2025年新加坡STEM与AI营",
+        program_id: "SGSTEM-2025-003",
+        image: "/Edgoing/Program_Page/Singapore/STEM/Picture_6.png",
+        location_en: "Singapore",
+        location_zh: "新加坡",
+        duration: "7 days",
+        duration_en: "7 days",
+        duration_zh: "7 天",
+        country: "Singapore",
+        program_type_en: ["STEM & Science"],
+        program_type_zh: ["STEM与科学创新"],
+        destination_en: "Singapore",
+        destination_zh: "新加坡",
+        grade_level_en: ["Middle School", "High School"],
+        grade_level_zh: ["初中", "高中"],
+        grade_levels: ["Middle School", "High School", "初中", "高中"],
+        overview_en: "AI and STEM focused courses and workshops at top Singaporean institutions like Nanyang Technological University and the Science Centre Singapore.",
+        overview_zh: "AI与STEM重点课程，在新加坡南洋理工大学和科学中心等顶级机构进行。"
+      }
+    ]
+  },
+  
+  // 单个项目详情API - 动态路径模板
+  '/programs/': {
+    success: true,
+    data: {
+      id: "1",
+      title_en: "English Language Summer School 2025 Adcote Matrix International",
+      title_zh: "2025年阿德科特国际英语暑期学校",
+      program_id: "MYLAN-2025-002",
+      image: "/Edgoing/Program_Page/Malaysia/Picture_3.jpg",
+      location_en: "Malaysia",
+      location_zh: "马来西亚",
+      duration: "3 weeks",
+      duration_en: "3 weeks",
+      duration_zh: "3 周",
+      country: "Malaysia",
+      program_type_en: ["Language Intensive", "Language & Lifestyle"],
+      program_type_zh: ["语言强化", "语言与生活"],
+      destination_en: "Malaysia",
+      destination_zh: "马来西亚",
+      grade_level_en: ["Middle School"],
+      grade_level_zh: ["初中"],
+      grade_levels: ["Middle School", "初中"],
+      overview_en: "Our 3-week English Language Summer School is designed for learners aged 10 to 14, offering a comprehensive and immersive experience to develop English language skills. The program welcomes students of all proficiency levels and combines classroom learning with a variety of extracurricular activities.",
+      overview_zh: "我们的3周英语夏令营专为10至14岁的学习者设计，提供全面且沉浸式的体验，帮助学生提升英语语言能力。该项目欢迎所有英语水平的学生参加，将课堂学习与丰富多彩的课外活动相结合。",
+      description_en: "Our English Language Summer School offers a balanced program that combines academic learning with fun activities, cultural experiences, and personal development. Classes are taught by qualified native English speakers, ensuring an authentic language learning environment.",
+      description_zh: "我们的英语暑期学校提供平衡的课程，将学术学习与有趣的活动、文化体验和个人发展相结合。课程由合格的英语母语教师授课，确保地道的语言学习环境。",
+      gallery_images: [
+        "/Edgoing/Program_Page/Malaysia/Picture_3.jpg",
+        "/Edgoing/Program_Page/Malaysia/Picture_2.jpg",
+        "/Edgoing/Program_Page/Malaysia/Picture_1.jpg"
+      ]
+    }
+  },
 };
 
 /**
@@ -258,14 +426,7 @@ export function interceptApiRequest<T>(
     // 如果有匹配的静态数据，返回静态数据
     if (finalPath && staticData[finalPath]) {
       console.log(`[API回退] ${finalPath} 使用静态数据${hasAlternativeMatch ? ` (原始路径: ${apiPath})` : ''}`);
-      // 在错误对象中标记这是静态数据回退请求
-      if (error.config) {
-        error.config.headers = error.config.headers || {};
-        // 类型安全地添加标记
-        if (typeof error.config.headers === 'object') {
-          (error.config.headers as Record<string, string>)['X-Static-Fallback'] = 'true';
-        }
-      }
+      // 直接返回静态数据，无需设置 headers
       return staticData[finalPath].data as unknown as T;
     }
     

@@ -6,6 +6,7 @@ import contentTypesRouter from './routes/contentTypes.mjs';
 import categoriesRouter from './routes/categories.mjs';
 import tagsRouter from './routes/tags.mjs';
 import contentsRouter from './routes/contents.mjs';
+import programsRouter from './routes/programs.mjs';
 
 const app = express();
 const PORT = 3001;
@@ -33,6 +34,7 @@ app.use('/content-types', contentTypesRouter);
 app.use('/categories', categoriesRouter);
 app.use('/tags', tagsRouter);
 app.use('/contents', contentsRouter);
+app.use('/programs', programsRouter);
 
 // 博客文章API (保留向后兼容性)
 app.get('/blog-posts', (req, res) => {
@@ -78,4 +80,5 @@ app.listen(PORT, () => {
   console.log('- 分类: /categories');
   console.log('- 标签: /tags');
   console.log('- 内容: /contents');
+  console.log('- 程序: /programs');
 });
