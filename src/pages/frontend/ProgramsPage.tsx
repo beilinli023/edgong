@@ -242,7 +242,7 @@ const ProgramsPage: React.FC = () => {
                         <img 
                           src={program.image || '/images/programs/default.jpg'} 
                           alt={currentLanguage === 'en' ? program.title_en : program.title_zh} 
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-top"
                         />
                       </div>
                       <div className="p-3 flex-1 flex flex-col">

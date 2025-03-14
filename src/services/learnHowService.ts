@@ -1,4 +1,3 @@
-
 import api from './api';
 import { LearnHowPage, FaqItemWithCategory } from '@/types/learnHowTypes';
 
@@ -22,17 +21,15 @@ export const getLearnHowPageContent = async (): Promise<LearnHowPage> => {
       hero: {
         title_en: data.hero?.title_en || "Learn More",
         title_zh: data.hero?.title_zh || "了解更多",
-        subtitle_en: data.hero?.subtitle_en || "Find answers to common questions about our international education programs, activities, and services.",
-        subtitle_zh: data.hero?.subtitle_zh || "获取有关我们国际教育项目、活动和服务的常见问题解答。",
+        subtitle_en: data.hero?.subtitle_en || "Find answers to common questions about our international education programs, activities, and services",
+        subtitle_zh: data.hero?.subtitle_zh || "获取有关我们国际教育项目、活动和服务的常见问题解答",
         background_image: data.hero?.background_image || "/lovable-uploads/095982ef-a87c-40ba-a4fe-d4d95ab84dae.png"
       },
       contact_section: {
         title_en: data.contact_section?.title_en || "Still Have Questions?",
         title_zh: data.contact_section?.title_zh || "还有疑问？",
-        description_en: data.contact_section?.description_en || 
-          "If you couldn't find the answer to your question, don't hesitate to reach out to us directly. Our advisors are here to help you with any inquiries you may have.",
-        description_zh: data.contact_section?.description_zh || 
-          "如果您没有找到问题的答案，请随时直接联系我们。我们的顾问将帮助您解答任何疑问。",
+        description_en: data.contact_section?.description_en || "If you couldn't find the answer to your question, don't hesitate to reach out to us directly. Our advisors are here to help you with any inquiries you may have",
+        description_zh: data.contact_section?.description_zh || "如果您没有找到问题的答案，请随时直接联系我们。我们的顾问将帮助您解答任何疑问。",
         button_text_en: data.contact_section?.button_text_en || "Ask An Advisor",
         button_text_zh: data.contact_section?.button_text_zh || "咨询顾问",
         button_url: data.contact_section?.button_url || "/contact"
@@ -45,14 +42,14 @@ export const getLearnHowPageContent = async (): Promise<LearnHowPage> => {
       hero: {
         title_en: "Learn More",
         title_zh: "了解更多",
-        subtitle_en: "Find answers to common questions about our international education programs, activities, and services.",
-        subtitle_zh: "获取有关我们国际教育项目、活动和服务的常见问题解答。",
+        subtitle_en: "Find answers to common questions about our international education programs, activities, and services",
+        subtitle_zh: "获取有关我们国际教育项目、活动和服务的常见问题解答",
         background_image: "/lovable-uploads/095982ef-a87c-40ba-a4fe-d4d95ab84dae.png"
       },
       contact_section: {
         title_en: "Still Have Questions?",
         title_zh: "还有疑问？",
-        description_en: "If you couldn't find the answer to your question, don't hesitate to reach out to us directly. Our advisors are here to help you with any inquiries you may have.",
+        description_en: "If you couldn't find the answer to your question, don't hesitate to reach out to us directly. Our advisors are here to help you with any inquiries you may have",
         description_zh: "如果您没有找到问题的答案，请随时直接联系我们。我们的顾问将帮助您解答任何疑问。",
         button_text_en: "Ask An Advisor",
         button_text_zh: "咨询顾问",
@@ -193,7 +190,7 @@ const getMockFaqs = (): FaqItemWithCategory[] => {
       question_en: "Are meals included, and can you accommodate dietary restrictions?",
       question_zh: "是否包含餐食？可以满足特殊饮食需求吗？",
       answer_en: "Yes, most of our programs include daily meals, typically breakfast and either lunch or dinner. We can accommodate dietary restrictions such as vegetarian, vegan, gluten-free, and other special dietary needs—just let us know in advance, and we’ll make the necessary arrangements.",
-      answer_zh: "是的，我们的大部分项目都包含每日餐食，通常是早餐和午餐或晚餐。我们可以根据需求提供特殊饮食安排，例如素食、纯素食、无麸质饮食等。请提前告知我们您的饮食要求，我们会尽力满足。",
+      answer_zh: "是的，我们的大部分项目都包含每日餐食，通常是早餐和午餐或晚餐。我们可以根据需求提供特殊饮食安排，例如素食、纯素食、无麸质饮食等。请提前告知我们您的饮食要求，我们将为您打造个性化的旅行计划。",
       category_id: 9,
       order: 4,
       is_featured: true

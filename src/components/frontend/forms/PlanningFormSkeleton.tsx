@@ -1,12 +1,11 @@
-
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const PlanningFormSkeleton: React.FC = () => {
   return (
     <>
-      <div className="bg-gray-500 bg-opacity-70 py-16 text-white text-center">
-        <div className="container mx-auto px-4">
+      <div className="relative pt-20 pb-32 text-white bg-gray-500 bg-opacity-70">
+        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center mt-24">
           <Skeleton className="h-12 w-2/3 mx-auto bg-gray-400 mb-4" />
           <Skeleton className="h-6 w-4/5 mx-auto bg-gray-400" />
         </div>

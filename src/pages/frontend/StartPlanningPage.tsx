@@ -54,7 +54,7 @@ const StartPlanningPage: React.FC = () => {
         <PlanningFormHero
           title={text.pageTitle}
           subtitle={text.pageSubtitle}
-          backgroundImage="/lovable-uploads/47bf9bbe-157b-4ebd-8119-331c7101bce3.png"
+          backgroundImage="/Edgoing/Page Picture/Let'sPlan.jpg"
         />
         <PlanningFormError
           errorTitle={text.errorTitle}
@@ -77,7 +77,7 @@ const StartPlanningPage: React.FC = () => {
       <PlanningFormHero
         title={content.hero.title || text.pageTitle}
         subtitle={content.hero.subtitle || text.pageSubtitle}
-        backgroundImage={content.hero.backgroundImage}
+        backgroundImage={content.hero.backgroundImage || "/Edgoing/Page Picture/Let'sPlan.jpg"}
       />
 
       {/* 表单区域 */}

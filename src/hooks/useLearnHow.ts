@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { LearnHowPage, FaqItemWithCategory } from '@/types/learnHowTypes';
@@ -91,8 +90,8 @@ export const useLearnHow = () => {
       hero: {
         title: currentLanguage === 'en' ? "Learn More" : "了解更多",
         subtitle: currentLanguage === 'en' 
-          ? "Find answers to common questions about our international education programs, activities, and services." 
-          : "获取有关我们国际教育项目、活动和服务的常见问题解答。",
+          ? "Find answers to common questions about our international education programs, activities, and services" 
+          : "获取有关我们国际教育项目、活动和服务的常见问题解答",
         backgroundImage: "/lovable-uploads/095982ef-a87c-40ba-a4fe-d4d95ab84dae.png"
       },
       contactSection: {
@@ -114,10 +113,10 @@ export const useLearnHow = () => {
       hero: {
         title: currentLanguage === 'en' 
           ? (pageContent.hero?.title_en || defaultContent.hero.title) 
-          : (pageContent.hero?.title_zh || defaultContent.hero.title),
+          : (pageContent.hero?.title_zh || "了解更多"),
         subtitle: currentLanguage === 'en' 
           ? (pageContent.hero?.subtitle_en || defaultContent.hero.subtitle) 
-          : (pageContent.hero?.subtitle_zh || defaultContent.hero.subtitle),
+          : (pageContent.hero?.subtitle_zh || "获取有关我们国际教育项目、活动和服务的常见问题解答"),
         backgroundImage: pageContent.hero?.background_image || defaultContent.hero.backgroundImage
       },
       contactSection: {

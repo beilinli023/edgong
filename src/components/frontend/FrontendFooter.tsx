@@ -71,30 +71,37 @@ const FrontendFooter: React.FC = () => {
                     </div>
                   </li>
                   <li className="flex gap-2 items-start">
-                    <div>
-                      <span className="text-base">
-                        {currentLanguage === 'zh' ? '地址: ' : 'Address: '}
-                      </span>
-                      <span className="text-base text-blue-600 leading-relaxed">
+                    <div className="w-full">
+                      <div className="text-base">
+                        <span>
+                          {currentLanguage === 'zh' ? '地址: ' : 'Address: '}
+                        </span>
+                        <span className="text-blue-600">
+                          {currentLanguage === 'zh' ? '上海市黄埔区' : '18F Tower B,'}
+                        </span>
+                      </div>
+                      <div className="text-base text-blue-600">
                         {currentLanguage === 'zh' ? (
-                          <>
-                            上海市黄埔区黄陂南路838号
-                          </>
+                          '黄陂南路838号 18F B座'
                         ) : (
-                          <>
-                            18F, Tower B, China Overseas, 838 S. Huangpi Road, Huangpu, Shanghai
-                          </>
+                          '838 South Huangpi Road'
                         )}
-                      </span>
+                      </div>
+                      <div className="text-base text-blue-600">
+                        {currentLanguage === 'zh' ? '' : 'Huangpu District'}
+                      </div>
+                      <div className="text-base text-blue-600">
+                        {currentLanguage === 'zh' ? '' : 'Shanghai, 200025.'}
+                      </div>
                     </div>
                   </li>
                 </ul>
               </div>
 
-              {/* 关于我们 */}
+              {/* 关注我们 */}
               <div className="flex flex-col items-center">
                 <h3 className="text-2xl font-bold uppercase mb-6 tracking-wide text-gray-800">
-                  {currentLanguage === 'zh' ? '关于我们' : 'ABOUT US'}
+                  {currentLanguage === 'zh' ? '关注我们' : 'FOLLOW US'}
                 </h3>
                 <div className="flex flex-col items-center">
                   <Logo logoType="footer" />

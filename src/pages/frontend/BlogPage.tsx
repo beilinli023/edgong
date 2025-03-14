@@ -58,11 +58,15 @@ const BlogPage: React.FC = () => {
       <div className="min-h-screen">
         {/* 博客页面头部 */}
         <section 
-          className="relative pt-32 pb-24 text-white bg-cover bg-center"
-          style={{ backgroundImage: `url("/Edgoing/Blog_Page/Heading1.jpg")` }}
+          className="relative pt-20 pb-32 text-white" 
+          style={{ 
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/Edgoing/Blog_Page/Heading1.jpg")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 30%',
+            backgroundRepeat: 'no-repeat'
+          }}
         >
-          <div className="absolute inset-0 bg-black opacity-20"></div>
-          <div className="container-fluid w-full max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
+          <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center mt-24">
             <div className="text-center max-w-3xl mx-auto">
               <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
                 {getLocalizedText('Our Blog', '我们的博客')}

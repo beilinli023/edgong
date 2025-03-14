@@ -1,4 +1,3 @@
-
 import React from 'react';
 import FrontendLayout from '@/components/frontend/FrontendLayout';
 import { useLanguage } from '@/context/LanguageContext';
@@ -70,8 +69,16 @@ const StudyAbroadPage = () => {
 
   return (
     <FrontendLayout>
-      <div className="relative pt-32 pb-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
-        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+      <div 
+        className="relative pt-20 pb-32 text-white bg-blue-900"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('/Edgoing/StudyAbroad.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center mt-24">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">{title}</h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 text-center">{description}</p>
         </div>

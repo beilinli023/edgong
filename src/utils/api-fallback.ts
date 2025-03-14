@@ -49,7 +49,68 @@ const staticData: Record<string, ApiResponse<unknown>> = {
       ]
     }
   },
-
+  
+  // About页面内容API
+  '/about-page': {
+    success: true,
+    data: {
+      hero: {
+        title_en: "Meet EdGoing",
+        title_zh: "认识EdGoing",
+        subtitle_en: "A leading education organization committed to providing quality global education experiences",
+        subtitle_zh: "致力于提供高质量全球教育体验的领先教育机构"
+      },
+      mission: {
+        title_en: "Our Mission",
+        title_zh: "我们的使命",
+        content_en: "EdGoing is dedicated to bridging educational gaps and creating meaningful cross-cultural experiences for students worldwide. We believe in the transformative power of education and aim to make quality learning accessible to all.",
+        content_zh: "EdGoing致力于弥合教育差距，为全球学生创造有意义的跨文化体验。我们相信教育的变革力量，旨在使优质学习对所有人都可获得。"
+      },
+      values: [
+        {
+          id: "1",
+          icon: "Book",
+          title_en: "Academic Excellence",
+          title_zh: "学术卓越",
+          description_en: "Maintaining highest educational standards",
+          description_zh: "保持最高的教育标准"
+        },
+        {
+          id: "2",
+          icon: "Users",
+          title_en: "Community Focus",
+          title_zh: "社区关注",
+          description_en: "Building strong educational communities",
+          description_zh: "建立强大的教育社区"
+        },
+        {
+          id: "3",
+          icon: "Globe",
+          title_en: "Global Perspective",
+          title_zh: "全球视野",
+          description_en: "Fostering international understanding",
+          description_zh: "培养国际理解"
+        },
+        {
+          id: "4",
+          icon: "Heart",
+          title_en: "Student Wellbeing",
+          title_zh: "学生福祉",
+          description_en: "Ensuring well-being of our participants",
+          description_zh: "确保参与者的健康福祉"
+        },
+        {
+          id: "5",
+          icon: "Globe2",
+          title_en: "Global Citizenship",
+          title_zh: "全球公民意识",
+          description_en: "Nurturing responsible world citizens",
+          description_zh: "培养负责任的世界公民"
+        }
+      ]
+    }
+  },
+  
   // 页脚信息API
   '/api/footer': {
     success: true,
@@ -258,14 +319,7 @@ export function interceptApiRequest<T>(
     // 如果有匹配的静态数据，返回静态数据
     if (finalPath && staticData[finalPath]) {
       console.log(`[API回退] ${finalPath} 使用静态数据${hasAlternativeMatch ? ` (原始路径: ${apiPath})` : ''}`);
-      // 在错误对象中标记这是静态数据回退请求
-      if (error.config) {
-        error.config.headers = error.config.headers || {};
-        // 类型安全地添加标记
-        if (typeof error.config.headers === 'object') {
-          (error.config.headers as Record<string, string>)['X-Static-Fallback'] = 'true';
-        }
-      }
+      // 直接返回静态数据，无需设置 headers
       return staticData[finalPath].data as unknown as T;
     }
     
