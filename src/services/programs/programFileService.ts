@@ -116,6 +116,13 @@ interface RawProgramData {
  * 适配程序数据，确保与原有数据结构兼容
  */
 const adaptProgramData = (program: RawProgramData): Program => {
+  // 将字符串转换为字符串数组的函数
+  const toStringArray = (value: string | string[] | undefined): string[] => {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    return [value];
+  };
+
   const adaptedProgram: Program = {
     id: String(program.id),
     title_en: program.title_en || '',
@@ -132,12 +139,13 @@ const adaptProgramData = (program: RawProgramData): Program => {
       program.grade_level_en || '',
       program.grade_level_zh || ''
     ].filter(level => level !== ''), // 过滤掉空字符串，确保数组有效
-    program_type_en: program.program_type_en || '',
-    program_type_zh: program.program_type_zh || '',
+    // 将单个字符串转换为字符串数组，符合接口要求
+    program_type_en: toStringArray(program.program_type_en),
+    program_type_zh: toStringArray(program.program_type_zh),
     destination_en: program.destination_en || '',
     destination_zh: program.destination_zh || '',
-    grade_level_en: program.grade_level_en || '',
-    grade_level_zh: program.grade_level_zh || '',
+    grade_level_en: toStringArray(program.grade_level_en),
+    grade_level_zh: toStringArray(program.grade_level_zh),
     overview_en: program.overview_en || '',
     overview_zh: program.overview_zh || '',
     description_en: program.description_en || '',
@@ -312,31 +320,59 @@ export const loadProgramFilters = async () => {
  */
 const loadProgramFromFile = async (filename: string): Promise<Program | null> => {
   try {
-    // 处理文件名格式，确保正确的格式
+    const originalFilename = filename;
     if (!filename.startsWith('program') && !isNaN(Number(filename))) {
       filename = `program${filename}.json`;
     } else if (!filename.endsWith('.json')) {
       filename = `${filename}.json`;
     }
     
-    // 添加缓存打破参数，确保获取最新数据
     const url = addCacheBuster(`/content/programs/${filename}`);
-    console.log(`尝试从文件加载项目: ${url}`);
+    console.log(`尝试从文件加载项目: ${url}，原始ID/文件名: ${originalFilename}`);
     
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    });
+    
     if (!response.ok) {
-      errorLog('programFileService', `加载项目数据失败 (${filename}): ${response.status} ${response.statusText}`, response);
+      errorLog('programFileService', `加载项目数据失败 (${filename}): ${response.status} ${response.statusText}`, {
+        requestUrl: url,
+        originalId: originalFilename,
+        responseStatus: response.status,
+        responseStatusText: response.statusText
+      });
       return null;
     }
     
-    const data = await response.json();
+    const responseText = await response.text();
+    let data;
+    
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      errorLog('programFileService', `解析项目JSON数据失败 (${filename}):`, {
+        error: parseError,
+        responseText: responseText.substring(0, 200) + '...' // 只显示前200个字符避免日志过长
+      });
+      return null;
+    }
+    
     if (!data || !data.id) {
       errorLog('programFileService', `项目数据格式错误 (${filename}):`, data);
       return null;
     }
     
     const program = adaptProgramData(data);
-    console.log(`成功从文件加载项目 ${filename}:`, { id: program.id, title: program.title_zh });
+    console.log(`成功从文件加载项目 ${filename}:`, { 
+      id: program.id, 
+      title: program.title_zh,
+      imageUrl: program.image,
+      hasGallery: program.gallery_images && program.gallery_images.length > 0
+    });
     return program;
   } catch (error) {
     errorLog('programFileService', `加载项目数据出错 (${filename}):`, error);
@@ -345,7 +381,7 @@ const loadProgramFromFile = async (filename: string): Promise<Program | null> =>
 };
 
 /**
- * 从本地 JSON 文件加载所有项目数据
+ * 加载所有项目数据
  */
 const loadAllProgramsFromFiles = async (): Promise<Program[]> => {
   try {
@@ -364,7 +400,6 @@ const loadAllProgramsFromFiles = async (): Promise<Program[]> => {
  */
 export const getProgram = async (id: string): Promise<Program | null> => {
   try {
-    // 优先从 API 获取数据
     const response = await fetch(`/api/programs/${id}`);
     if (!response.ok) {
       debugLog('programFileService', 'API获取项目数据失败，尝试从本地文件加载');
@@ -383,7 +418,6 @@ export const getProgram = async (id: string): Promise<Program | null> => {
  */
 export const getAllPrograms = async (): Promise<Program[]> => {
   try {
-    // 优先从 API 获取数据
     const response = await fetch('/api/programs');
     if (!response.ok) {
       debugLog('programFileService', 'API获取所有项目数据失败，尝试从本地文件加载');
