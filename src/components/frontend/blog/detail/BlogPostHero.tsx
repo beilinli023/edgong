@@ -1,21 +1,24 @@
-
 import React from "react";
 
 interface BlogPostHeroProps {
   title: string;
   excerpt: string;
-  featuredImage: string;
+  featuredImage?: string;
 }
 
 const BlogPostHero: React.FC<BlogPostHeroProps> = ({
   title,
   excerpt,
-  featuredImage
+  featuredImage = '/images/default-blog-header.jpg'
 }) => {
+  const backgroundImageStyle = featuredImage ? 
+    { backgroundImage: `url(${featuredImage})` } : 
+    { backgroundColor: '#2c3e50' };
+
   return (
     <section 
       className="relative h-80 md:h-96 bg-cover bg-center flex items-center justify-center text-white"
-      style={{ backgroundImage: `url(${featuredImage})` }}
+      style={backgroundImageStyle}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="container mx-auto px-4 relative z-10 text-center">

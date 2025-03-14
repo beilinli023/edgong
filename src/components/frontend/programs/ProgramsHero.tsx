@@ -8,7 +8,7 @@ const ProgramsHero: React.FC = () => {
     <div 
       className="relative pt-20 pb-32 text-white" 
       style={{
-        backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Edgoing/ExplorePrograms.jpg')",
+        backgroundImage: "url('/Edgoing/ExplorePrograms.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center 30%',
         backgroundRepeat: 'no-repeat',

@@ -278,6 +278,117 @@ const staticData: Record<string, ApiResponse<unknown>> = {
       ]
     }
   },
+  
+  // 程序列表API
+  '/programs': {
+    success: true,
+    data: [
+      {
+        id: "1",
+        title_en: "STEM Innovation Workshop",
+        title_zh: "STEM创新工作坊",
+        program_id: "STEM-001",
+        image: "/images/programs/stem-workshop.jpg",
+        location_en: "Beijing",
+        location_zh: "北京",
+        duration: "2 weeks",
+        duration_en: "2 weeks",
+        duration_zh: "2周",
+        country: "China",
+        program_type_en: ["STEM", "Innovation"],
+        program_type_zh: ["STEM", "创新"],
+        destination_en: "Beijing, China",
+        destination_zh: "中国北京",
+        grade_level_en: "High School",
+        grade_level_zh: "高中",
+        grade_levels: ["High School", "高中"],
+        overview_en: "This STEM workshop focuses on innovation and problem-solving in science and technology.",
+        overview_zh: "这个STEM工作坊专注于科学和技术领域的创新和问题解决能力。"
+      },
+      {
+        id: "2",
+        title_en: "Global Leadership Program",
+        title_zh: "全球领导力项目",
+        program_id: "GLP-002",
+        image: "/images/programs/leadership.jpg",
+        location_en: "Shanghai",
+        location_zh: "上海",
+        duration: "3 weeks",
+        duration_en: "3 weeks",
+        duration_zh: "3周",
+        country: "China",
+        program_type_en: ["Leadership", "Global Citizenship"],
+        program_type_zh: ["领导力", "全球公民"],
+        destination_en: "Shanghai, China",
+        destination_zh: "中国上海",
+        grade_level_en: "College",
+        grade_level_zh: "大学",
+        grade_levels: ["College", "大学"],
+        overview_en: "Our Global Leadership Program prepares students to become future leaders in a globalized world.",
+        overview_zh: "我们的全球领导力项目为学生准备在全球化世界中成为未来领导者。"
+      },
+      {
+        id: "3",
+        title_en: "Cultural Heritage Tour",
+        title_zh: "文化遗产之旅",
+        program_id: "CHT-003",
+        image: "/images/programs/cultural-heritage.jpg",
+        location_en: "Xi'an",
+        location_zh: "西安",
+        duration: "10 days",
+        duration_en: "10 days",
+        duration_zh: "10天",
+        country: "China",
+        program_type_en: ["Cultural", "History"],
+        program_type_zh: ["文化", "历史"],
+        destination_en: "Xi'an, China",
+        destination_zh: "中国西安",
+        grade_level_en: "Middle School",
+        grade_level_zh: "初中",
+        grade_levels: ["Middle School", "初中"],
+        overview_en: "Explore the rich cultural heritage of ancient China through this immersive tour.",
+        overview_zh: "通过这个沉浸式旅程探索中国古代丰富的文化遗产。"
+      }
+    ]
+  },
+  
+  // 单个项目详情API - 动态路径模板
+  '/programs/': {
+    success: true,
+    data: {
+      id: "1",
+      title_en: "STEM Innovation Workshop",
+      title_zh: "STEM创新工作坊",
+      program_id: "STEM-001",
+      image: "/images/programs/stem-workshop.jpg",
+      location_en: "Beijing",
+      location_zh: "北京",
+      duration: "2 weeks",
+      duration_en: "2 weeks",
+      duration_zh: "2周",
+      country: "China",
+      program_type_en: ["STEM", "Innovation"],
+      program_type_zh: ["STEM", "创新"],
+      destination_en: "Beijing, China",
+      destination_zh: "中国北京",
+      grade_level_en: "High School",
+      grade_level_zh: "高中",
+      grade_levels: ["High School", "高中"],
+      overview_en: "This STEM workshop focuses on innovation and problem-solving in science and technology.",
+      overview_zh: "这个STEM工作坊专注于科学和技术领域的创新和问题解决能力。",
+      description_en: "The STEM Innovation Workshop is a two-week intensive program designed to develop students' critical thinking and problem-solving skills in science, technology, engineering, and mathematics. Participants will work on real-world problems and develop innovative solutions.",
+      description_zh: "STEM创新工作坊是为期两周的密集项目，旨在培养学生在科学、技术、工程和数学方面的批判性思维和解决问题的能力。参与者将致力于解决现实世界的问题并开发创新解决方案。",
+      highlights_en: "- Hands-on experiments\n- Mentorship from industry experts\n- Field trips to tech companies\n- Final project presentation",
+      highlights_zh: "- 动手实验\n- 行业专家指导\n- 参观科技公司\n- 最终项目展示",
+      features_en: "- Small group learning\n- Personalized feedback\n- Certificate of completion\n- Alumni network",
+      features_zh: "- 小组学习\n- 个性化反馈\n- 结业证书\n- 校友网络",
+      gallery_images: [
+        "/images/programs/stem-workshop-1.jpg",
+        "/images/programs/stem-workshop-2.jpg",
+        "/images/programs/stem-workshop-3.jpg"
+      ]
+    }
+  },
 };
 
 /**

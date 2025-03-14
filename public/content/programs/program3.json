@@ -8,10 +8,18 @@
   "location_zh": "新加坡",
   "duration_en": "7 days",
   "duration_zh": "7 天",
-  "country_en": "Singapore",
-  "country_zh": "新加坡",
-  "program_type_en": "STEM/Science",
-  "program_type_zh": "STEM/科学",
+  "country_en": [
+    "Singapore"
+  ],
+  "country_zh": [
+    "新加坡"
+  ],
+  "program_type_en": [
+    "STEM & Science"
+  ],
+  "program_type_zh": [
+    "STEM与科学创新"
+  ],
   "destination_en": "Singapore",
   "destination_zh": "新加坡",
   "highlights_en": "• AI and STEM Focus: Courses and workshops at top Singaporean institutions like Nanyang Technological University and the Science Centre Singapore.\n\n• Cultural Exploration: Visit iconic sites such as Merlion Park, Gardens by the Bay, and Jewel Changi Airport.\n\n• Hands-On Learning: Participate in environmental demonstrations and STEM courses with practical applications.\n\n• Social Activities: Engage in group work and team-building exercises to foster collaboration and friendship.\n\n• Expert Guidance: Learn from experienced educators and industry professionals to gain insights into the future of STEM and AI.",
@@ -30,8 +38,12 @@
   "published_at": "2025-03-09",
   "overview_en": "The Singapore Science and Innovation STEM Summer Camp is a 7-day program designed for students aged 7 and above (with optional parental participation). This camp offers a unique opportunity to explore cutting-edge technology through hands-on practice, interactive workshops, and visits to iconic institutions like the Singapore Science Centre and Nanyang Technological University (NTU). Participants will engage in STEM projects, learn about artificial intelligence and environmental sustainability, and experience Singapore's rich cultural heritage while enjoying world-class attractions such as Gardens by the Bay and Universal Studios Singapore.",
   "overview_zh": "新加坡科学与创新STEM夏令营是一个为期7天的项目，专为7岁及以上学生设计（家长可选择参与）。该夏令营为学生提供了一个独特的机会，通过动手实践、互动工作坊以及参观新加坡科学馆和南洋理工大学（NTU）等标志性机构，探索新加坡的前沿科技。参与者将参与STEM项目，学习人工智能与环境可持续发展的知识，并体验新加坡丰富的文化遗产，同时还能享受滨海湾花园和新加坡环球影城等世界级景点的乐趣。",
-  "grade_level_en": "Primary School",
-  "grade_level_zh": "小学",
+  "grade_level_en": [
+    "Primary School"
+  ],
+  "grade_level_zh": [
+    "小学"
+  ],
   "other_info_en": "[Class Structure]\n\n- Small Groups: 12-15 students per class\n- Individual Attention: Personalized guidance and support\n- Active Learning: Hands-on participation in all activities\n\n[Cultural Experience]\n\n- Expert Tours: Professional guides for cultural sites\n- Global Network: Connect with international peers\n- Historical Insights: Deep understanding of Singapore's heritage\n\n[Student Development]\n\n- Life Skills: Build independence and teamwork abilities\n- Problem Solving: Develop critical thinking through activities\n- Cultural Awareness: Foster international understanding",
   "other_info_zh": "[课程结构]\n\n- 小班教学：每班12-15名学生\n- 个性化指导：提供一对一关注和支持\n- 主动学习：所有活动中的实践参与\n\n[文化体验]\n\n- 专业导览：文化景点专业讲解\n- 国际交流：结识来自世界各地的朋友\n- 历史洞察：深入了解新加坡文化遗产\n\n[学生发展]\n\n- 生活技能：培养独立性和团队合作能力\n- 解决问题：通过活动发展批判性思维\n- 文化意识：培养国际理解力"
 }

@@ -4,14 +4,22 @@
   "title_zh": "剑桥大学暑期项目",
   "program_id": "CAM-SUMMER-2025-006",
   "image": "/Edgoing/Program_Page/UK/Cambridge/Picture6.png",
-  "location_en": "Cambridge, UK",
-  "location_zh": "剑桥，英国",
+  "location_en": "United Kingdom",
+  "location_zh": "英国",
   "duration_en": "16 days",
   "duration_zh": "16 天",
-  "country_en": "United Kingdom",
-  "country_zh": "英国",
-  "program_type_en": "Academic & Cultural",
-  "program_type_zh": "学术与文化",
+  "country_en": [
+    "United Kingdom"
+  ],
+  "country_zh": [
+    "英国"
+  ],
+  "program_type_en": [
+    "Academic Enrichment"
+  ],
+  "program_type_zh": [
+    "学术拓展"
+  ],
   "destination_en": "Cambridge",
   "destination_zh": "剑桥",
   "overview_en": "The 'Cambridge Summit' Academic Summer Camp is a 16-day program designed for students aged 13 to 18 eager to experience life at a world-leading university. Hosted at the University of Cambridge, this program combines rigorous academic courses, hands-on workshops, and cultural immersion experiences. Participants will engage with Cambridge professors, explore cutting-edge topics in artificial intelligence, business, sociology, and computer science, and gain valuable insights into university life and career planning. Focused on academic excellence and personal growth, this program serves as a bridge to Ivy League schools and beyond.",
@@ -32,8 +40,13 @@
   ],
   "status": "published",
   "published_at": "2025-03-09",
-  "grade_level_en": "Middle School,High School",
-  "grade_level_zh": "初中,高中",
+  "grade_level_en": [
+    "Middle School",
+    "High School"
+  ],
+  "grade_level_zh": [
+    "初中；高中"
+  ],
   "other_info_en": "Small Class Sizes: Ensures personalized attention and active participation in academic classes.\nCultural Immersion: Expert-guided tours of iconic sites provide deep insights into British culture and history.\nSafety and Supervision: 24/7 supervision by trained staff ensures a safe and supportive environment.\nGlobal Networking: Students form friendships with peers from around the world, fostering cross-cultural understanding.\nLife Skills Development: Beyond academics, students learn independence, teamwork, and problem-solving through structured activities.​",
   "other_info_zh": "小班教学：确保每位学生都能获得个性化关注，并积极参与学术课程。\n文化沉浸：由专家带领参观标志性景点，深入了解英国文化与历史。\n安全与监管：经过培训的工作人员提供24小时监管，确保安全且支持性的环境。\n全球社交：学生与来自世界各地的同龄人建立友谊，促进跨文化理解。\n生活技能培养：除了学术学习，学生通过结构化活动培养独立性、团队合作和解决问题的能力。"
 }

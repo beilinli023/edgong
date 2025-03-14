@@ -71,28 +71,24 @@ const FrontendFooter: React.FC = () => {
                     </div>
                   </li>
                   <li className="flex gap-2 items-start">
-                    <div className="w-full">
-                      <div className="text-base">
-                        <span>
-                          {currentLanguage === 'zh' ? '地址: ' : 'Address: '}
-                        </span>
-                        <span className="text-blue-600">
-                          {currentLanguage === 'zh' ? '上海市黄埔区' : '18F Tower B,'}
-                        </span>
-                      </div>
-                      <div className="text-base text-blue-600">
+                    <div>
+                      <span className="text-base">
+                        {currentLanguage === 'zh' ? '地址: ' : 'Address: '}
+                      </span>
+                      <span className="text-base text-blue-600 leading-relaxed">
                         {currentLanguage === 'zh' ? (
-                          '黄陂南路838号 18F B座'
+                          <>
+                            上海市黄埔区黄陂南路838号
+                          </>
                         ) : (
-                          '838 South Huangpi Road'
+                          <>
+                            18F Tower B,<br/>
+                            838 South Huangpi Road<br/>
+                            Huangpu District<br/>
+                            Shanghai, 200025.
+                          </>
                         )}
-                      </div>
-                      <div className="text-base text-blue-600">
-                        {currentLanguage === 'zh' ? '' : 'Huangpu District'}
-                      </div>
-                      <div className="text-base text-blue-600">
-                        {currentLanguage === 'zh' ? '' : 'Shanghai, 200025.'}
-                      </div>
+                      </span>
                     </div>
                   </li>
                 </ul>

@@ -58,8 +58,46 @@ export const traceDataLoading = (context: string, action: string, data?: unknown
   console.groupEnd();
 };
 
+/**
+ * 跟踪HTTP请求和响应
+ * @param context 日志上下文
+ * @param url 请求的URL
+ * @param response 响应对象
+ */
+export const traceApiRequest = async (context: string, url: string, response: Response) => {
+  if (!DEBUG_ENABLED) return;
+  
+  let responseText = '';
+  let responseJson = null;
+  
+  try {
+    // 克隆响应以便可以多次读取
+    const clonedResponse = response.clone();
+    responseText = await clonedResponse.text();
+    
+    try {
+      responseJson = JSON.parse(responseText);
+    } catch (e) {
+      // 非JSON响应
+    }
+  } catch (e) {
+    responseText = `[无法读取响应内容: ${e}]`;
+  }
+  
+  console.group(`🌐 [API] ${context}`);
+  console.log(`🔗 URL: ${url}`);
+  console.log(`📊 状态: ${response.status} ${response.statusText}`);
+  console.log(`📋 响应头:`, Object.fromEntries([...response.headers.entries()]));
+  console.log(`📄 响应内容: ${responseText.substring(0, 500)}${responseText.length > 500 ? '...' : ''}`);
+  if (responseJson) {
+    console.log(`🔄 解析后的JSON:`, responseJson);
+  }
+  console.groupEnd();
+};
+
 export default {
   debugLog,
   errorLog,
-  traceDataLoading
+  traceDataLoading,
+  traceApiRequest
 };

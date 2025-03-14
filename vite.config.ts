@@ -7,13 +7,38 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8081,
+    port: 8083,
     proxy: {
+      // 注释掉所有代理配置，避免不必要的API连接尝试
+      /*
+      // 带前缀的API路径
       '/api': {
-        target: 'http://localhost:3001',  // 后端API服务器
+        target: 'http://localhost:3001',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      // 直接访问原始API路径
+      '/programs': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      },
+      '/content-types': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      },
+      '/categories': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      },
+      '/tags': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      },
+      '/contents': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
       }
+      */
     }
   },
   plugins: [

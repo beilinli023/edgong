@@ -58,23 +58,19 @@ const BlogPage: React.FC = () => {
       <div className="min-h-screen">
         {/* 博客页面头部 */}
         <section 
-          className="relative pt-20 pb-32 text-white" 
-          style={{ 
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/Edgoing/Blog_Page/Heading1.jpg")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 30%',
-            backgroundRepeat: 'no-repeat'
-          }}
+          className="relative pt-32 pb-24 text-white bg-cover bg-center"
+          style={{ backgroundImage: `url("/Edgoing/Blog_Page/Heading1.jpg")` }}
         >
-          <div className="container-fluid w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center mt-24">
+          <div className="absolute inset-0 bg-black opacity-20"></div>
+          <div className="container-fluid w-full max-w-7xl mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
             <div className="text-center max-w-3xl mx-auto">
               <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
                 {getLocalizedText('Our Blog', '我们的博客')}
               </h1>
               <p className="text-base max-w-2xl mx-auto opacity-90">
                 {getLocalizedText(
-                  "Welcome to our blog. This is where we share inspirational stories and insights from our educational journey around the world.",
-                  "欢迎来到我们的博客，这里是学习与冒险的交汇之地！在这里，我们分享来自参与者的故事、实用建议和深刻见解，记录他们踏上改变人生的教育之旅的点滴。"
+                  "Welcome to our blog This is where we share inspirational stories and insights from our educational journey around the world",
+                  "欢迎来到我们的博客，这里是学习与冒险的交汇之地！在这里，我们分享来自参与者的故事、实用建议和深刻见解，记录他们踏上改变人生的教育之旅的点滴"
                 )}
               </p>
             </div>

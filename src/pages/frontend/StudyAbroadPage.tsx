@@ -15,8 +15,8 @@ const StudyAbroadPage = () => {
     : '留学：拓展你的视野';
     
   const description = currentLanguage === 'en'
-    ? 'Embark on a life-changing study abroad journey to explore new cultures, gain a global perspective, and enhance your education. Whether you seek academic excellence, language immersion, or unforgettable experiences, studying abroad opens doors to endless opportunities.'
-    : '踏上改变人生的留学之旅，探索新文化，获得全球视野，并提升你的教育水平。无论你追求学术卓越、语言深浸还是难忘的经历，留学都将为你打开无限机遇的大门。';
+    ? 'Embark on a life-changing study abroad journey to explore new cultures, gain a global perspective, and enhance your education. Whether you seek academic excellence, language immersion, or unforgettable experiences, studying abroad opens doors to endless opportunities'
+    : '踏上改变人生的留学之旅，探索新文化，获得全球视野，并提升你的教育水平。无论你追求学术卓越、语言深浸还是难忘的经历，留学都将为你打开无限机遇的大门';
   
   if (isLoading) {
     return (
@@ -72,7 +72,7 @@ const StudyAbroadPage = () => {
       <div 
         className="relative pt-20 pb-32 text-white bg-blue-900"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('/Edgoing/StudyAbroad.jpg')`,
+          backgroundImage: `url('/Edgoing/StudyAbroad.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat'

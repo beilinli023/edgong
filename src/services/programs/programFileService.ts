@@ -41,6 +41,19 @@ export const loadProgramsFromFiles = async (): Promise<Program[]> => {
           return null;
         }
         
+        // 调试日志：显示项目的状态字段
+        if (programData.status) {
+          console.log(`[状态检查] 项目文件 ${filename}: ID=${programData.id}, 状态=${programData.status}`);
+        } else {
+          console.log(`[状态检查] 项目文件 ${filename}: ID=${programData.id}, 无状态字段`);
+        }
+        
+        // 如果项目有状态字段，且不是"published"，则跳过该项目
+        if (programData.status && programData.status !== 'published') {
+          console.log(`[已跳过] 项目文件 ${filename}: ID=${programData.id}, 状态=${programData.status}，非已发布状态`);
+          return null;
+        }
+        
         const adaptedProgram = adaptProgramData(programData);
         
         traceDataLoading('programFileService', `[加载成功] 项目文件 ${filename}: ID=${adaptedProgram.id}, 标题=${adaptedProgram.title_zh}`, adaptedProgram);
@@ -119,9 +132,43 @@ const adaptProgramData = (program: RawProgramData): Program => {
   // 将字符串转换为字符串数组的函数
   const toStringArray = (value: string | string[] | undefined): string[] => {
     if (!value) return [];
-    if (Array.isArray(value)) return value;
+    if (Array.isArray(value)) {
+      // 确保数组中的字符串是有效的，并且没有Unicode编码问题
+      return value.map(item => {
+        // 如果是字符串就直接返回，否则尝试转换为字符串
+        return typeof item === 'string' ? item : String(item);
+      }).filter(Boolean);
+    }
+    // 处理字符串 - 确保它不会被错误地编码
     return [value];
   };
+
+  // 处理年级水平，确保正确合并数组
+  let gradeLevels: string[] = [];
+  
+  // 如果已有grade_levels数组，直接使用
+  if (program.grade_levels && Array.isArray(program.grade_levels) && program.grade_levels.length > 0) {
+    gradeLevels = program.grade_levels;
+  } 
+  // 否则，从grade_level_en和grade_level_zh构建
+  else {
+    const enLevels = toStringArray(program.grade_level_en);
+    const zhLevels = toStringArray(program.grade_level_zh);
+    
+    // 合并两个数组并过滤掉空值
+    gradeLevels = [...enLevels, ...zhLevels].filter(level => level && level.trim() !== '');
+    
+    // 如果仍然为空，尝试使用单个字符串值
+    if (gradeLevels.length === 0) {
+      const singleEnLevel = typeof program.grade_level_en === 'string' ? program.grade_level_en : '';
+      const singleZhLevel = typeof program.grade_level_zh === 'string' ? program.grade_level_zh : '';
+      
+      if (singleEnLevel) gradeLevels.push(singleEnLevel);
+      if (singleZhLevel) gradeLevels.push(singleZhLevel);
+    }
+  }
+  
+  console.log(`[年级处理] 项目ID=${program.id}, 年级水平:`, gradeLevels);
 
   const adaptedProgram: Program = {
     id: String(program.id),
@@ -135,10 +182,7 @@ const adaptProgramData = (program: RawProgramData): Program => {
     duration_en: program.duration_en || '',
     duration_zh: program.duration_zh || '',
     country: program.country || program.country_en || program.country_zh || '',
-    grade_levels: program.grade_levels || [
-      program.grade_level_en || '',
-      program.grade_level_zh || ''
-    ].filter(level => level !== ''), // 过滤掉空字符串，确保数组有效
+    grade_levels: gradeLevels,
     // 将单个字符串转换为字符串数组，符合接口要求
     program_type_en: toStringArray(program.program_type_en),
     program_type_zh: toStringArray(program.program_type_zh),
@@ -229,16 +273,32 @@ export const loadFilteredPrograms = async (
     if (filters.category) {
       const categoryLower = filters.category.toLowerCase();
       programs = programs.filter(program => {
-        const programType = program.program_type_en || program.program_type_zh;
-        return programType?.toLowerCase().includes(categoryLower);
+        // 处理program_type_en和program_type_zh作为数组的情况
+        const programTypesEn = program.program_type_en || [];
+        const programTypesZh = program.program_type_zh || [];
+        
+        // 检查任一类型数组中是否包含搜索关键词
+        return programTypesEn.some(type => type.toLowerCase().includes(categoryLower)) ||
+               programTypesZh.some(type => type.toLowerCase().includes(categoryLower));
       });
     }
     
     if (filters.country) {
       const countryLower = filters.country.toLowerCase();
       programs = programs.filter(program => {
-        const country = program.country || program.destination_en || program.location_en;
-        return country?.toLowerCase().includes(countryLower);
+        // 处理国家/地区，可能是字符串或数组
+        const countryStr = typeof program.country === 'string' ? program.country : '';
+        const countryEnArr = program.country_en || [];
+        const countryZhArr = program.country_zh || [];
+        const destEn = program.destination_en || '';
+        const locEn = program.location_en || '';
+        
+        // 检查各种可能的国家/地区字段
+        return countryStr.toLowerCase().includes(countryLower) ||
+               destEn.toLowerCase().includes(countryLower) ||
+               locEn.toLowerCase().includes(countryLower) ||
+               countryEnArr.some(c => c.toLowerCase().includes(countryLower)) ||
+               countryZhArr.some(c => c.toLowerCase().includes(countryLower));
       });
     }
     
@@ -295,10 +355,31 @@ export const loadProgramFilters = async () => {
     const gradeLevels = new Set<string>();
     
     programs.forEach(program => {
-      if (program.program_type_en) categories.add(program.program_type_en);
-      if (program.program_type_zh) categories.add(program.program_type_zh);
-      if (program.country) countries.add(program.country);
-      if (program.destination_en) countries.add(program.destination_en);
+      // 处理项目类型（数组）
+      if (program.program_type_en) {
+        program.program_type_en.forEach(type => categories.add(type));
+      }
+      if (program.program_type_zh) {
+        program.program_type_zh.forEach(type => categories.add(type));
+      }
+      
+      // 处理国家/地区
+      if (program.country && typeof program.country === 'string') {
+        countries.add(program.country);
+      }
+      if (program.destination_en) {
+        countries.add(program.destination_en);
+      }
+      
+      // 处理国家数组
+      if (program.country_en && Array.isArray(program.country_en)) {
+        program.country_en.forEach(c => countries.add(c));
+      }
+      if (program.country_zh && Array.isArray(program.country_zh)) {
+        program.country_zh.forEach(c => countries.add(c));
+      }
+      
+      // 处理年级水平
       program.grade_levels?.forEach(level => {
         if (level) gradeLevels.add(level);
       });
@@ -385,10 +466,9 @@ const loadProgramFromFile = async (filename: string): Promise<Program | null> =>
  */
 const loadAllProgramsFromFiles = async (): Promise<Program[]> => {
   try {
-    const programIds = Array.from({ length: 8 }, (_, i) => (i + 1).toString());
-    const programPromises = programIds.map(id => loadProgramFromFile(id));
-    const programs = await Promise.all(programPromises);
-    return programs.filter((program): program is Program => program !== null);
+    // 不再硬编码只加载前8个项目，而是直接使用loadProgramsFromFiles函数
+    // 从index.json中读取所有可用的项目文件
+    return await loadProgramsFromFiles();
   } catch (error) {
     errorLog('programFileService', '加载所有项目数据出错:', error);
     return [];

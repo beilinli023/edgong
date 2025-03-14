@@ -14,9 +14,63 @@ const ProgramDetailHero: React.FC<ProgramDetailHeroProps> = ({ program }) => {
   const title = currentLanguage === 'en' ? program.title_en : program.title_zh;
   const location = currentLanguage === 'en' ? program.location_en : program.location_zh;
   const overview = currentLanguage === 'en' ? program.overview_en || '' : program.overview_zh || '';
-  const programType = currentLanguage === 'en' ? program.program_type_en || '' : program.program_type_zh || '';
+  const programTypes = currentLanguage === 'en' ? program.program_type_en || [] : program.program_type_zh || [];
   const destination = currentLanguage === 'en' ? program.destination_en || location : program.destination_zh || location;
-  const gradeLevel = currentLanguage === 'en' ? program.grade_level_en : program.grade_level_zh;
+  
+  // 解码Unicode编码字符串的函数
+  const decodeIfUnicode = (text: string): string => {
+    if (!text) return '';
+    
+    // 检查是否是已知的Unicode编码
+    if (text === 'u5c0fu5b66') {
+      return '小学';
+    } else if (text === 'u521du4e2d') {
+      return '初中';
+    } else if (text === 'u9ad8u4e2d') {
+      return '高中';
+    }
+    
+    // 处理包含分隔符的情况
+    if (text.includes('；') || text.includes(';')) {
+      const parts = text.split(/[;；]/);
+      return parts.map(part => decodeIfUnicode(part.trim())).join('，');
+    }
+    
+    // 尝试使用正则表达式解码连续的Unicode编码
+    if (text.includes('u') && /u[0-9a-f]{4,}/i.test(text)) {
+      let result = text;
+      
+      // 替换所有的Unicode编码
+      const unicodePattern = /u([0-9a-f]{4,})/gi;
+      result = result.replace(unicodePattern, (match, hexCode) => {
+        try {
+          const codePoint = parseInt(hexCode, 16);
+          if (isNaN(codePoint)) return match;
+          return String.fromCodePoint(codePoint);
+        } catch (e) {
+          console.error('解码失败:', match, e);
+          return match;
+        }
+      });
+      
+      return result;
+    }
+    
+    return text;
+  };
+  
+  // 处理年级水平，确保解码Unicode编码
+  const gradeLevels = useMemo(() => {
+    if (currentLanguage === 'en') {
+      return program.grade_level_en || [];
+    } else {
+      // 中文环境：确保解码Unicode编码
+      return (program.grade_level_zh || []).map(level => {
+        console.log('处理年级水平:', level);
+        return decodeIfUnicode(level);
+      });
+    }
+  }, [currentLanguage, program.grade_level_en, program.grade_level_zh]);
   
   // 使用特定语言的时长字段
   const duration = currentLanguage === 'en' 
@@ -82,11 +136,11 @@ const ProgramDetailHero: React.FC<ProgramDetailHeroProps> = ({ program }) => {
               
               {/* 类型标签 */}
               <div className="flex flex-wrap gap-2 mb-6">
-                {programType && (
-                  <span className="bg-blue-700 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {programType}
+                {programTypes && programTypes.map((type, index) => (
+                  <span key={index} className="bg-blue-700 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {type}
                   </span>
-                )}
+                ))}
               </div>
               
               {/* 项目ID，如果有的话 */}
@@ -118,7 +172,8 @@ const ProgramDetailHero: React.FC<ProgramDetailHeroProps> = ({ program }) => {
                       index === currentImageIndex ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
-                      backgroundImage: `url(${image})`,
+                      backgroundImage: image ? `url(${image})` : 'none',
+                      backgroundColor: image ? 'transparent' : '#2c3e50',
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
@@ -214,14 +269,14 @@ const ProgramDetailHero: React.FC<ProgramDetailHeroProps> = ({ program }) => {
                 )}
                 
                 {/* 年级水平 */}
-                {gradeLevel && (
+                {gradeLevels && gradeLevels.length > 0 && (
                   <div className="flex items-start">
                     <BookOpen className="h-5 w-5 text-blue-500 mr-3 mt-0.5" />
                     <div>
                       <h3 className="font-medium text-gray-700">
                         {currentLanguage === 'en' ? 'Grade Level' : '年级水平'}
                       </h3>
-                      <p className="text-gray-600">{gradeLevel}</p>
+                      <p className="text-gray-600">{gradeLevels.join(', ')}</p>
                     </div>
                   </div>
                 )}
