@@ -24,12 +24,16 @@ const BlogPage: React.FC = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        console.log('开始加载博客文章数据...');
         // 获取博客文章
+        const timestamp = Date.now();
         const { posts } = await getLocalBlogPosts();
+        console.log(`成功加载博客文章数据，共 ${posts.length} 篇文章:`, posts);
         setBlogPosts(posts);
         
         // 获取博客视频
         const videos = await getLocalBlogVideos();
+        console.log(`成功加载视频数据，共 ${videos.length} 个视频`);
         setBlogVideos(videos);
         
         setError(null);
@@ -42,7 +46,7 @@ const BlogPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentLanguage]); // 添加语言依赖，确保语言切换时重新加载
 
   // 定义博客卡片的背景颜色
   const cardColors = [
@@ -140,17 +144,7 @@ const BlogPage: React.FC = () => {
                                 {currentLanguage === 'en' ? post.author_en : post.author_zh}
                               </span>
                             )}
-                            {post.date && (
-                              <span className="flex items-center ml-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                {new Date(post.date).toLocaleDateString(
-                                  currentLanguage === 'en' ? 'en-US' : 'zh-CN',
-                                  { year: 'numeric', month: 'short', day: 'numeric' }
-                                )}
-                              </span>
-                            )}
+                            {/* 日期显示已移除 */}
                           </div>
                         </div>
                       </div>

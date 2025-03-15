@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBlogPostDetail } from '@/hooks/useBlogPostDetail';
 import BlogPostHeaderNew from './BlogPostHeaderNew';
 import BlogPostContent from './BlogPostContent';
 import { Skeleton } from '@/components/ui/skeleton';
 import { BlogPost, ImageData } from '@/types/blogTypes';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface BlogPostDetailProps {
   slug?: string;
@@ -13,7 +14,10 @@ interface BlogPostDetailProps {
 const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
   const params = useParams<{ slug: string }>();
   const postSlug = slug || params.slug;
-  const currentLanguage = 'zh'; // 硬编码为中文，或从context获取
+  const { currentLanguage } = useLanguage();
+  
+  // 调试日志
+  console.log(`🔍 BlogPostDetail组件渲染: slug=${postSlug}, language=${currentLanguage}`);
   
   const {
     post,
@@ -25,24 +29,43 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
     tagsLabel,
     formattedTags
   } = useBlogPostDetail(postSlug, currentLanguage);
+  
+  // 组件加载时记录详细信息
+  useEffect(() => {
+    console.log('🔄 BlogPostDetail组件挂载，数据状态:', {
+      postSlug,
+      hasPost: !!post,
+      isLoading,
+      hasError: !!error,
+      title: localizedTitle || '无标题'
+    });
+  }, [postSlug, post, isLoading, error, localizedTitle]);
 
   // 简单的本地化文本函数
   const getLocalizedText = (en: string, zh: string) => currentLanguage === 'zh' ? zh : en;
 
   if (isLoading) {
+    console.log('⏳ 显示博客文章加载状态');
     return <BlogPostDetailSkeleton />;
   }
 
   if (error || !post) {
+    console.log('❌ 显示博客文章错误状态:', error);
     return <div className="text-center py-10">
       <h2 className="text-xl font-semibold mb-2">{getLocalizedText('Post not found', '未找到文章')}</h2>
       <p>{getLocalizedText('The post you are looking for might have been removed or is temporarily unavailable.', 
         '您查找的文章可能已被删除或暂时不可用。')}</p>
+      <button 
+        onClick={() => window.location.reload()} 
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        {getLocalizedText('Reload', '重新加载')}
+      </button>
     </div>;
   }
 
   // 从post对象中获取视频URL（优先从video_url字段，或从内容中尝试提取）
-  const getVideoUrlFromPost = (postData: any): string | null => {
+  const getVideoUrlFromPost = (postData: BlogPost): string | null => {
     if (!postData) return null;
     
     if ('video_url' in postData && typeof postData.video_url === 'string') {
@@ -70,7 +93,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
   const videoUrl = getVideoUrlFromPost(post);
 
   // 处理特色图片
-  const getFeaturedImage = (postData: any): string | undefined => {
+  const getFeaturedImage = (postData: BlogPost): string | undefined => {
     if (!postData || !('featured_image' in postData)) return undefined;
     
     const featuredImage = postData.featured_image;
@@ -92,7 +115,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
   const featuredImageUrl = getFeaturedImage(post);
 
   // 获取本地视频URL
-  const getLocalVideoUrl = (postData: any): string | null => {
+  const getLocalVideoUrl = (postData: BlogPost): string | null => {
     if (!postData) return null;
     
     if ('local_video_url' in postData && typeof postData.local_video_url === 'string') {
@@ -109,8 +132,8 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ slug }) => {
     <div className="container mx-auto px-4 py-8">
       <BlogPostHeaderNew
         title={localizedTitle}
-        author={post.author}
-        publishedDate={post.date || post.published_at}
+        author={post.author_en || post.author_zh || post.author}
+        publishedDate={post.date}
         currentLanguage={currentLanguage}
         primaryCategory={post.primary_category}
         tags={formattedTags}

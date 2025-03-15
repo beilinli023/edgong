@@ -13,6 +13,7 @@ import { useBlogPostDetail } from "@/hooks/useBlogPostDetail";
 import { normalizeTags } from "@/utils/blogUtils";
 import ErrorMessage from "@/components/frontend/blog/ErrorMessage";
 import { BlogPost } from "@/types/blogTypes";
+import localBlogService from "@/services/blog/localBlogService";
 
 // 移除无效的blogConfig导入
 
@@ -21,10 +22,42 @@ const BlogPostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { currentLanguage } = useLanguage();
   
+  // 添加本地回退数据状态
+  const [localPost, setLocalPost] = useState<BlogPost | null>(null);
+  const [isUsingLocalData, setIsUsingLocalData] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // 本地加载博客文章
+  useEffect(() => {
+    if (id) {
+      const loadLocalPost = async () => {
+        try {
+          console.log(`📄 BlogPostDetail页面直接加载文章: ${id}`);
+          setIsLoading(true);
+          
+          const post = await localBlogService.getLocalBlogPostBySlug(id, currentLanguage);
+          if (post) {
+            console.log('✅ 成功加载博客文章:', post.title_en || post.title_zh);
+            setLocalPost(post);
+            setIsUsingLocalData(true);
+          } else {
+            console.error(`❌ 未找到ID为${id}的博客文章`);
+          }
+        } catch (error) {
+          console.error('❌ 加载博客文章出错:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      
+      loadLocalPost();
+    }
+  }, [id, currentLanguage]);
+  
   // Use the hook to fetch and format blog post data
   const {
-    post,
-    isLoading,
+    post: hookPost,
+    isLoading: hookLoading,
     error,
     localizedTitle,
     localizedContent,
@@ -35,35 +68,40 @@ const BlogPostDetail: React.FC = () => {
     carouselImages,
     getLocalizedText
   } = useBlogPostDetail(id, currentLanguage);
+  
+  // 确定实际使用的文章数据和加载状态
+  const post = isUsingLocalData ? localPost : hookPost;
+  const actualLoading = isLoading && hookLoading;
 
   // Set page title when post is loaded
   useEffect(() => {
     if (localizedTitle) {
-      document.title = `${localizedTitle} | YouNiKco`;
+      document.title = `${localizedTitle} | Edgoing`;
     } else {
-      document.title = currentLanguage === 'zh' ? '博客文章 | YouNiKco' : 'Blog Post | YouNiKco';
+      document.title = currentLanguage === 'zh' ? '博客文章 | Edgoing' : 'Blog Post | Edgoing';
     }
   }, [localizedTitle, currentLanguage]);
 
   // Debug log
-  console.log("Blog post detail route param:", { 
+  console.log("📄 Blog post detail route param:", { 
     id, 
-    post: post || 'No post data', 
-    isLoading, 
+    post: post ? `文章标题: ${post.title_en || post.title_zh}` : '无文章数据', 
+    isLoading: actualLoading, 
     error, 
-    localizedTitle
+    localizedTitle,
+    isUsingLocalData
   });
 
   // If loading, show loading state
-  if (isLoading) {
+  if (actualLoading) {
     return <BlogPostLoading />;
   }
 
   // If error or no post data, show error message
-  if (error && !post) {
+  if (!post) {
     return (
       <BlogPostError 
-        error={error.toString() || (currentLanguage === 'zh' ? '未找到博客文章' : 'Blog post not found')}
+        error={error?.toString() || (currentLanguage === 'zh' ? '未找到博客文章' : 'Blog post not found')}
         currentLanguage={currentLanguage}
         onRetry={() => window.location.reload()}
         backLabel={backLabel}
@@ -99,27 +137,37 @@ const BlogPostDetail: React.FC = () => {
           {/* Post header with author and date info */}
           <BlogPostHeaderNew 
             title={localizedTitle || ''}
-            author={currentLanguage === 'en' 
-              ? (post as BlogPost)?.author_en || (post as BlogPost)?.author || '' 
-              : (post as BlogPost)?.author_zh || (post as BlogPost)?.author || ''}
-            publishedDate={(post as BlogPost)?.published_at || ''}
-            primaryCategory={(post as BlogPost)?.primary_category}
-            currentLanguage={currentLanguage}
-            tags={normalizedTags}
-            tagsLabel={tagsLabel}
-            getLocalizedText={getLocalizedText}
+            date={post.published_at || post.date || new Date().toISOString()}
+            author={currentLanguage === 'en' ? post.author_en : post.author_zh || ''}
+            grade={currentLanguage === 'en' ? post.grade_en : post.grade_zh || ''}
+            projectType={currentLanguage === 'en' ? post.project_type_en : post.project_type_zh || ''}
           />
 
-          {/* Main post content */}
-          <BlogPostContent 
-            content={localizedContent || ''}
-            featuredImage={featuredImageUrl}
-            imageAlt={localizedTitle}
-            showFeaturedImage={true}
-            carouselImages={carouselImages}
-          />
+          {/* Post content */}
+          <BlogPostContent content={localizedContent || ''} />
 
-          {/* 标签已移至文章标题下方，与日期并列显示 */}
+          {/* Tags */}
+          <BlogPostTags tags={normalizedTags} label={tagsLabel} />
+
+          {/* Image carousel */}
+          {carouselImages && carouselImages.length > 0 && (
+            <div className="my-8">
+              <h3 className="text-xl font-semibold mb-4">
+                {currentLanguage === 'en' ? 'Photo Gallery' : '照片库'}
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {carouselImages.map((image, index) => (
+                  <div key={index} className="rounded overflow-hidden shadow-lg">
+                    <img 
+                      src={image} 
+                      alt={`${localizedTitle} - ${index + 1}`} 
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </FrontendLayout>

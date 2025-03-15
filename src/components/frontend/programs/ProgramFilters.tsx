@@ -25,7 +25,6 @@ interface ProgramFiltersProps {
 
 const programTypes: FilterOption[] = [
   { en: 'Language Intensive', zh: '语言强化', value: 'language-intensive' },
-  { en: 'Language & Lifestyle', zh: '语言与生活', value: 'language-lifestyle' },
   { en: 'STEM & Science', zh: 'STEM与科学创新', value: 'stem-science' },
   { en: 'Heritage & Arts Exploration', zh: '民俗与艺术探索', value: 'heritage-arts' },
   { en: 'Academic Enrichment', zh: '学术拓展', value: 'academic-enrichment' }
