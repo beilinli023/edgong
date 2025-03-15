@@ -53,7 +53,7 @@ const BlogPostHeaderNew: React.FC<BlogPostHeaderProps> = ({
       console.log('解析后的Date对象: ', date);
       const options: Intl.DateTimeFormatOptions = { 
         year: 'numeric', 
-        month: 'long', 
+        month: 'short', 
         day: 'numeric' 
       };
       const formatted = date.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', options);

@@ -140,6 +140,49 @@ npm run build
 npm run preview
 ```
 
+### 部署到Vercel
+
+1. **准备工作**
+   - 确保项目根目录包含`vercel.json`文件，内容如下：
+   ```json
+   {
+     "rewrites": [
+       { "source": "/(.*)", "destination": "/index.html" }
+     ]
+   }
+   ```
+   - 此配置确保客户端路由正常工作，避免直接访问路由（如`/privacy-policy`）时出现404错误
+
+2. **部署步骤**
+   - 安装Vercel CLI（可选）
+   ```sh
+   npm install -g vercel
+   ```
+   
+   - 使用Vercel CLI部署
+   ```sh
+   # 登录Vercel
+   vercel login
+   
+   # 部署项目
+   vercel
+   ```
+   
+   - 或直接通过Vercel网站部署
+     - 在[Vercel](https://vercel.com)注册并登录
+     - 导入GitHub/GitLab/Bitbucket仓库
+     - 配置项目（框架预设选择"Vite"）
+     - 点击"Deploy"按钮
+
+3. **部署后配置**
+   - 在Vercel项目设置中配置环境变量（如有需要）
+   - 配置自定义域名（如有需要）
+   - 检查所有页面路由是否正常工作，特别是直接访问`/privacy-policy`等路径
+
+4. **常见问题排查**
+   - 如果出现404错误，检查`vercel.json`文件是否正确配置
+   - 如果API请求失败，检查API路径是否正确，可能需要配置代理或CORS
+
 ### 部署到阿里云OSS
 
 1. 安装阿里云OSS命令行工具

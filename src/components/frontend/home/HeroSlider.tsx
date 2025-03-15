@@ -89,7 +89,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ currentLanguage }) => {
       <div className="relative h-full container mx-auto px-4 flex items-center justify-center text-center">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">{slide.title}</h1>
-          <p className="text-xl md:text-2xl mb-8 text-white">{slide.subtitle}</p>
+          <p className="text-xl md:text-2xl mb-8 text-white">{slide.subtitle?.replace(/[.!]/g, '')}</p>
           {/* 按钮已移除 */}
         </div>
       </div>

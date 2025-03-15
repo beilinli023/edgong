@@ -43,11 +43,17 @@ export const getLocalBlogPosts = async (page = 1, limit = 10, categoryId?: strin
  */
 export const getLocalBlogPostBySlug = async (slug: string, language = 'en'): Promise<BlogPost | null> => {
   try {
+    console.log(`尝试获取slug为${slug}的博客文章，语言：${language}`);
+    
+    // 加载所有博客文章
     const posts = await loadAllPosts();
-    const post = posts.find(post => post.slug === slug);
+    console.log(`已加载 ${posts.length} 篇博客文章，正在查找：${slug}`);
+    
+    // 尝试查找匹配的文章
+    const post = posts.find(post => post.slug === slug || post.id.toString() === slug);
     
     if (!post) {
-      console.log(`未找到slug为${slug}的博客文章`);
+      console.error(`未找到slug/id为${slug}的博客文章`);
       return null;
     }
     
@@ -58,10 +64,10 @@ export const getLocalBlogPostBySlug = async (slug: string, language = 'en'): Pro
       content: language === 'en' ? post.content_en : post.content_zh
     };
     
-    console.log(`成功加载博客文章: ${localizedPost.title}`);
+    console.log(`成功加载博客文章: ${localizedPost.title}`, localizedPost);
     return localizedPost;
   } catch (error) {
-    console.error('Error fetching local blog post by slug:', error);
+    console.error('获取本地博客文章失败:', error);
     return null;
   }
 };
@@ -97,8 +103,10 @@ export const getLocalBlogPageSettings = async (): Promise<BlogContent> => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+      cache: 'no-store'
     });
     
     if (!response.ok) {
@@ -185,15 +193,17 @@ async function loadAllPosts(): Promise<BlogPost[]> {
     console.log('尝试加载博客文章索引文件: /content/blog/index.json');
     
     // 加载索引文件
-    const url = `/content/blog/index.json`;
+    const url = `/content/blog/index.json?_t=${Date.now()}`;
     console.log('获取博客文章索引文件:', url);
     
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+      cache: 'no-store'
     });
     
     if (!response.ok) {
@@ -210,32 +220,57 @@ async function loadAllPosts(): Promise<BlogPost[]> {
       return [];
     }
     
-    // 使用索引中的文件列表
-    const postFiles = indexData.posts.map(file => `/content/blog/${file}`);
-    console.log('从索引中读取到的博客文章文件列表:', postFiles);
+    // 读取文件列表
+    console.log('从索引中读取到的博客文章文件列表:', indexData.posts);
+    
+    // 手动定义文章列表进行回退
+    const fallbackPosts = [
+      '/content/blog/blog1.json',
+      '/content/blog/blog2.json',
+      '/content/blog/blog3.json',
+      '/content/blog/blog4.json',
+      '/content/blog/blog5.json',
+    ];
+    
+    // 使用索引中的文件列表，如果为空则使用回退列表
+    const postFiles = indexData.posts.length > 0 ? indexData.posts : fallbackPosts;
+    console.log('最终使用的博客文章文件列表:', postFiles);
     
     const postsPromises = postFiles.map(async (file, index) => {
       try {
-        console.log(`尝试加载文章 ${index + 1}:`, file);
+        // 确保使用正确的路径格式
+        const fullPath = file.startsWith('/') ? file : `/content/blog/${file}`;
+        const url = `${fullPath}?_t=${Date.now()}`;
+        console.log(`尝试加载文章 ${index + 1}:`, url);
         
-        const response = await fetch(file, {
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
-            'Cache-Control': 'no-cache'
-          }
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          },
+          cache: 'no-store'
         });
         
         if (!response.ok) {
-          console.error(`加载文章失败 ${file}:`, response.status, response.statusText);
+          console.error(`加载文章失败: ${url}`, response.status, response.statusText);
           return null;
         }
         
-        const data = await response.json();
-        console.log(`成功加载文章 ${file}`);
-        return data.post;
+        const postData = await response.json();
+        
+        // 确保数据结构正确
+        if (!postData || !postData.post) {
+          console.error(`文章数据结构无效: ${url}`, postData);
+          return null;
+        }
+        
+        console.log(`成功加载文章 ${index + 1}:`, postData.post.title_en || postData.post.title_zh);
+        
+        return postData.post;
       } catch (error) {
-        console.error(`加载文章失败 ${file}:`, error);
+        console.error(`加载文章 ${file} 失败:`, error);
         return null;
       }
     });
