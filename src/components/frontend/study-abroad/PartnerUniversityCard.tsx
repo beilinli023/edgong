@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
@@ -30,7 +29,7 @@ const PartnerUniversityCard: React.FC<PartnerUniversityCardProps> = ({ universit
     >
       <div className="relative h-52 overflow-hidden">
         <img 
-          src={university.image} 
+          src="/Edgoing/stuy board/malaysia/Picture-1.png" 
           alt={name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />

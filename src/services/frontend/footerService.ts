@@ -4,31 +4,37 @@ import { ContactInfo, QuickLink, SocialLink, FooterData } from '@/types/footerTy
 const defaultSocialLinks: SocialLink[] = [
   {
     id: 1,
-    name: 'Facebook',
-    url: 'https://facebook.com',
-    icon: 'facebook'
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7305866085268889600',
+    icon: 'linkedin'
   },
   {
     id: 2,
-    name: 'Twitter',
-    url: 'https://twitter.com',
-    icon: 'twitter'
+    name: 'Instagram',
+    url: 'https://www.instagram.com/edgoing_global?igsh=MTQwb3M2NHl2YjFjMA%3D%3D&utm_source=qr',
+    icon: 'instagram'
   },
   {
     id: 3,
-    name: 'LinkedIn',
-    url: 'https://linkedin.com',
-    icon: 'linkedin'
+    name: 'WeChat',
+    url: 'https://mp.weixin.qq.com/s/5MthyqojmOut9rg8zoBH6Q',
+    icon: 'wechat'
+  },
+  {
+    id: 4,
+    name: 'XiaoHongShu',
+    url: 'https://www.xiaohongshu.com/user/profile/5d402d9b000000001203ce50?xsec_token=YB3thkt5dHkUpr6M0y2eZrTOxC0gq8U25n7T4_zQ6USk0=&xsec_source=app_share&xhsshare=CopyLink&appuid=5d402d9b000000001203ce50&apptime=1742017280&share_id=d68757aa651049e18d2402a31c575cfc',
+    icon: 'xiaohongshu'
   }
 ];
 
 // 默认联系信息
 const defaultContactInfo: ContactInfo = {
-  phone: '+1 234 567 8900',
-  email: 'contact@example.com',
+  phone: '4001153558',
+  email: 'Hello@edgoing.com',
   address: {
-    en: '123 Example Street, City, Country',
-    zh: '示例街道123号，城市，国家'
+    en: '18F, Tower B,\n838 South Huangpi Road\nHuangpu District\nShanghai, 200025.',
+    zh: '上海市黄埔区黄陂南路838号\n中海国际B座18楼'
   },
   hours: '9:00 AM - 6:00 PM'
 };
@@ -62,7 +68,7 @@ const getDefaultQuickLinks = (language = 'en'): QuickLink[] => [
   },
   {
     text_en: 'Let\'s Plan',
-    text_zh: '开始规划',
+    text_zh: '开始项目',
     url: '/start-planning'
   }
 ];

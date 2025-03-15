@@ -4,6 +4,7 @@ import type { NewsletterSubscription, NewsletterSubscriptionInput } from '@/type
 import { toast } from 'sonner';
 import type { FormContent, PlanningFormData, FormOption } from '@/types/formTypes';
 import { getCompatibleProvinces, getCompatibleCities } from '@/data/chinaRegions';
+import subscriptionService from '@/data/subscriptions/emailSubscriptions';
 
 // 获取表单页面内容
 export const getFrontendFormContent = async (language = 'en'): Promise<FormContent | null> => {
@@ -123,6 +124,15 @@ export const submitNewsletterSubscription = async (email: string, language = 'en
       subscribed_at: new Date().toISOString()
     };
 
+    // 将邮件保存到表格文件中
+    try {
+      const savedSubscription = subscriptionService.saveSubscription(email, 'footer-form');
+      console.log('邮件已保存到订阅表格:', savedSubscription);
+    } catch (err) {
+      console.error('保存邮件到订阅表格失败:', err);
+      // 即使文件保存失败，也继续处理内存中的订阅，保持原功能不变
+    }
+
     // Check if email already exists in mock data
     const existingIndex = mockSubscriptions.findIndex(sub => sub.email === email);
     
@@ -135,7 +145,7 @@ export const submitNewsletterSubscription = async (email: string, language = 'en
         updated_at: new Date().toISOString()
       };
       
-      toast.success('邮件订阅已更新');
+      toast.success(language === 'zh' ? '邮件订阅已更新' : 'Subscription updated successfully');
       return { 
         success: true, 
         data: mockSubscriptions[existingIndex]
@@ -146,11 +156,11 @@ export const submitNewsletterSubscription = async (email: string, language = 'en
         id: Math.random().toString(36).substring(2, 11),
         ...subscriptionData,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString() // Add the missing updated_at field
+        updated_at: new Date().toISOString()
       };
       
       mockSubscriptions.push(newSubscription);
-      toast.success('邮件订阅已添加');
+      toast.success(language === 'zh' ? '邮件订阅已添加' : 'Subscription added successfully');
       return { 
         success: true, 
         data: newSubscription
@@ -158,7 +168,7 @@ export const submitNewsletterSubscription = async (email: string, language = 'en
     }
   } catch (error) {
     console.error('Error submitting newsletter subscription:', error);
-    toast.error('订阅失败，请重试');
+    toast.error(language === 'zh' ? '订阅失败，请重试' : 'Subscription failed, please try again');
     return { success: false, error };
   }
 };

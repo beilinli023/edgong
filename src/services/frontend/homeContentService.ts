@@ -21,7 +21,7 @@ const mockHeroSlides = [
     title_en: "STEM Programs",
     title_zh: "STEM 项目",
     subtitle_en: "Molding Tomorrow's Thinkers and Makers",
-    subtitle_zh: "培养未来的思想者与创造者！",
+    subtitle_zh: "培养未来的思想者与创造者",
     image_url: "/images/hero-stem.jpg",
     button_text_en: "Learn More",
     button_text_zh: "了解更多",

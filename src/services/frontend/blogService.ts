@@ -116,32 +116,30 @@ export const getBlogPosts = async (
  * 获取特定博客文章（支持通过slug或id）
  */
 export const getBlogPostBySlug = async (slugOrId: string, language = 'en'): Promise<BlogPost | null> => {
-  const apiCall = async () => {
-    console.log(`Fetching blog post with identifier: ${slugOrId}, language: ${language}`);
+  console.log(`正在获取博客文章: ${slugOrId}, 语言: ${language}`);
+  
+  // 始终使用本地数据（静态数据模式）
+  try {
+    console.log(`尝试从本地获取博客文章: ${slugOrId}`);
+    const post = await localBlogService.getLocalBlogPostBySlug(slugOrId, language);
     
-    // Determine if the identifier is likely a slug or an ID
-    // If it contains a hyphen, it's probably a slug
-    const isSlug = slugOrId.includes('-') || isNaN(Number(slugOrId));
-    const endpoint = isSlug 
-      ? `/blog/posts/${slugOrId}` 
-      : `/blog/posts/id/${slugOrId}`;
-    
-    const response = await apiClient.get(endpoint, { params: { language } });
-    const post = extractData<BlogPost>(response);
-    
-    // 转换属性
-    return post ? {
-      ...post,
-      title: language === 'en' ? post.title_en : post.title_zh,
-      content: language === 'en' ? post.content_en : post.content_zh
-    } : null;
-  };
-
-  return getDataWithFallback(
-    apiCall,
-    () => localBlogService.getLocalBlogPostBySlug(slugOrId, language),
-    `blog post ${slugOrId}`
-  );
+    // 详细日志记录
+    if (post) {
+      console.log(`成功获取博客文章: ${post.title_en || post.title_zh}`, post);
+      // 确保返回格式化后的帖子
+      return {
+        ...post,
+        title: language === 'en' ? post.title_en : post.title_zh,
+        content: language === 'en' ? post.content_en : post.content_zh
+      };
+    } else {
+      console.error(`未找到博客文章: ${slugOrId}`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`获取博客文章出错: ${slugOrId}`, error);
+    return null;
+  }
 };
 
 /**
